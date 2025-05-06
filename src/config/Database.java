@@ -15,7 +15,6 @@ public class Database {
     private static final String DB_USER = "avnadmin";
     private static final String DB_PASSWORD = "AVNS_0J0kZ-OJAgDO7IMTK9n";
     
-    
     private static Connection connection;
     
     public static Connection getConnection() {
