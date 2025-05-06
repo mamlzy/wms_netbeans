@@ -11,9 +11,10 @@ import java.sql.SQLException;
 
 public class Database {
     private static final String DB_Database = "wms";
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/" + DB_Database;
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "123123123";
+    private static final String DB_URL = "jdbc:mysql://mysql-8cf3a2-wms-project.i.aivencloud.com:11912/" + DB_Database;
+    private static final String DB_USER = "avnadmin";
+    private static final String DB_PASSWORD = "AVNS_0J0kZ-OJAgDO7IMTK9n";
+    
     
     private static Connection connection;
     
