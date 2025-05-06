@@ -1,6 +1,7 @@
 package lib;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
@@ -38,4 +39,31 @@ public class Utils {
         DecimalFormat formatter = new DecimalFormat("#,###", symbols);
         return formatter.format(number);
     }
+
+    public static void printList(List<?> list) {
+        if (list == null || list.isEmpty()) {
+            System.out.println("List is empty.");
+            return;
+        }
+
+        for (Object obj : list) {
+            printObject(obj);
+        }
+    }
+
+    private static void printObject(Object obj) {
+        System.out.println("==== " + obj.getClass().getSimpleName() + " ====");
+        Field[] fields = obj.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            try {
+                Object value = field.get(obj);
+                System.out.printf("%s : %s%n", field.getName(), value);
+            } catch (IllegalAccessException e) {
+                System.out.printf("%s : [access error]%n", field.getName());
+            }
+        }
+        System.out.println("============================\n");
+    }
+
 }

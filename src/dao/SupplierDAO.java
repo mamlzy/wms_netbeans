@@ -1,35 +1,36 @@
 package dao;
 
-import model.Item;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
+import model.Supplier;
 import config.Database;
-import java.math.BigDecimal;
+import lib.Utils;
 
 /**
  *
- * @author Agung
+ * @author asus
  */
-public class ItemDAO {
+public class SupplierDAO {
 
     private Connection connection;
 
-    public ItemDAO() {
+    public SupplierDAO() {
         this.connection = Database.getConnection();
     }
 
-    public List<Item> findAll(String keyword) {
-        List<Item> list = new ArrayList<>();
+    public List<Supplier> findAll(String keyword) {
+        List<Supplier> list = new ArrayList<>();
 
-        String sql = "SELECT i.*, u.name AS unitName  FROM items i JOIN units u ON i.unit = u.id";
-
+        String sql = "SELECT * FROM suppliers s";
+        
         // Menambahkan WHERE jika ada query
         if (keyword != null && !keyword.trim().isEmpty()) {
-            sql += " WHERE i.name LIKE '%" + keyword + "%'";
+            sql += " WHERE s.name LIKE '%" + keyword + "%'"
+                    + " OR s.phone LIKE '%" + keyword + "%'"
+                    + " OR s.address LIKE '%" + keyword + "%'";
         }
 
         try {
@@ -37,16 +38,13 @@ public class ItemDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Item item = new Item(
+                Supplier item = new Supplier(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getBigDecimal("price").toBigInteger(),
-                        rs.getInt("quantity"),
-                        rs.getInt("min_quantity"),
-                        rs.getInt("unit")
+                        rs.getString("phone"),
+                        rs.getString("address")
                 );
 
-                item.setUnitName(rs.getString("unitName"));
                 list.add(item);
             }
 
@@ -57,9 +55,9 @@ public class ItemDAO {
         return list;
     }
 
-    public Item findById(int id) {
-        Item item = null;
-        String sql = "SELECT * FROM items WHERE id = ?";
+    public Supplier findById(int id) {
+        Supplier supplier = null;
+        String sql = "SELECT * FROM suppliers WHERE id = ?";
 
         try {
             PreparedStatement stmt = this.connection.prepareStatement(sql);
@@ -67,13 +65,11 @@ public class ItemDAO {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                item = new Item(
+                supplier = new Supplier(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getBigDecimal("price").toBigInteger(),
-                        rs.getInt("quantity"),
-                        rs.getInt("min_quantity"),
-                        rs.getInt("unit")
+                        rs.getString("phone"),
+                        rs.getString("address")
                 );
             }
 
@@ -81,17 +77,15 @@ public class ItemDAO {
             e.printStackTrace();
         }
 
-        return item; // bisa null kalau tidak ditemukan
+        return supplier; // bisa null kalau tidak ditemukan
     }
 
-    public boolean insert(Item item) {
-        String sql = "INSERT INTO items (name, price, quantity, min_quantity, unit) VALUES (?,?,?,?,?)";
+    public boolean insert(Supplier supplier) {
+        String sql = "INSERT INTO suppliers (name, phone, address) VALUES (?,?,?)";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setString(1, item.getName());
-            stmt.setBigDecimal(2, new BigDecimal(item.getPrice()));
-            stmt.setInt(3, item.getQuantity());
-            stmt.setInt(4, item.getMin_quantity());
-            stmt.setString(5, String.valueOf(item.getUnit()));
+            stmt.setString(1, supplier.getName());
+            stmt.setString(2, supplier.getPhone());
+            stmt.setString(3, supplier.getAddress());
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -101,15 +95,13 @@ public class ItemDAO {
         }
     }
 
-    public boolean update(Item item) {
-        String sql = "UPDATE items SET name = ?, price = ?, quantity = ?, min_quantity = ?, unit = ? WHERE id = ?";
+    public boolean update(Supplier supplier) {
+        String sql = "UPDATE suppliers SET name = ?, phone = ?, address = ?  WHERE id = ?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-            stmt.setString(1, item.getName());
-            stmt.setBigDecimal(2, new BigDecimal(item.getPrice()));
-            stmt.setInt(3, item.getQuantity());
-            stmt.setInt(4, item.getMin_quantity());
-            stmt.setString(5, String.valueOf(item.getUnit()));
-            stmt.setInt(6, item.getId()); // pastikan item punya id
+            stmt.setString(1, supplier.getName());
+            stmt.setString(2, supplier.getPhone());
+            stmt.setString(3, supplier.getAddress());
+            stmt.setInt(4, supplier.getId()); // pastikan item punya id
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
@@ -120,7 +112,7 @@ public class ItemDAO {
     }
 
     public boolean delete(int id) {
-        String sql = "DELETE FROM items WHERE id = ?";
+        String sql = "DELETE FROM suppliers WHERE id = ?";
         try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             int rowsAffected = stmt.executeUpdate();
@@ -131,5 +123,4 @@ public class ItemDAO {
         }
 
     }
-
 }

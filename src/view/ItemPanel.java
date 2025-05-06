@@ -13,9 +13,9 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import lib.Utils;
-import service.ItemService;
 import model.Item;
 import model.Unit;
+import service.ItemService;
 import service.UnitService;
 
 /**
@@ -29,19 +29,20 @@ public class ItemPanel extends javax.swing.JPanel {
      */
     private ItemService service = new ItemService();
     private UnitService unitService = new UnitService();
+    private int SelectedID;
 
     public ItemPanel() {
         initComponents();
-        loadItems();
+        loadData(null);
+        loadComboBoxUnit();
     }
 
-    private void loadItems() {
+    private void loadData(String query) {
         DefaultTableModel model = (DefaultTableModel) datatable.getModel();
         model.setRowCount(0);
 
-        List<Item> items = service.getItems();
+        List<Item> items = service.getItems(query);
 
-        int no = 1;
         for (Item item : items) {
             Object[] row = {
                 item.getId(),
@@ -49,11 +50,22 @@ public class ItemPanel extends javax.swing.JPanel {
                 Utils.formatNumberToRupiah(item.getPrice()),
                 Utils.formatNumberWithDotSeparator(item.getQuantity()),
                 item.getMin_quantity(),
-                item.getUnit()
+                item.getUnitName()
             };
 
             model.addRow(row);
         }
+    }
+
+    private void loadComboBoxUnit() {
+        List<Unit> units = unitService.getUnits();
+        DefaultComboBoxModel<String> modelUnit = new DefaultComboBoxModel<>();
+        modelUnit.addElement("-- Pilih Unit --");
+
+        for (Unit unit : units) {
+            modelUnit.addElement(unit.getName());
+        }
+        input_unit.setModel(modelUnit);
     }
 
     /**
@@ -71,7 +83,6 @@ public class ItemPanel extends javax.swing.JPanel {
         datatable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         bt_tambahdata = new javax.swing.JButton();
-        bt_cari = new javax.swing.JButton();
         t_cari = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         bt_hapus = new javax.swing.JButton();
@@ -172,11 +183,6 @@ public class ItemPanel extends javax.swing.JPanel {
             }
         });
 
-        bt_cari.setBackground(new java.awt.Color(26, 70, 136));
-        bt_cari.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bt_cari.setForeground(new java.awt.Color(255, 255, 255));
-        bt_cari.setText("Cari");
-
         t_cari.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         t_cari.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         t_cari.setText("Pencarian");
@@ -186,7 +192,15 @@ public class ItemPanel extends javax.swing.JPanel {
                 t_cariMouseClicked(evt);
             }
         });
+        t_cari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_cariActionPerformed(evt);
+            }
+        });
         t_cari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                t_cariKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 t_cariKeyTyped(evt);
             }
@@ -236,12 +250,8 @@ public class ItemPanel extends javax.swing.JPanel {
                                 .addComponent(bt_hapus)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(data_itemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, data_itemLayout.createSequentialGroup()
-                                .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bt_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12))
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(t_cari, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         data_itemLayout.setVerticalGroup(
@@ -251,17 +261,14 @@ public class ItemPanel extends javax.swing.JPanel {
                 .addGroup(data_itemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel7))
-                .addGap(27, 27, 27)
-                .addGroup(data_itemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(data_itemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bt_tambahdata, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                        .addComponent(bt_edit, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                        .addComponent(bt_hapus, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
-                    .addGroup(data_itemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bt_cari, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                        .addComponent(t_cari, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
+                .addGap(29, 29, 29)
+                .addGroup(data_itemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(bt_tambahdata, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bt_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bt_hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -496,7 +503,7 @@ public class ItemPanel extends javax.swing.JPanel {
                 int id = Integer.parseInt(value.toString()); // atau cast kalau yakin Integer
                 boolean success = service.deleteItem(id);
                 if (success) {
-                    loadItems();
+                    loadData(null);
 
                     JOptionPane.showMessageDialog(this, "Data berhasil dihapus.");
                     // refresh table kalau perlu
@@ -514,7 +521,6 @@ public class ItemPanel extends javax.swing.JPanel {
         int selectedRow = datatable.getSelectedRow();
         if (selectedRow != -1) {
             Object value = datatable.getValueAt(selectedRow, 0);
-            JOptionPane.showMessageDialog(this, value);
 
             main_panel.removeAll();
             main_panel.repaint();
@@ -526,7 +532,6 @@ public class ItemPanel extends javax.swing.JPanel {
 
             int id = (int) value;
             Item success = service.getItemById(id);
-            System.out.println(success);
 
             /*
             1. Ganti title "Tambah Item" menjadi "Edit Item"
@@ -536,15 +541,6 @@ public class ItemPanel extends javax.swing.JPanel {
             4. Kosongkan kembali semua input dan text menjadi "Tambah Item"
              */
 //            1. Ganti title "Tambah Item" menjadi "Edit Item"
-            List<Unit> units = unitService.getUnits();
-            DefaultComboBoxModel<String> modelUnit = new DefaultComboBoxModel<>();
-            modelUnit.addElement("-- Pilih Unit --");
-            
-            for (Unit unit : units) {
-                modelUnit.addElement(unit.getName());
-            }
-            input_unit.setModel(modelUnit);
-
             add_edit_label.setText("Edit Item");
 
 //            2. Isi semua input dengan data yang dikembalikan dari service (Item)
@@ -553,6 +549,10 @@ public class ItemPanel extends javax.swing.JPanel {
             input_kuantitas.setText(String.valueOf(success.getQuantity()));
             input_minimum_kuantitas.setText(String.valueOf(success.getMin_quantity()));
             input_unit.setSelectedIndex(success.getUnit());
+            bt_simpan.setText("Perbarui");
+
+//            Passing SelectedID, untuk digunakan nanti di form edit
+            this.SelectedID = id;
         } else {
             JOptionPane.showMessageDialog(this, "Pilih data dulu yang mau dihapus.");
         }
@@ -560,8 +560,8 @@ public class ItemPanel extends javax.swing.JPanel {
 
     private void bt_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_simpanActionPerformed
         // TODO add your handling code here
-
         //        Get Data from Form
+        int id = this.SelectedID;
         String name = input_name.getText().trim();
         BigInteger price = new BigInteger(input_harga.getText().trim());
         int quantity = Integer.parseInt(input_kuantitas.getText().trim());
@@ -569,10 +569,18 @@ public class ItemPanel extends javax.swing.JPanel {
         int unit = input_unit.getSelectedIndex();
 
 //        Create Object Item
-        Item item = new Item(name, price, quantity, min_quantity, unit);
+//        Insert or Update Data
+        boolean status;
+        if (bt_simpan.getText().toLowerCase().equals("perbarui")) {
+            Item item = new Item(id, name, price, quantity, min_quantity, unit);
+            status = service.updateItem(item);
 
-//        Insert Data
-        boolean status = service.insertItem(item);
+//            Reset text tombol menjadi simpan kembali
+            bt_simpan.setText("Simpan");
+        } else {
+            Item item = new Item(name, price, quantity, min_quantity, unit);
+            status = service.insertItem(item);
+        }
 
         if (status) {
             JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
@@ -585,11 +593,21 @@ public class ItemPanel extends javax.swing.JPanel {
             main_panel.revalidate();
 
 //            Refresh Table
-            loadItems();
+            loadData(null);
         } else {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan data");
         }
     }//GEN-LAST:event_bt_simpanActionPerformed
+
+    private void t_cariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_cariKeyReleased
+        // TODO add your handling code here:
+        String keyword = t_cari.getText().trim();
+        loadData(keyword);
+    }//GEN-LAST:event_t_cariKeyReleased
+
+    private void t_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_cariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_cariActionPerformed
     private void clearForm(Component parent) {
         if (parent instanceof JTextField) {
             ((JTextField) parent).setText("");
@@ -608,7 +626,6 @@ public class ItemPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel add_edit_label;
     private javax.swing.JButton bt_batal;
-    private javax.swing.JButton bt_cari;
     private javax.swing.JButton bt_edit;
     private javax.swing.JButton bt_hapus;
     private javax.swing.JButton bt_simpan;

@@ -4,6 +4,20 @@
  */
 package view;
 
+import java.awt.Component;
+import java.awt.Container;
+import java.util.List;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import lib.Utils;
+import model.Supplier;
+import service.SupplierService;
+
 /**
  *
  * @author LENOVO
@@ -13,8 +27,29 @@ public class SupplierPanel extends javax.swing.JPanel {
     /**
      * Creates new form Form_Item
      */
+    private final SupplierService supplierService = new SupplierService();
+    private int SelectedID;
+
     public SupplierPanel() {
         initComponents();
+        loadData(null);
+    }
+
+    private void loadData(String query) {
+        DefaultTableModel model = (DefaultTableModel) datatable.getModel();
+        model.setRowCount(0);
+
+        List<Supplier> suppliers = supplierService.getSuppliers(query);
+
+        for (Supplier supplier : suppliers) {
+            Object[] row = {
+                supplier.getId(),
+                supplier.getName(),
+                supplier.getPhone(),
+                supplier.getAddress(),};
+
+            model.addRow(row);
+        }
     }
 
     /**
@@ -29,23 +64,22 @@ public class SupplierPanel extends javax.swing.JPanel {
         main_panel = new javax.swing.JPanel();
         data_supplier = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        datatable = new javax.swing.JTable();
+        add_edit_label = new javax.swing.JLabel();
         bt_tambahdata = new javax.swing.JButton();
-        bt_cari = new javax.swing.JButton();
         t_cari = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         bt_edit = new javax.swing.JButton();
         bt_hapus = new javax.swing.JButton();
         tambah_supplier = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        form_tambah = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        input_name = new javax.swing.JTextField();
+        input_phone = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        input_address = new javax.swing.JTextField();
         bt_simpan = new javax.swing.JButton();
         bt_batal = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -56,56 +90,67 @@ public class SupplierPanel extends javax.swing.JPanel {
 
         data_supplier.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        datatable.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        datatable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "No", "Nama Supplier", "No. HP", "Alamat", "Aksi"
+                "ID", "Nama Supplier", "No. HP", "Alamat"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel1.setText("Data Supplier");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(datatable);
+        if (datatable.getColumnModel().getColumnCount() > 0) {
+            datatable.getColumnModel().getColumn(0).setMaxWidth(100);
+        }
+
+        add_edit_label.setBackground(new java.awt.Color(255, 255, 255));
+        add_edit_label.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        add_edit_label.setText("Data Supplier");
 
         bt_tambahdata.setBackground(new java.awt.Color(26, 70, 136));
         bt_tambahdata.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -118,21 +163,23 @@ public class SupplierPanel extends javax.swing.JPanel {
             }
         });
 
-        bt_cari.setBackground(new java.awt.Color(26, 70, 136));
-        bt_cari.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        bt_cari.setForeground(new java.awt.Color(255, 255, 255));
-        bt_cari.setText("Cari");
-
         t_cari.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         t_cari.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        t_cari.setText("Pencarian");
         t_cari.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         t_cari.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 t_cariMouseClicked(evt);
             }
         });
+        t_cari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_cariActionPerformed(evt);
+            }
+        });
         t_cari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                t_cariKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 t_cariKeyTyped(evt);
             }
@@ -173,7 +220,7 @@ public class SupplierPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
                     .addGroup(data_supplierLayout.createSequentialGroup()
                         .addGroup(data_supplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(add_edit_label, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(data_supplierLayout.createSequentialGroup()
                                 .addComponent(bt_tambahdata)
                                 .addGap(18, 18, 18)
@@ -182,12 +229,8 @@ public class SupplierPanel extends javax.swing.JPanel {
                                 .addComponent(bt_hapus)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(data_supplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, data_supplierLayout.createSequentialGroup()
-                                .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bt_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14))
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(t_cari, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         data_supplierLayout.setVerticalGroup(
@@ -195,17 +238,14 @@ public class SupplierPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, data_supplierLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(data_supplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(add_edit_label)
                     .addComponent(jLabel7))
-                .addGap(27, 27, 27)
-                .addGroup(data_supplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(data_supplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bt_tambahdata, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bt_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bt_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(data_supplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bt_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
+                .addGroup(data_supplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_tambahdata, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
                 .addContainerGap())
@@ -219,18 +259,18 @@ public class SupplierPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel2.setText("Tambah Supplier");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        form_tambah.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Nama");
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField1.setText("  ");
-        jTextField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        input_name.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        input_name.setText("  ");
+        input_name.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField2.setText("  ");
-        jTextField2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        input_phone.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        input_phone.setText("  ");
+        input_phone.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("No. HP");
@@ -238,12 +278,12 @@ public class SupplierPanel extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Alamat");
 
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField3.setText("  ");
-        jTextField3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        input_address.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        input_address.setText("  ");
+        input_address.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        input_address.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                input_addressActionPerformed(evt);
             }
         });
 
@@ -251,6 +291,11 @@ public class SupplierPanel extends javax.swing.JPanel {
         bt_simpan.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         bt_simpan.setForeground(new java.awt.Color(255, 255, 255));
         bt_simpan.setText("Simpan");
+        bt_simpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_simpanActionPerformed(evt);
+            }
+        });
 
         bt_batal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         bt_batal.setText("Batal");
@@ -260,46 +305,46 @@ public class SupplierPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout form_tambahLayout = new javax.swing.GroupLayout(form_tambah);
+        form_tambah.setLayout(form_tambahLayout);
+        form_tambahLayout.setHorizontalGroup(
+            form_tambahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, form_tambahLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(form_tambahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(input_name, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(input_phone, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(input_address, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, form_tambahLayout.createSequentialGroup()
+                        .addGroup(form_tambahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
                         .addGap(0, 675, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(form_tambahLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(bt_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        form_tambahLayout.setVerticalGroup(
+            form_tambahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(form_tambahLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(input_name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(input_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(input_address, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(form_tambahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_batal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(180, Short.MAX_VALUE))
@@ -315,7 +360,7 @@ public class SupplierPanel extends javax.swing.JPanel {
             .addGroup(tambah_supplierLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tambah_supplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(form_tambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(tambah_supplierLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 470, Short.MAX_VALUE)
@@ -330,7 +375,7 @@ public class SupplierPanel extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(form_tambah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -339,9 +384,9 @@ public class SupplierPanel extends javax.swing.JPanel {
         add(main_panel, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void input_addressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_addressActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_input_addressActionPerformed
 
     private void bt_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_batalActionPerformed
         main_panel.removeAll();
@@ -354,56 +399,168 @@ public class SupplierPanel extends javax.swing.JPanel {
         main_panel.removeAll();
         main_panel.repaint();
         main_panel.revalidate();
-        
+
         main_panel.add(tambah_supplier);
         main_panel.repaint();
         main_panel.revalidate();
     }//GEN-LAST:event_bt_tambahdataActionPerformed
 
     private void t_cariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_cariMouseClicked
-        t_cari.setText("");
+
     }//GEN-LAST:event_t_cariMouseClicked
 
     private void t_cariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_cariKeyTyped
-        pencarian();
+
     }//GEN-LAST:event_t_cariKeyTyped
 
     private void bt_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editActionPerformed
         // TODO add your handling code here:
+        int selectedRow = datatable.getSelectedRow();
+        if (selectedRow != -1) {
+            Object value = datatable.getValueAt(selectedRow, 0);
+
+            main_panel.removeAll();
+            main_panel.repaint();
+            main_panel.revalidate();
+
+            main_panel.add(tambah_supplier);
+            main_panel.repaint();
+            main_panel.revalidate();
+
+            int id = (int) value;
+            Supplier success = supplierService.getSupplierById(id);
+
+//            1. Ganti title "Tambah Item" menjadi "Edit Item"
+            add_edit_label.setText("Edit Supplier");
+
+//            2. Isi semua input dengan data yang dikembalikan dari service (Item)
+            input_name.setText(success.getName());
+            input_phone.setText(success.getPhone());
+            input_address.setText(success.getAddress());
+            bt_simpan.setText("Perbarui");
+
+//            Passing SelectedID, untuk digunakan nanti di form edit
+            this.SelectedID = id;
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih data dulu yang mau dihapus.");
+        }
     }//GEN-LAST:event_bt_editActionPerformed
 
     private void bt_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_hapusActionPerformed
         // TODO add your handling code here:
+        int selectedRow = datatable.getSelectedRow();
+        if (selectedRow != -1) {
+            Object value = datatable.getValueAt(selectedRow, 0);
+
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Yakin mau hapus data ini?",
+                    "Konfirmasi Hapus",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                int id = Integer.parseInt(value.toString()); // atau cast kalau yakin Integer
+                boolean success = supplierService.deleteSupplier(id);
+                if (success) {
+                    loadData(null);
+
+                    JOptionPane.showMessageDialog(this, "Data berhasil dihapus.");
+                    // refresh table kalau perlu
+                } else {
+                    JOptionPane.showMessageDialog(this, "Gagal menghapus data.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih data dulu yang mau dihapus.");
+        }
     }//GEN-LAST:event_bt_hapusActionPerformed
 
+    private void bt_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_simpanActionPerformed
+        // TODO add your handling code here:
+        int id = this.SelectedID;
+        String name = input_name.getText().trim();
+        String phone = input_phone.getText().trim();
+        String address = input_address.getText().trim();
+
+        boolean status;
+        if (bt_simpan.getText().toLowerCase().equals("perbarui")) {
+            Supplier item = new Supplier(id, name, phone, address);
+            status = supplierService.updateSupplier(item);
+
+//            Reset text tombol menjadi simpan kembali
+            bt_simpan.setText("Simpan");
+        } else {
+            Supplier item = new Supplier(name, phone, address);
+            status = supplierService.insertSupplier(item);
+        }
+
+        if (status) {
+            JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+            clearForm(form_tambah); // optional: bersihkan form
+
+//        Back to Table Item
+            main_panel.removeAll();
+            main_panel.add(data_supplier);
+            main_panel.repaint();
+            main_panel.revalidate();
+
+//            Refresh Table
+            loadData(null);
+        } else {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan data");
+        }
+    }//GEN-LAST:event_bt_simpanActionPerformed
+
+    private void t_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_cariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_cariActionPerformed
+
+    private void t_cariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_cariKeyReleased
+        // TODO add your handling code here:
+        String keyword = t_cari.getText().trim();
+        loadData(keyword);
+    }//GEN-LAST:event_t_cariKeyReleased
+
+    private void clearForm(Component parent) {
+        if (parent instanceof JTextField) {
+            ((JTextField) parent).setText("");
+        } else if (parent instanceof JComboBox) {
+            ((JComboBox<?>) parent).setSelectedIndex(0);
+        } else if (parent instanceof JSpinner) {
+            ((JSpinner) parent).setValue(0);
+        } else if (parent instanceof JCheckBox) {
+            ((JCheckBox) parent).setSelected(false);
+        } else if (parent instanceof JPanel || parent instanceof Container) {
+            for (Component c : ((Container) parent).getComponents()) {
+                clearForm(c);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel add_edit_label;
     private javax.swing.JButton bt_batal;
-    private javax.swing.JButton bt_cari;
     private javax.swing.JButton bt_edit;
     private javax.swing.JButton bt_hapus;
     private javax.swing.JButton bt_simpan;
     private javax.swing.JButton bt_tambahdata;
     private javax.swing.JPanel data_supplier;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTable datatable;
+    private javax.swing.JPanel form_tambah;
+    private javax.swing.JTextField input_address;
+    private javax.swing.JTextField input_name;
+    private javax.swing.JTextField input_phone;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JPanel main_panel;
     private javax.swing.JTextField t_cari;
     private javax.swing.JPanel tambah_supplier;
     // End of variables declaration//GEN-END:variables
 
-    private void pencarian() {
-        
-    }
 }

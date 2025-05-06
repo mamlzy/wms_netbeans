@@ -1,6 +1,7 @@
 package service;
 
 import dao.ItemDAO;
+import java.util.ArrayList;
 import model.Item;
 
 import java.util.List;
@@ -13,8 +14,9 @@ public class ItemService {
 
     private ItemDAO dao = new ItemDAO();
 
-    public List<Item> getItems() {
-        return dao.findAll();
+    public List<Item> getItems(String keyword) {
+        List<Item> items = dao.findAll(keyword);
+        return items;
     }
 
     public Item getItemById(int id) {

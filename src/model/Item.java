@@ -14,6 +14,7 @@ public class Item {
     private int quantity;
     private int min_quantity;
     private int unit;
+    private String unitName;
 
     // Constructor tanpa id (untuk insert)
     public Item(String name, BigInteger price, int quantity, int min_quantity, int unit) {
@@ -81,5 +82,14 @@ public class Item {
 
     public void setUnit(int unit) {
         this.unit = unit;
+    }
+    
+    // setter untuk unitName
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
+
+    public String getUnitName() {
+        return unitName;
     }
 }
