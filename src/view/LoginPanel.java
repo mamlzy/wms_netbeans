@@ -1,5 +1,5 @@
 package view;
-import main.Menu_Utama;
+import layout.Menu_Utama;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -10,14 +10,14 @@ import main.Menu_Utama;
  *
  * @author LENOVO
  */
-public class Login extends javax.swing.JFrame {
+public class LoginPanel extends javax.swing.JFrame {
 
     int xx, xy;
     
     /**
      * Creates new form Login
      */
-    public Login() {
+    public LoginPanel() {
         initComponents();
     }
     
@@ -304,6 +304,13 @@ public class Login extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_bt_loginActionPerformed
 
+    public static void main(String[] args){
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginPanel().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;

@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.math.BigInteger;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -14,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import lib.Utils;
 import service.ItemService;
 import model.Item;
+import model.Unit;
+import service.UnitService;
 
 /**
  *
@@ -25,6 +28,7 @@ public class ItemPanel extends javax.swing.JPanel {
      * Creates new form Form_Item
      */
     private ItemService service = new ItemService();
+    private UnitService unitService = new UnitService();
 
     public ItemPanel() {
         initComponents();
@@ -37,6 +41,7 @@ public class ItemPanel extends javax.swing.JPanel {
 
         List<Item> items = service.getItems();
 
+        int no = 1;
         for (Item item : items) {
             Object[] row = {
                 item.getId(),
@@ -72,7 +77,7 @@ public class ItemPanel extends javax.swing.JPanel {
         bt_hapus = new javax.swing.JButton();
         bt_edit = new javax.swing.JButton();
         tambah_item = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        add_edit_label = new javax.swing.JLabel();
         form_tambah_item = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         input_name = new javax.swing.JTextField();
@@ -136,9 +141,17 @@ public class ItemPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Nama Item", "Harga", "Kuantitas", "Minimum", "Unit"
+                "ID", "Nama Item", "Harga", "Kuantitas", "Minimum", "Unit"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(datatable);
         if (datatable.getColumnModel().getColumnCount() > 0) {
             datatable.getColumnModel().getColumn(0).setMaxWidth(50);
@@ -256,9 +269,9 @@ public class ItemPanel extends javax.swing.JPanel {
 
         tambah_item.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel2.setText("Tambah Item");
+        add_edit_label.setBackground(new java.awt.Color(255, 255, 255));
+        add_edit_label.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        add_edit_label.setText("Tambah Item");
 
         form_tambah_item.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -399,7 +412,7 @@ public class ItemPanel extends javax.swing.JPanel {
                 .addGroup(tambah_itemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(form_tambah_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(tambah_itemLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(add_edit_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 507, Short.MAX_VALUE)
                         .addComponent(jLabel6)))
                 .addContainerGap())
@@ -409,7 +422,7 @@ public class ItemPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tambah_itemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tambah_itemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(add_edit_label)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addComponent(form_tambah_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -430,6 +443,14 @@ public class ItemPanel extends javax.swing.JPanel {
         main_panel.add(data_item);
         main_panel.repaint();
         main_panel.revalidate();
+
+        add_edit_label.setText("Tambah Item");
+
+        input_name.setText("");
+        input_harga.setText("");
+        input_kuantitas.setText("");
+        input_minimum_kuantitas.setText("");
+        input_unit.setSelectedIndex(0);
     }//GEN-LAST:event_bt_batalActionPerformed
 
     private void input_unitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_unitActionPerformed
@@ -460,14 +481,81 @@ public class ItemPanel extends javax.swing.JPanel {
 
     private void bt_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_hapusActionPerformed
         // TODO add your handling code here:
-        
+        int selectedRow = datatable.getSelectedRow();
+        if (selectedRow != -1) {
+            Object value = datatable.getValueAt(selectedRow, 0);
+
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Yakin mau hapus data ini?",
+                    "Konfirmasi Hapus",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                int id = Integer.parseInt(value.toString()); // atau cast kalau yakin Integer
+                boolean success = service.deleteItem(id);
+                if (success) {
+                    loadItems();
+
+                    JOptionPane.showMessageDialog(this, "Data berhasil dihapus.");
+                    // refresh table kalau perlu
+                } else {
+                    JOptionPane.showMessageDialog(this, "Gagal menghapus data.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih data dulu yang mau dihapus.");
+        }
     }//GEN-LAST:event_bt_hapusActionPerformed
 
     private void bt_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_editActionPerformed
         // TODO add your handling code here:
-//        int selectedRow = datatable.getSelectedRow();
-//        int id = datatable.getValueAt(selectedRow, 0);
-//        JOptionPane.showMessageDialog(this, columnCount);
+        int selectedRow = datatable.getSelectedRow();
+        if (selectedRow != -1) {
+            Object value = datatable.getValueAt(selectedRow, 0);
+            JOptionPane.showMessageDialog(this, value);
+
+            main_panel.removeAll();
+            main_panel.repaint();
+            main_panel.revalidate();
+
+            main_panel.add(tambah_item);
+            main_panel.repaint();
+            main_panel.revalidate();
+
+            int id = (int) value;
+            Item success = service.getItemById(id);
+            System.out.println(success);
+
+            /*
+            1. Ganti title "Tambah Item" menjadi "Edit Item"
+            add_edit_label.setText("Edit Item")
+            2. Isi semua input dengan data yang dikembalikan dari service (Item)
+            3. Ketika tekan tombol simpan maka simpan semua perubahan ke Database (service.update)
+            4. Kosongkan kembali semua input dan text menjadi "Tambah Item"
+             */
+//            1. Ganti title "Tambah Item" menjadi "Edit Item"
+            List<Unit> units = unitService.getUnits();
+            DefaultComboBoxModel<String> modelUnit = new DefaultComboBoxModel<>();
+            modelUnit.addElement("-- Pilih Unit --");
+            
+            for (Unit unit : units) {
+                modelUnit.addElement(unit.getName());
+            }
+            input_unit.setModel(modelUnit);
+
+            add_edit_label.setText("Edit Item");
+
+//            2. Isi semua input dengan data yang dikembalikan dari service (Item)
+            input_name.setText(success.getName());
+            input_harga.setText(success.getPrice().toString());
+            input_kuantitas.setText(String.valueOf(success.getQuantity()));
+            input_minimum_kuantitas.setText(String.valueOf(success.getMin_quantity()));
+            input_unit.setSelectedIndex(success.getUnit());
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih data dulu yang mau dihapus.");
+        }
     }//GEN-LAST:event_bt_editActionPerformed
 
     private void bt_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_simpanActionPerformed
@@ -478,7 +566,7 @@ public class ItemPanel extends javax.swing.JPanel {
         BigInteger price = new BigInteger(input_harga.getText().trim());
         int quantity = Integer.parseInt(input_kuantitas.getText().trim());
         int min_quantity = Integer.parseInt(input_minimum_kuantitas.getText().trim());
-        String unit = input_unit.getSelectedItem().toString().trim();
+        int unit = input_unit.getSelectedIndex();
 
 //        Create Object Item
         Item item = new Item(name, price, quantity, min_quantity, unit);
@@ -495,7 +583,7 @@ public class ItemPanel extends javax.swing.JPanel {
             main_panel.add(data_item);
             main_panel.repaint();
             main_panel.revalidate();
-            
+
 //            Refresh Table
             loadItems();
         } else {
@@ -518,6 +606,7 @@ public class ItemPanel extends javax.swing.JPanel {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel add_edit_label;
     private javax.swing.JButton bt_batal;
     private javax.swing.JButton bt_cari;
     private javax.swing.JButton bt_edit;
@@ -533,7 +622,6 @@ public class ItemPanel extends javax.swing.JPanel {
     private javax.swing.JTextField input_name;
     private javax.swing.JComboBox<String> input_unit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

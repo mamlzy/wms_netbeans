@@ -14,75 +14,114 @@ import java.math.BigDecimal;
  *
  * @author Agung
  */
-
 public class ItemDAO {
-    
+
     private Connection connection;
-    
-    public ItemDAO(){
+
+    public ItemDAO() {
         this.connection = Database.getConnection();
     }
-    
-    public List<Item> findAll(){
+
+    public List<Item> findAll() {
         List<Item> list = new ArrayList<>();
-        
-        String sql = "SELECT * FROM items";
-        
+
+        String sql = "SELECT i.*, u.name AS unitName  FROM items i JOIN units u ON i.unit = u.id";
+
         try {
-            PreparedStatement  stmt = this.connection.prepareStatement(sql);
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 list.add(new Item(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getBigDecimal("price").toBigInteger(),
                         rs.getInt("quantity"),
                         rs.getInt("min_quantity"),
-                        rs.getString("unit")
+                        rs.getInt("unit")
                 ));
             }
-                    
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return list;
     }
-    
-    public boolean insert(Item item){
+
+    public Item findById(int id) {
+        Item item = null;
+        String sql = "SELECT * FROM items WHERE id = ?";
+
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                item = new Item(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getBigDecimal("price").toBigInteger(),
+                        rs.getInt("quantity"),
+                        rs.getInt("min_quantity"),
+                        rs.getInt("unit")
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return item; // bisa null kalau tidak ditemukan
+    }
+
+    public boolean insert(Item item) {
         String sql = "INSERT INTO items (name, price, quantity, min_quantity, unit) VALUES (?,?,?,?,?)";
-        try(PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
             stmt.setString(1, item.getName());
             stmt.setBigDecimal(2, new BigDecimal(item.getPrice()));
             stmt.setInt(3, item.getQuantity());
             stmt.setInt(4, item.getMin_quantity());
-            stmt.setString(5, item.getUnit());
-            
+            stmt.setString(5, String.valueOf(item.getUnit()));
+
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
-        } catch (Exception  e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
-    
+
     public boolean update(Item item) {
-    String sql = "UPDATE items SET name = ?, price = ?, quantity = ?, min_quantity = ?, unit = ? WHERE id = ?";
-    try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
-        stmt.setString(1, item.getName());
-        stmt.setBigDecimal(2, new BigDecimal(item.getPrice()));
-        stmt.setInt(3, item.getQuantity());
-        stmt.setInt(4, item.getMin_quantity());
-        stmt.setString(5, item.getUnit());
-        stmt.setInt(6, item.getId()); // pastikan item punya id
-        
-        int rowsAffected = stmt.executeUpdate();
-        return rowsAffected > 0;
-    } catch (Exception e) {
-        e.printStackTrace();
-        return false;
+        String sql = "UPDATE items SET name = ?, price = ?, quantity = ?, min_quantity = ?, unit = ? WHERE id = ?";
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+            stmt.setString(1, item.getName());
+            stmt.setBigDecimal(2, new BigDecimal(item.getPrice()));
+            stmt.setInt(3, item.getQuantity());
+            stmt.setInt(4, item.getMin_quantity());
+            stmt.setString(5, String.valueOf(item.getUnit()));
+            stmt.setInt(6, item.getId()); // pastikan item punya id
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-}
-    
+
+    public boolean delete(int id) {
+        String sql = "DELETE FROM items WHERE id = ?";
+        try (PreparedStatement stmt = this.connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
 }

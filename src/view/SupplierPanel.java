@@ -8,12 +8,12 @@ package view;
  *
  * @author LENOVO
  */
-public class Supplier extends javax.swing.JPanel {
+public class SupplierPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Form_Item
      */
-    public Supplier() {
+    public SupplierPanel() {
         initComponents();
     }
 

@@ -16,8 +16,20 @@ public class ItemService {
     public List<Item> getItems() {
         return dao.findAll();
     }
-    
-    public boolean insertItem(Item item){
+
+    public Item getItemById(int id) {
+        return dao.findById(id);
+    }
+
+    public boolean insertItem(Item item) {
         return dao.insert(item);
+    }
+
+    public boolean updateItem(Item item) {
+        return dao.update(item);
+    }
+
+    public boolean deleteItem(int id) {
+        return dao.delete(id);
     }
 }

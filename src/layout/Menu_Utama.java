@@ -1,20 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package view.layout;
+package layout;
 
-import view.Supplier;
-import view.PermintaanBarang;
-import view.PenerimaanBarang;
-import view.User;
-import view.ItemPanel;
-import view.Dashboard;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+
+import view.*;
 
 /**
  *
@@ -127,11 +119,52 @@ public class Menu_Utama extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        pn_utama.add(new Dashboard());
+        pn_utama.add(new DashboardPanel());
         pn_utama.repaint();
         pn_utama.revalidate();
     }//GEN-LAST:event_formWindowOpened
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Menu_Utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Menu_Utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Menu_Utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Menu_Utama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Menu_Utama().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -161,7 +194,7 @@ public class Menu_Utama extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pn_utama.removeAll();
-                pn_utama.add(new User());
+                pn_utama.add(new UserPanel());
                 pn_utama.repaint();
                 pn_utama.revalidate();
             }
@@ -179,7 +212,7 @@ public class Menu_Utama extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pn_utama.removeAll();
-                pn_utama.add(new Supplier());
+                pn_utama.add(new SupplierPanel());
                 pn_utama.repaint();
                 pn_utama.revalidate();
             }
@@ -189,7 +222,7 @@ public class Menu_Utama extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pn_utama.removeAll();
-                pn_utama.add(new PermintaanBarang());
+                pn_utama.add(new PermintaanBarangPanel());
                 pn_utama.repaint();
                 pn_utama.revalidate();
             }
@@ -198,20 +231,36 @@ public class Menu_Utama extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pn_utama.removeAll();
-                pn_utama.add(new PenerimaanBarang());
+                pn_utama.add(new PenerimaanBarangPanel());
                 pn_utama.repaint();
                 pn_utama.revalidate();
             }
         });
         
-        Menu_Item reportSB = new Menu_Item(null, true, iconreportSB, "Stock Goods", null);
-        Menu_Item reportBMK = new Menu_Item(null, true, iconreportBMK, "Inventory Flow", null);
+        Menu_Item reportSB = new Menu_Item(null, true, iconreportSB, "Stock Goods", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pn_utama.removeAll();
+                pn_utama.add(new PengajuanBarangPanel());
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
+        });
+        Menu_Item reportBMK = new Menu_Item(null, true, iconreportBMK, "Inventory Flow", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pn_utama.removeAll();
+                pn_utama.add(new TransaksiBulananPanel());
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
+        });
         
         Menu_Item menuHome = new Menu_Item(iconHome, false, null, "Home", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pn_utama.removeAll();
-                pn_utama.add(new Dashboard());
+                pn_utama.add(new DashboardPanel());
                 pn_utama.repaint();
                 pn_utama.revalidate();
             }

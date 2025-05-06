@@ -13,10 +13,10 @@ public class Item {
     private BigInteger price;
     private int quantity;
     private int min_quantity;
-    private String unit;
+    private int unit;
 
     // Constructor tanpa id (untuk insert)
-    public Item(String name, BigInteger price, int quantity, int min_quantity, String unit) {
+    public Item(String name, BigInteger price, int quantity, int min_quantity, int unit) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -25,7 +25,7 @@ public class Item {
     }
 
 // Constructor lengkap (misalnya saat ambil dari DB)
-    public Item(int id, String name, BigInteger price, int quantity, int min_quantity, String unit) {
+    public Item(int id, String name, BigInteger price, int quantity, int min_quantity, int unit) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -75,11 +75,11 @@ public class Item {
         this.min_quantity = min_quantity;
     }
 
-    public String getUnit() {
+    public int getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(int unit) {
         this.unit = unit;
     }
 }

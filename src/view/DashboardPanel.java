@@ -5,12 +5,12 @@ package view;
  * @author LENOVO
  */
 
-public class Dashboard extends javax.swing.JPanel {
+public class DashboardPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Content
      */
-    public Dashboard() {
+    public DashboardPanel() {
         initComponents();
     }
 

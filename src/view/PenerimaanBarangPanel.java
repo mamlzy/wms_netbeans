@@ -5,12 +5,12 @@ package view;
  * @author LENOVO
  */
 
-public class PenerimaanBarang extends javax.swing.JPanel {
+public class PenerimaanBarangPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Form_Item
      */
-    public PenerimaanBarang() {
+    public PenerimaanBarangPanel() {
         initComponents();
     }
 

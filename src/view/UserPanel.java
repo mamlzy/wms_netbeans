@@ -5,12 +5,12 @@ package view;
  * @author LENOVO
  */
 
-public class User extends javax.swing.JPanel {
+public class UserPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Form_Item
      */
-    public User() {
+    public UserPanel() {
         initComponents();
     }
 
