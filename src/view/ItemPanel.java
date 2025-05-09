@@ -554,7 +554,7 @@ public class ItemPanel extends javax.swing.JPanel {
 //            Passing SelectedID, untuk digunakan nanti di form edit
             this.SelectedID = id;
         } else {
-            JOptionPane.showMessageDialog(this, "Pilih data dulu yang mau dihapus.");
+            JOptionPane.showMessageDialog(this, "Pilih data dulu yang mau diedit.");
         }
     }//GEN-LAST:event_bt_editActionPerformed
 
