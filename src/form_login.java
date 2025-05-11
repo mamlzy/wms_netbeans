@@ -1,3 +1,6 @@
+
+import Main.Menu_Utama;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -102,6 +105,11 @@ public class form_login extends javax.swing.JFrame {
         bt_login.setBackground(new java.awt.Color(0, 255, 255));
         bt_login.setText("LOGIN");
         bt_login.setBorder(null);
+        bt_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_loginActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/circle-user-round (1).png"))); // NOI18N
 
@@ -205,6 +213,14 @@ public class form_login extends javax.swing.JFrame {
             t_password.setText("Password");
         }
     }//GEN-LAST:event_t_passwordFocusLost
+
+    private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
+        Menu_Utama menu = new Menu_Utama();
+        menu.setVisible(true);
+        menu.revalidate();
+        
+        dispose();
+    }//GEN-LAST:event_bt_loginActionPerformed
 
     /**
      * @param args the command line arguments
