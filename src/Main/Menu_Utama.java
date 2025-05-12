@@ -4,6 +4,8 @@
  */
 package Main;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -41,6 +43,11 @@ public class Menu_Utama extends javax.swing.JFrame {
         pn_utama = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         pn_navbar.setBackground(new java.awt.Color(0, 255, 255));
         pn_navbar.setPreferredSize(new java.awt.Dimension(708, 70));
@@ -103,6 +110,12 @@ public class Menu_Utama extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+      pn_utama.add(new Content_Bg());
+      pn_utama.repaint();
+      pn_utama.revalidate();
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -151,7 +164,29 @@ public class Menu_Utama extends javax.swing.JFrame {
         ImageIcon iconMaster = new ImageIcon(getClass().getResource("../img/folder.png"));
         ImageIcon iconSub = new ImageIcon(getClass().getResource("../img/minus.png"));
             
-        MenuItem masBarang1 = new MenuItem(null, true, iconSub, "Barang1", null);
+        MenuItem menuHome = new MenuItem(iconSub, false, null, "Home", new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            pn_utama.removeAll();
+            pn_utama.add(new Content_Bg());
+            pn_utama.repaint();
+            pn_utama.revalidate();
+          }
+        });
+
+        
+        MenuItem masBarang1 = new MenuItem(null, true, iconSub, "Barang1", new ActionListener() {
+          @Override
+            public void actionPerformed(ActionEvent e) {
+              pn_utama.removeAll();
+              pn_utama.add(new Form_Barang());
+              pn_utama.repaint();
+              pn_utama.revalidate();
+          }
+        });
+        
+
+        
         MenuItem masBarang2 = new MenuItem(null, true, iconSub, "Barang2", null);
         MenuItem masBarang3 = new MenuItem(null, true, iconSub, "Barang3   ", null);
             
@@ -165,9 +200,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         
         MenuItem menuReport = new MenuItem(iconMaster, false, null, "Report", null);
         
-        addMenu(menuMaster);
-        addMenu(menuTransaksi);
-        addMenu(menuReport);
+        addMenu(menuHome, menuMaster, menuTransaksi, menuReport);
     }
     
     private void addMenu(MenuItem... menu) {
