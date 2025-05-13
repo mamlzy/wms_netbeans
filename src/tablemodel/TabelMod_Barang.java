@@ -15,7 +15,7 @@ import model.Model_Barang;
  * @author imama
  */
 public class TabelMod_Barang extends AbstractTableModel {
-    private List<Model_Barang> list = new ArrayList<>();
+    private final List<Model_Barang> list = new ArrayList<>();
     
     public void tambahData(Model_Barang mod_bar) {
         list.add(mod_bar);
@@ -59,37 +59,38 @@ public class TabelMod_Barang extends AbstractTableModel {
     public int getRowCount() {
         return list.size();
     }
+    
+    private final String[] columnNames = {"Kode Barang", "Kode Jenis", "Nama Jenis", "Nama Barang", "Satuan", "Harga", "Stok"};
 
     @Override
     public int getColumnCount() {
-        return 7;
+        return columnNames.length;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        switch (columnIndex) {
-            case 0: return list.get(rowIndex).getKode_barang();
-            case 1: return list.get(rowIndex).getJns_barang().getKode_jenis();
-            case 2: return list.get(rowIndex).getJns_barang().getNama_jenis();
-            case 3: return list.get(rowIndex).getNama_barang();
-            case 4: return list.get(rowIndex).getSatuan();
-            case 5: return list.get(rowIndex).getHarga();
-            case 6: return list.get(rowIndex).getStok();
-            
-            default: return null;
+        if(columnIndex == 0) {
+            return "    " + (rowIndex + 1);
+        } else {
+            return switch (columnIndex) {
+                case 0 -> list.get(rowIndex).getKode_barang();
+                case 1 -> list.get(rowIndex).getJns_barang().getKode_jenis();
+                case 2 -> list.get(rowIndex).getJns_barang().getNama_jenis();
+                case 3 -> list.get(rowIndex).getNama_barang();
+                case 4 -> list.get(rowIndex).getSatuan();
+                case 5 -> list.get(rowIndex).getHarga();
+                case 6 -> list.get(rowIndex).getStok();
+                default -> null;
+            };
         }
     }
     
+    @Override
     public String getColumnName(int column) {
-        switch (column) {
-            case 0: return "Kode Barang";
-            case 1: return "Kode Jenis";
-            case 2: return "Nama Jenis";
-            case 3: return "Nama Barang";
-            case 4: return "Satuan";
-            case 5: return "Harga";
-            case 6: return "Stok";
-            default: return null;
+        if (column == 0) {
+            return "    " + columnNames[column];
+        } else {
+            return columnNames[column];
         }
     }
     
