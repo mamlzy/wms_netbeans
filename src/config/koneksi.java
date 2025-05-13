@@ -9,15 +9,15 @@ import java.util.logging.Logger;
 
 public class koneksi {
     private static Connection connection;
-    
+
     public static Connection getConnection() {
-        if(connection == null) {
+        if (connection == null) {
             try {
                 String url = "jdbc:mysql://localhost:3306/netbeans_wms_imam";
                 String user = "root";
-                String pass = "";
-                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-                connection = (Connection) DriverManager.getConnection(url, user, pass);
+                String pass = "secret";
+
+                connection = DriverManager.getConnection(url, user, pass);
             } catch (SQLException e) {
                 Logger.getLogger(koneksi.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -25,5 +25,4 @@ public class koneksi {
 
         return connection;
     }
-    
 }

@@ -19,7 +19,7 @@ public class Menu_Utama extends javax.swing.JFrame {
     /**
      * Creates new form Menu_Utama
      */
-    public Menu_Utama() {
+    public Menu_Utama(String Id, String Nama, String Level2) {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
@@ -146,7 +146,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu_Utama().setVisible(true);
+                new Menu_Utama("Id", "Nama", "level").setVisible(true);
             }
         });
     }

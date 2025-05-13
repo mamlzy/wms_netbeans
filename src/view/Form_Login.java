@@ -1,5 +1,9 @@
+package view;
 
-import Main.Menu_Utama;
+import dao.DAO_Login;
+import javax.swing.JOptionPane;
+import model.Model_Login;
+import service.Service_Login;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -10,14 +14,20 @@ import Main.Menu_Utama;
  *
  * @author imama
  */
-public class form_login extends javax.swing.JFrame {
+public class Form_Login extends javax.swing.JFrame {
     int xx, xy;
+    
+    private Service_Login service = new DAO_Login();
+    
+    public static boolean tutup = false;
 
     /**
      * Creates new form form_login
      */
-    public form_login() {
+    public Form_Login() {
         initComponents();
+        
+        bt_login.requestFocus();
     }
     
     void bersih() {
@@ -37,10 +47,10 @@ public class form_login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         background = new javax.swing.JLabel();
         bt_exit = new javax.swing.JLabel();
-        t_password = new javax.swing.JTextField();
         t_username = new javax.swing.JTextField();
         bt_login = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        t_password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -68,23 +78,6 @@ public class form_login extends javax.swing.JFrame {
             }
         });
 
-        t_password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        t_password.setText("Password");
-        t_password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 255)));
-        t_password.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                t_passwordFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                t_passwordFocusLost(evt);
-            }
-        });
-        t_password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_passwordActionPerformed(evt);
-            }
-        });
-
         t_username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         t_username.setText("Username");
         t_username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 255)));
@@ -102,7 +95,8 @@ public class form_login extends javax.swing.JFrame {
             }
         });
 
-        bt_login.setBackground(new java.awt.Color(0, 255, 255));
+        bt_login.setBackground(new java.awt.Color(0, 204, 255));
+        bt_login.setForeground(new java.awt.Color(255, 255, 255));
         bt_login.setText("LOGIN");
         bt_login.setBorder(null);
         bt_login.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +107,9 @@ public class form_login extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/circle-user-round (1).png"))); // NOI18N
 
+        t_password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        t_password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 255)));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -121,14 +118,14 @@ public class form_login extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(t_password, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(t_username, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(105, 105, 105)))
+                        .addGap(105, 105, 105))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(t_username, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t_password, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(background)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_exit)
@@ -152,7 +149,7 @@ public class form_login extends javax.swing.JFrame {
                 .addComponent(t_username, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(t_password, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(bt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(104, 104, 104))
         );
@@ -178,10 +175,6 @@ public class form_login extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_bt_exitMouseClicked
 
-    private void t_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_passwordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_passwordActionPerformed
-
     private void t_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_usernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t_usernameActionPerformed
@@ -200,26 +193,8 @@ public class form_login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_t_usernameFocusLost
 
-    private void t_passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_passwordFocusGained
-       String password = t_password.getText();
-        if(password.equals("Password")) {
-            t_password.setText("");
-        }
-    }//GEN-LAST:event_t_passwordFocusGained
-
-    private void t_passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_t_passwordFocusLost
-        String password = t_password.getText();
-        if(password.equals("") || password.equals("Password")) {
-            t_password.setText("Password");
-        }
-    }//GEN-LAST:event_t_passwordFocusLost
-
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
-        Menu_Utama menu = new Menu_Utama();
-        menu.setVisible(true);
-        menu.revalidate();
-        
-        dispose();
+        prosesLogin();
     }//GEN-LAST:event_bt_loginActionPerformed
 
     /**
@@ -239,20 +214,20 @@ public class form_login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(form_login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(form_login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(form_login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(form_login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new form_login().setVisible(true);
+                new Form_Login().setVisible(true);
             }
         });
     }
@@ -263,7 +238,41 @@ public class form_login extends javax.swing.JFrame {
     private javax.swing.JButton bt_login;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField t_password;
+    private javax.swing.JPasswordField t_password;
     private javax.swing.JTextField t_username;
     // End of variables declaration//GEN-END:variables
+    
+    private void prosesLogin() {
+        if (validasiInput() == true) {
+            String id = t_username.getText();
+            String user = t_username.getText();
+            String pass = t_password.getText();
+            
+            Model_Login mod_log = new Model_Login();
+            
+            mod_log.setId_user(id);
+            mod_log.setUsername(user);
+            mod_log.setPass_user(pass);
+            
+            service.prosesLogin(mod_log);
+            
+            if(tutup) {
+                dispose();
+            }
+        }
+    }
+    
+    private boolean validasiInput() {
+        boolean valid = false;
+        
+        if (t_username.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Username tidak boleh kosong");
+        } else if (t_password.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Password tidak boleh kosong");
+        } else {
+            valid = true;
+        }
+        
+        return valid;
+    }
 }
