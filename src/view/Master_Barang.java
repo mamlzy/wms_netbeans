@@ -73,6 +73,11 @@ public class Master_Barang extends javax.swing.JPanel {
         jLabel1.setText("Data Barang");
 
         btn_tambah.setText("Tambah");
+        btn_tambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tambahActionPerformed(evt);
+            }
+        });
 
         btn_hapus.setText("Hapus");
         btn_hapus.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +97,11 @@ public class Master_Barang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_barang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_barangMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_barang);
 
         btn_batal.setText("Batal");
@@ -128,12 +138,12 @@ public class Master_Barang extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_tambah)
                     .addComponent(btn_hapus)
-                    .addComponent(btn_batal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                    .addComponent(btn_batal)
+                    .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mainPanel.add(tampilData, "card2");
@@ -151,6 +161,11 @@ public class Master_Barang extends javax.swing.JPanel {
         });
 
         btn_batal1.setText("Batal");
+        btn_batal1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_batal1ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -171,6 +186,11 @@ public class Master_Barang extends javax.swing.JPanel {
         jLabel4.setText("Jenis Barang");
 
         btn_jenisBarang.setText("Pilih");
+        btn_jenisBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_jenisBarangActionPerformed(evt);
+            }
+        });
 
         t_namaJenisBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +210,7 @@ public class Master_Barang extends javax.swing.JPanel {
 
         jLabel7.setText("Satuan");
 
-        cbx_satuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbx_satuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Jenis Satuan -", "Batang", "Kg", "Buah", "Roll", "Lembar", "Karton", "Zak", "Meter", "Kaleng", "Doss" }));
 
         t_harga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,11 +331,12 @@ public class Master_Barang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
-        // TODO add your handling code here:
+        hapusData();
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void btn_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batalActionPerformed
-        // TODO add your handling code here:
+        tampilPanel();
+        loadData();
     }//GEN-LAST:event_btn_batalActionPerformed
 
     private void t_kodeBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_kodeBarangActionPerformed
@@ -343,6 +364,44 @@ public class Master_Barang extends javax.swing.JPanel {
     }//GEN-LAST:event_t_stokActionPerformed
 
     private void btn_tambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah1ActionPerformed
+        if(btn_tambah1.getText().equals("Tambah")) {
+            btn_tambah1.setText("Simpan");
+            t_kodeBarang.setText(service.nomor());
+        } else if (btn_tambah1.getText().equals("Simpan")) {
+            simpanData();
+        } else if (btn_tambah1.getText().equals("Perbarui")) {
+            perbaruiData();
+        }
+    }//GEN-LAST:event_btn_tambah1ActionPerformed
+
+    private void tbl_barangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_barangMouseClicked
+        if(btn_tambah.getText().equals("Tambah")) {
+            btn_tambah.setText("Ubah");
+        }
+        
+        btn_hapus.setVisible(true);
+        btn_batal.setVisible(true);
+    }//GEN-LAST:event_tbl_barangMouseClicked
+
+    private void btn_jenisBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_jenisBarangActionPerformed
+        boolean closeable = true;
+        Data_JenisBarang djb = new Data_JenisBarang(null, closeable);
+        djb.setVisible(true);
+        
+        t_kodeJenisBarang.setText(djb.jb.getKode_jenis());
+        t_namaJenisBarang.setText(djb.jb.getNama_jenis());
+        
+        t_namaBarang.requestFocus();
+        aktif();
+    }//GEN-LAST:event_btn_jenisBarangActionPerformed
+
+    private void btn_batal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batal1ActionPerformed
+        tampilPanel();
+        loadData();
+        resetForm();
+    }//GEN-LAST:event_btn_batal1ActionPerformed
+
+    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         mainPanel.removeAll();
         mainPanel.repaint();
         mainPanel.revalidate();
@@ -353,7 +412,12 @@ public class Master_Barang extends javax.swing.JPanel {
         
         btn_tambah1.setText("Simpan");
         btn_jenisBarang.setEnabled(true);
-    }//GEN-LAST:event_btn_tambah1ActionPerformed
+        t_kodeBarang.setText(service.nomor());
+        
+        if(btn_tambah.getText().equals("Ubah")) {
+            dataTabel();
+        }
+    }//GEN-LAST:event_btn_tambahActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -386,4 +450,170 @@ public class Master_Barang extends javax.swing.JPanel {
     private javax.swing.JPanel tampilData;
     private javax.swing.JTable tbl_barang;
     // End of variables declaration//GEN-END:variables
+
+    private void dataTabel() {
+        tampilData.setVisible(false);
+        tambahData.setVisible(true);
+        
+        int row = tbl_barang.getSelectedRow();
+        jLabel2.setText("Perbarui Data Barang");
+        
+        t_kodeBarang.setEnabled(false);
+        t_kodeJenisBarang.setEnabled(true);
+        t_namaJenisBarang.setEnabled(true);
+        
+        t_kodeBarang.setText(tbl_barang.getModel().getValueAt(row, 1).toString());
+        t_kodeJenisBarang.setText(tbl_barang.getModel().getValueAt(row, 2).toString());
+        t_namaJenisBarang.setText(tbl_barang.getModel().getValueAt(row, 3).toString());
+        t_namaBarang.setText(tbl_barang.getModel().getValueAt(row, 4).toString());
+        cbx_satuan.setSelectedItem(tbl_barang.getModel().getValueAt(row, 5).toString());
+        t_harga.setText(tbl_barang.getModel().getValueAt(row, 6).toString());
+        t_stok.setText(tbl_barang.getModel().getValueAt(row, 7).toString());
+        
+        aktif();
+        btn_tambah1.setText("Perbarui");
+        btn_batal.setVisible(true);
+    }
+    
+    private void aktif() {
+        t_namaBarang.setEnabled(true);
+        t_namaJenisBarang.setEnabled(true);
+        cbx_satuan.setEnabled(true);
+        t_harga.setEnabled(true);
+        t_stok.setEnabled(true);
+    }
+    
+    private void loadData() {
+        btn_hapus.setVisible(false);
+        btn_batal.setVisible(false);
+        List<Model_Barang> list = service.getData();
+        tblModel.setData(list);
+    }
+    
+    private void hapusData() {
+        int index = tbl_barang.getSelectedRow();
+        if(index != -1) {
+            Model_Barang brg = tblModel.getData(tbl_barang.convertRowIndexToModel(index));
+            if(JOptionPane.showConfirmDialog(null, "Yakin data akan dihapus?", "Konfirmasi", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+                service.hapusData(brg);
+                tblModel.hapusData(index);
+                loadData();
+                resetForm();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Pilih dahulu record yang akan di hapus");
+            
+        }
+    }
+    
+    private void resetForm() {
+        btn_tambah.requestFocus();
+        btn_tambah.setText("Tambah");
+        t_kodeBarang.setText("");
+        t_kodeJenisBarang.setText("");
+        t_namaJenisBarang.setText("");
+        t_namaBarang.setText("");
+        cbx_satuan.setSelectedItem(0);
+        t_harga.setText("");
+        t_stok.setText("");
+    }
+    
+    private void tampilPanel() {
+        mainPanel.removeAll();
+        mainPanel.add(new Master_Barang());
+        mainPanel.repaint();
+        mainPanel.revalidate();
+    }
+    
+    private void simpanData() {
+        if(validasiInput() == true) {
+            String kode_barang = t_kodeBarang.getText();
+            String kode_jenis = t_kodeJenisBarang.getText();
+            String nama_jenisbarang = t_namaJenisBarang.getText();
+            String nama_barang = t_namaBarang.getText();
+            String satuan = cbx_satuan.getSelectedItem().toString();
+            Long harga = Long.parseLong(t_harga.getText());
+            int stok = Integer.parseInt(t_stok.getText());
+            
+            Model_Barang brg = new Model_Barang();
+            Model_JenisBarang jbr = new Model_JenisBarang();
+            
+            brg.setKode_barang(kode_barang);
+            jbr.setKode_jenis(kode_jenis);
+            jbr.setNama_jenis(nama_jenisbarang);
+            brg.setNama_barang(nama_barang);
+            brg.setSatuan(satuan);
+            brg.setHarga(harga);
+            brg.setStok(stok);
+            
+            brg.setJns_barang(jbr);
+            
+            service.tambahData(brg);
+            tblModel.tambahData(brg);
+            loadData();
+            resetForm();
+            tampilPanel();
+            btn_tambah1.setText("Tambah");
+        }
+    }
+    
+    private void perbaruiData() {
+        int index = tbl_barang.getSelectedRow();
+        if (index != -1) {
+            Model_Barang mobar = tblModel.getData(tbl_barang.convertRowIndexToModel(index));
+            
+            if(validasiInput() == true) {
+                String kode_barang = t_kodeBarang.getText();
+                String kode_jenis = t_kodeJenisBarang.getText();
+                // String nama_jenis= t_namaJenisBarang.getText();
+                String nama_barang = t_namaBarang.getText();
+                String satuan = cbx_satuan.getSelectedItem().toString();
+                Long harga = Long.parseLong(t_harga.getText());
+                int stok = Integer.parseInt(t_stok.getText());
+                
+                Model_Barang brg = new Model_Barang();
+                Model_JenisBarang jbr = new Model_JenisBarang();
+            
+                jbr.setKode_jenis(kode_jenis);
+                // jbr.setNama_jenis(nama_jenis);
+                brg.setKode_barang(kode_barang);
+                brg.setNama_barang(nama_barang);
+                brg.setSatuan(satuan);
+                brg.setHarga(harga);
+                brg.setStok(stok);
+
+                brg.setJns_barang(jbr);
+
+                service.perbaruiData(brg);
+                tblModel.perbaruiData(index, brg);
+                loadData();
+                resetForm();
+                tampilPanel();
+            }
+        }
+    }
+        
+    private boolean validasiInput() {
+        boolean valid = false;
+        
+        if (t_kodeBarang.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Kode Barang tidak boleh kosong");
+        } else if(t_kodeJenisBarang.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Kode Jenis Barang tidak boleh kosong");
+        } else if(t_namaJenisBarang.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nama Jenis Barang tidak boleh kosong");
+        } else if(t_namaBarang.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nama Barang tidak boleh kosong");
+        } else if(cbx_satuan.getSelectedItem().equals(null)) {
+            JOptionPane.showMessageDialog(null, "Satuan tidak boleh kosong");
+        } else if(t_harga.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Harga tidak boleh kosong");
+        } else if(t_stok.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Stok tidak boleh kosong");
+        } else {
+            valid = true;
+        }
+        
+        return valid;
+    }
 }

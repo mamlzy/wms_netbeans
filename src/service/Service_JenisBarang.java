@@ -18,7 +18,7 @@ public interface Service_JenisBarang {
     
     Model_JenisBarang getByid (String id);
     
-    List<Model_JenisBarang> ambilData();
+    List<Model_JenisBarang> getData();
     List<Model_JenisBarang> pencarian(String id);
     
     String nomor();

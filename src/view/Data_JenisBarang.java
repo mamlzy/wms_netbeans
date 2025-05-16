@@ -4,18 +4,35 @@
  */
 package view;
 
+import dao.DAO_JenisBarang;
+import java.awt.Color;
+import java.util.List;
+import model.Model_JenisBarang;
+import service.Service_JenisBarang;
+import tablemodel.TableMod_JenisBarang;
+
 /**
  *
  * @author imama
  */
 public class Data_JenisBarang extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Data_JenisBarang
-     */
+    int xx, xy;
+    private Service_JenisBarang service = new DAO_JenisBarang();
+    private TableMod_JenisBarang tblModel = new TableMod_JenisBarang();
+    public Model_JenisBarang jb = new Model_JenisBarang();
+    
     public Data_JenisBarang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        
+        setUndecorated(true);
         initComponents();
+        
+        setBackground(new Color(0,0,0,0));
+        
+        tbl_jenisBarang.setModel(tblModel);
+        btn_search.requestFocus();
+        loadData();
     }
 
     /**
@@ -27,21 +44,146 @@ public class Data_JenisBarang extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl_jenisBarang = new javax.swing.JTable();
+        t_search = new javax.swing.JTextField();
+        btn_search = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Data Jenis Barang");
+
+        tbl_jenisBarang.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbl_jenisBarang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_jenisBarangMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbl_jenisBarang);
+
+        t_search.setText("Search");
+        t_search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                t_searchMouseClicked(evt);
+            }
+        });
+        t_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_searchActionPerformed(evt);
+            }
+        });
+        t_search.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                t_searchKeyTyped(evt);
+            }
+        });
+
+        btn_search.setText("Search");
+        btn_search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_searchMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(t_search, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(111, 111, 111)
+                    .addComponent(jLabel1)
+                    .addContainerGap(140, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(t_search)
+                    .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel1)
+                    .addContainerGap(237, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void t_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_searchActionPerformed
+
+    private void tbl_jenisBarangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_jenisBarangMouseClicked
+        pilihData();
+    }//GEN-LAST:event_tbl_jenisBarangMouseClicked
+
+    private void btn_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_searchMouseClicked
+        
+    }//GEN-LAST:event_btn_searchMouseClicked
+
+    private void t_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_searchMouseClicked
+        t_search.setText("");
+    }//GEN-LAST:event_t_searchMouseClicked
+
+    private void t_searchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_searchKeyTyped
+        pencarian();
+    }//GEN-LAST:event_t_searchKeyTyped
 
     /**
      * @param args the command line arguments
@@ -86,5 +228,33 @@ public class Data_JenisBarang extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_search;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField t_search;
+    private javax.swing.JTable tbl_jenisBarang;
     // End of variables declaration//GEN-END:variables
+
+    private void pencarian() {
+        List<Model_JenisBarang> list = service.pencarian(t_search.getText());
+        tblModel.setData(list);
+    }
+    
+    private void loadData() {
+        List<Model_JenisBarang> list = service.getData();
+        tblModel.setData(list);
+    }
+    
+    private void pilihData() {
+        int row = tbl_jenisBarang.getSelectedRow();
+        
+        jb.setKode_jenis(tbl_jenisBarang.getModel().getValueAt(row, 0).toString());
+        jb.setNama_jenis(tbl_jenisBarang.getModel().getValueAt(row, 1).toString());
+        dispose();
+    }
 }
+    
+

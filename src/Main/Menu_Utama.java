@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import view.Master_Barang;
 
 /**
  *
@@ -175,11 +176,11 @@ public class Menu_Utama extends javax.swing.JFrame {
         });
 
         
-        MenuItem masBarang1 = new MenuItem(null, true, iconSub, "Barang1", new ActionListener() {
+        MenuItem masBarang = new MenuItem(null, true, iconSub, "Barang", new ActionListener() {
           @Override
             public void actionPerformed(ActionEvent e) {
               pn_utama.removeAll();
-              pn_utama.add(new Form_Barang());
+              pn_utama.add(new Master_Barang());
               pn_utama.repaint();
               pn_utama.revalidate();
           }
@@ -190,7 +191,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         MenuItem masBarang2 = new MenuItem(null, true, iconSub, "Barang2", null);
         MenuItem masBarang3 = new MenuItem(null, true, iconSub, "Barang3   ", null);
             
-        MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null, masBarang1, masBarang2, masBarang3);
+        MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null, masBarang, masBarang2, masBarang3);
         
         MenuItem transaksi1 = new MenuItem(null, true, iconSub, "Transaksi1", null);
         MenuItem transaksi2 = new MenuItem(null, true, iconSub, "Transaksi2", null);

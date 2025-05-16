@@ -60,7 +60,7 @@ public class TabelMod_Barang extends AbstractTableModel {
         return list.size();
     }
     
-    private final String[] columnNames = {"Kode Barang", "Kode Jenis", "Nama Jenis", "Nama Barang", "Satuan", "Harga", "Stok"};
+    private final String[] columnNames = {"No", "Kode Barang", "Kode Jenis", "Nama Jenis", "Nama Barang", "Satuan", "Harga", "Stok"};
 
     @Override
     public int getColumnCount() {
@@ -72,7 +72,7 @@ public class TabelMod_Barang extends AbstractTableModel {
         if(columnIndex == 0) {
             return "    " + (rowIndex + 1);
         } else {
-            return switch (columnIndex) {
+            return switch (columnIndex - 1) {
                 case 0 -> list.get(rowIndex).getKode_barang();
                 case 1 -> list.get(rowIndex).getJns_barang().getKode_jenis();
                 case 2 -> list.get(rowIndex).getJns_barang().getNama_jenis();

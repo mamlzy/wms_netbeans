@@ -12,7 +12,7 @@ public class Model_Barang {
     private String kode_barang;
     private Model_JenisBarang jns_barang;
     private String nama_barang;
-    private Integer satuan;
+    private String satuan;
     private Long harga;
     private Integer stok;
 
@@ -40,11 +40,11 @@ public class Model_Barang {
         this.nama_barang = nama_barang;
     }
 
-    public Integer getSatuan() {
+    public String getSatuan() {
         return satuan;
     }
 
-    public void setSatuan(Integer satuan) {
+    public void setSatuan(String satuan) {
         this.satuan = satuan;
     }
 
@@ -63,4 +63,7 @@ public class Model_Barang {
     public void setStok(Integer stok) {
         this.stok = stok;
     }
+   
+
+    
 }

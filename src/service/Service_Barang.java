@@ -18,8 +18,8 @@ public interface Service_Barang {
     
     Model_Barang getByid (String id);
     
-    List<Model_Barang> ambilData();
-    List<Model_Barang> ambilData2();
+    List<Model_Barang> getDataByID();
+    List<Model_Barang> getData();
             
     List<Model_Barang> pencarian(String id);
     List<Model_Barang> pencarian2(String id);
