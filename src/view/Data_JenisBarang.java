@@ -31,7 +31,7 @@ public class Data_JenisBarang extends javax.swing.JDialog {
         setBackground(new Color(0,0,0,0));
         
         tbl_jenisBarang.setModel(tblModel);
-        btn_search.requestFocus();
+//        btn_search.requestFocus();
         loadData();
     }
 
@@ -51,7 +51,7 @@ public class Data_JenisBarang extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_jenisBarang = new javax.swing.JTable();
         t_search = new javax.swing.JTextField();
-        btn_search = new javax.swing.JButton();
+        bt_exit = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,10 +108,10 @@ public class Data_JenisBarang extends javax.swing.JDialog {
             }
         });
 
-        btn_search.setText("Search");
-        btn_search.addMouseListener(new java.awt.event.MouseAdapter() {
+        bt_exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/circle-x (1).png"))); // NOI18N
+        bt_exit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_searchMouseClicked(evt);
+                bt_exitMouseClicked(evt);
             }
         });
 
@@ -122,11 +122,11 @@ public class Data_JenisBarang extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(t_search, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bt_exit))
+                    .addComponent(t_search))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -137,10 +137,10 @@ public class Data_JenisBarang extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(t_search)
-                    .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(bt_exit)
+                .addGap(18, 18, 18)
+                .addComponent(t_search, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -159,10 +159,13 @@ public class Data_JenisBarang extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void t_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_searchActionPerformed
@@ -173,10 +176,6 @@ public class Data_JenisBarang extends javax.swing.JDialog {
         pilihData();
     }//GEN-LAST:event_tbl_jenisBarangMouseClicked
 
-    private void btn_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_searchMouseClicked
-        
-    }//GEN-LAST:event_btn_searchMouseClicked
-
     private void t_searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_searchMouseClicked
         t_search.setText("");
     }//GEN-LAST:event_t_searchMouseClicked
@@ -184,6 +183,10 @@ public class Data_JenisBarang extends javax.swing.JDialog {
     private void t_searchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_searchKeyTyped
         pencarian();
     }//GEN-LAST:event_t_searchKeyTyped
+
+    private void bt_exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_exitMouseClicked
+        dispose();
+    }//GEN-LAST:event_bt_exitMouseClicked
 
     /**
      * @param args the command line arguments
@@ -228,7 +231,7 @@ public class Data_JenisBarang extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_search;
+    private javax.swing.JLabel bt_exit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

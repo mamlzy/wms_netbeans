@@ -69,13 +69,13 @@ public class DAO_JenisBarang implements Service_JenisBarang {
                 st.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Perbarui data gagal");
-            Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             if (st != null) {
                 try {
                     st.close();
                 } catch (SQLException e) {
-                    Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
         }
@@ -93,13 +93,13 @@ public class DAO_JenisBarang implements Service_JenisBarang {
             
             st.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             if (st != null) {
                 try {
                     st.close();
                 } catch (SQLException e) {
-                    Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
         }
@@ -127,14 +127,14 @@ public class DAO_JenisBarang implements Service_JenisBarang {
             
             return mokat;
         } catch (SQLException e) {
-            Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
             return null;
         } finally {
             if (st != null) {
                 try {
                     st.close();
                 } catch (SQLException e) {
-                    Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
         }
@@ -162,14 +162,14 @@ public class DAO_JenisBarang implements Service_JenisBarang {
             
             return list;
         } catch (SQLException e) {
-            Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
             return null;
         } finally {
             if (st != null) {
                 try {
                     st.close();
                 } catch (SQLException e) {
-                    Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
         }
@@ -187,20 +187,20 @@ public class DAO_JenisBarang implements Service_JenisBarang {
             while(rs.next()) {
                 Model_JenisBarang mokat = new Model_JenisBarang();
                 mokat.setKode_jenis(rs.getString("kode_jenis"));
-                mokat.setNama_jenis(rs.getString("namaa_jenis"));
+                mokat.setNama_jenis(rs.getString("nama_jenis"));
                 
                 list.add(mokat);
             }
             return list;
         } catch (SQLException e) {
-            Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
             return null;
         } finally {
             if (st != null) {
                 try {
                     st.close();
                 } catch (SQLException e) {
-                    Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
         }
@@ -211,27 +211,26 @@ public class DAO_JenisBarang implements Service_JenisBarang {
         PreparedStatement st = null;
         ResultSet rs = null;
         String urutan = null;
-        String sql = "SELECT RIGHT (kode_jenis,3)+1 AS Nomor FROM jenis_barang ORDER BY Nomor desc";
+        String sql = "SELECT RIGHT (kode_jenis,3) AS Nomor FROM jenis_barang ORDER BY Nomor DESC LIMIT 1";
         try {
             st = connection.prepareStatement(sql);
             rs = st.executeQuery();
             if(rs.next()) {
-                urutan = rs.getString(1);
-                while(urutan.length() < 3)
-                    urutan = "0" + urutan;
-                    urutan = "JB" + urutan;
+               int nomor = Integer.parseInt(rs.getString("Nomor"));
+               nomor++;
+               urutan = String.format("JB%03d", nomor);
             } else {
-                urutan = "JB" + "001";
+                urutan = "JB001";
             }
         } catch (SQLException e) {
-            Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
             return null;
         } finally {
             if (st != null) {
                 try {
                     st.close();
                 } catch (SQLException e) {
-                    Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+                    Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
         }
@@ -241,13 +240,32 @@ public class DAO_JenisBarang implements Service_JenisBarang {
 
     @Override
     public boolean validasiNamaJenisBarang(Model_JenisBarang mokat) {
-        throw new UnsupportedOperationException("Not supported yet");
-//        PreparedStatement st = null;
-//        ResultSet rs = null;
-//        boolean valid = false;
-//        String sql = "SELECT nama_jenis FROM jenis_barang WHERE kode_jenis!='" + mokat.getKode_jenis() + "' AND nama_jenis LIKE BINARY '" + mokat.getNama_jenis() + "';";
-//        
-
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        boolean valid = false;
+        String sql = "SELECT nama_jenis FROM jenis_barang WHERE kode_jenis!='" + mokat.getKode_jenis() + "' AND nama_jenis LIKE BINARY '" + mokat.getNama_jenis() + "';";
+        try {
+            st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
+            
+            if(rs.next()) {
+                JOptionPane.showMessageDialog(null, "Nama Jenis Barang telah ada\nSilahkan nama jenis barang yang lain", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            } else {
+                valid = true;
+            } 
+        } catch (SQLException e) {
+            Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
+        
+        return valid;
     }
     
 }

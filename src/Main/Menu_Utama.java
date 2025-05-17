@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import view.Master_Barang;
+import view.Master_JenisBarang;
 
 /**
  *
@@ -186,12 +187,17 @@ public class Menu_Utama extends javax.swing.JFrame {
           }
         });
         
-
-        
-        MenuItem masBarang2 = new MenuItem(null, true, iconSub, "Barang2", null);
-        MenuItem masBarang3 = new MenuItem(null, true, iconSub, "Barang3   ", null);
+        MenuItem masJenisBarang = new MenuItem(null, true, iconSub, "Jenis Barang", new ActionListener() {
+          @Override
+            public void actionPerformed(ActionEvent e) {
+              pn_utama.removeAll();
+              pn_utama.add(new Master_JenisBarang());
+              pn_utama.repaint();
+              pn_utama.revalidate();
+          }
+        });
             
-        MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null, masBarang, masBarang2, masBarang3);
+        MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null, masBarang, masJenisBarang);
         
         MenuItem transaksi1 = new MenuItem(null, true, iconSub, "Transaksi1", null);
         MenuItem transaksi2 = new MenuItem(null, true, iconSub, "Transaksi2", null);

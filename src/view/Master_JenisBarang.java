@@ -1,22 +1,21 @@
 package view;
 
-import dao.DAO_Barang;
+import dao.DAO_JenisBarang;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
-import model.Model_Barang;
 import model.Model_JenisBarang;
-import service.Service_Barang;
-import tablemodel.TabelMod_Barang;
+import service.Service_JenisBarang;
+import tablemodel.TableMod_JenisBarang;
 
-public class Master_Barang extends javax.swing.JPanel {
-    private Service_Barang service = new DAO_Barang();
-    private TabelMod_Barang tblModel = new TabelMod_Barang();
+public class Master_JenisBarang extends javax.swing.JPanel {
+    private Service_JenisBarang service = new DAO_JenisBarang();
+    private TableMod_JenisBarang tblModel = new TableMod_JenisBarang();
     
-    public Master_Barang() {
+    public Master_JenisBarang() {
         initComponents();
         
         tbl_barang.setModel(tblModel);
@@ -48,20 +47,9 @@ public class Master_Barang extends javax.swing.JPanel {
         btn_batal1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        t_kodeBarang = new javax.swing.JTextField();
         t_kodeJenisBarang = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        btn_jenisBarang = new javax.swing.JButton();
         t_namaJenisBarang = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        t_namaBarang = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        cbx_satuan = new javax.swing.JComboBox<>();
-        t_harga = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        t_stok = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setLayout(new java.awt.CardLayout());
 
@@ -119,9 +107,6 @@ public class Master_Barang extends javax.swing.JPanel {
             }
         });
         t_cari.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                t_cariKeyPressed(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 t_cariKeyTyped(evt);
             }
@@ -134,7 +119,7 @@ public class Master_Barang extends javax.swing.JPanel {
             .addGroup(tampilDataLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                     .addGroup(tampilDataLayout.createSequentialGroup()
                         .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -144,7 +129,9 @@ public class Master_Barang extends javax.swing.JPanel {
                                 .addComponent(btn_hapus)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btn_batal)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tampilDataLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -156,13 +143,13 @@ public class Master_Barang extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btn_hapus)
-                        .addComponent(btn_batal)
-                        .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_batal))
                     .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         mainPanel.add(tampilData, "card2");
@@ -170,7 +157,7 @@ public class Master_Barang extends javax.swing.JPanel {
         tambahData.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("Tambah Data Barang");
+        jLabel2.setText("Tambah Data Jenis Barang");
 
         btn_tambah1.setText("Tambah");
         btn_tambah1.addActionListener(new java.awt.event.ActionListener() {
@@ -188,26 +175,11 @@ public class Master_Barang extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("Kode Barang");
-
-        t_kodeBarang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_kodeBarangActionPerformed(evt);
-            }
-        });
+        jLabel3.setText("Kode Jenis Barang");
 
         t_kodeJenisBarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 t_kodeJenisBarangActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Jenis Barang");
-
-        btn_jenisBarang.setText("Pilih");
-        btn_jenisBarang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_jenisBarangActionPerformed(evt);
             }
         });
 
@@ -217,35 +189,7 @@ public class Master_Barang extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setText("Nama Jenis Barang");
-
-        t_namaBarang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_namaBarangActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Nama Barang");
-
-        jLabel7.setText("Satuan");
-
-        cbx_satuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Jenis Satuan -", "Batang", "Kg", "Buah", "Roll", "Lembar", "Karton", "Zak", "Meter", "Kaleng", "Doss" }));
-
-        t_harga.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_hargaActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Harga");
-
-        t_stok.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_stokActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setText("Stok");
+        jLabel10.setText("Nama Jenis Barang");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -253,26 +197,12 @@ public class Master_Barang extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(t_kodeBarang, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(t_kodeJenisBarang, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(t_namaJenisBarang, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(t_kodeJenisBarang))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_jenisBarang))
-                    .addComponent(t_namaJenisBarang, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(t_namaBarang, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbx_satuan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(t_harga, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(t_stok, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel10))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -282,34 +212,12 @@ public class Master_Barang extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_kodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(t_kodeJenisBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_jenisBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(t_kodeJenisBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(t_namaJenisBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_namaBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbx_satuan, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_harga, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_stok, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout tambahDataLayout = new javax.swing.GroupLayout(tambahData);
@@ -327,7 +235,7 @@ public class Master_Barang extends javax.swing.JPanel {
                                 .addComponent(btn_tambah1)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_batal1)))
-                        .addGap(0, 303, Short.MAX_VALUE)))
+                        .addGap(0, 241, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         tambahDataLayout.setVerticalGroup(
@@ -340,8 +248,7 @@ public class Master_Barang extends javax.swing.JPanel {
                     .addComponent(btn_tambah1)
                     .addComponent(btn_batal1))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mainPanel.add(tambahData, "card3");
@@ -358,34 +265,10 @@ public class Master_Barang extends javax.swing.JPanel {
         loadData();
     }//GEN-LAST:event_btn_batalActionPerformed
 
-    private void t_kodeBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_kodeBarangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_kodeBarangActionPerformed
-
-    private void t_kodeJenisBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_kodeJenisBarangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_kodeJenisBarangActionPerformed
-
-    private void t_namaJenisBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_namaJenisBarangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_namaJenisBarangActionPerformed
-
-    private void t_namaBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_namaBarangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_namaBarangActionPerformed
-
-    private void t_hargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_hargaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_hargaActionPerformed
-
-    private void t_stokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_stokActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t_stokActionPerformed
-
     private void btn_tambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah1ActionPerformed
         if(btn_tambah1.getText().equals("Tambah")) {
             btn_tambah1.setText("Simpan");
-            t_kodeBarang.setText(service.nomor());
+            t_kodeJenisBarang.setText(service.nomor());
         } else if (btn_tambah1.getText().equals("Simpan")) {
             simpanData();
         } else if (btn_tambah1.getText().equals("Perbarui")) {
@@ -401,20 +284,6 @@ public class Master_Barang extends javax.swing.JPanel {
         btn_hapus.setVisible(true);
         btn_batal.setVisible(true);
     }//GEN-LAST:event_tbl_barangMouseClicked
-
-    private void btn_jenisBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_jenisBarangActionPerformed
-        boolean closeable = true;
-        Data_JenisBarang djb = new Data_JenisBarang(null, closeable);
-        djb.setVisible(true);
-        
-        t_kodeJenisBarang.setText(djb.jb.getKode_jenis());
-        t_namaJenisBarang.setText(djb.jb.getNama_jenis());
-        
-        t_kodeJenisBarang.setEnabled(false);
-        t_namaJenisBarang.setEnabled(false);
-        t_namaBarang.requestFocus();
-        aktif();
-    }//GEN-LAST:event_btn_jenisBarangActionPerformed
 
     private void btn_batal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_batal1ActionPerformed
         tampilPanel();
@@ -432,9 +301,8 @@ public class Master_Barang extends javax.swing.JPanel {
         mainPanel.revalidate();
         
         btn_tambah1.setText("Simpan");
-        btn_jenisBarang.setEnabled(true);
-        t_kodeBarang.setEnabled(false);
-        t_kodeBarang.setText(service.nomor());
+        t_kodeJenisBarang.setText(service.nomor());
+        t_kodeJenisBarang.setEnabled(false);
         
         if(btn_tambah.getText().equals("Ubah")) {
             dataTabel();
@@ -442,45 +310,38 @@ public class Master_Barang extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void t_cariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_cariKeyTyped
-       pencarian();
+        pencarian();
     }//GEN-LAST:event_t_cariKeyTyped
+
+    private void t_kodeJenisBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_kodeJenisBarangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_kodeJenisBarangActionPerformed
+
+    private void t_namaJenisBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_namaJenisBarangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_namaJenisBarangActionPerformed
 
     private void t_cariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_cariMouseClicked
         t_cari.setText("");
     }//GEN-LAST:event_t_cariMouseClicked
-
-    private void t_cariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_cariKeyPressed
-       
-    }//GEN-LAST:event_t_cariKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_batal;
     private javax.swing.JButton btn_batal1;
     private javax.swing.JButton btn_hapus;
-    private javax.swing.JButton btn_jenisBarang;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_tambah1;
-    private javax.swing.JComboBox<String> cbx_satuan;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JTextField t_cari;
-    private javax.swing.JTextField t_harga;
-    private javax.swing.JTextField t_kodeBarang;
     private javax.swing.JTextField t_kodeJenisBarang;
-    private javax.swing.JTextField t_namaBarang;
     private javax.swing.JTextField t_namaJenisBarang;
-    private javax.swing.JTextField t_stok;
     private javax.swing.JPanel tambahData;
     private javax.swing.JPanel tampilData;
     private javax.swing.JTable tbl_barang;
@@ -493,41 +354,32 @@ public class Master_Barang extends javax.swing.JPanel {
         int row = tbl_barang.getSelectedRow();
         jLabel2.setText("Perbarui Data Barang");
         
-        t_kodeBarang.setEnabled(false);
-        t_kodeJenisBarang.setEnabled(true);
+        t_kodeJenisBarang.setEnabled(false);
         t_namaJenisBarang.setEnabled(true);
         
-        t_kodeBarang.setText(tbl_barang.getModel().getValueAt(row, 1).toString());
-        t_kodeJenisBarang.setText(tbl_barang.getModel().getValueAt(row, 2).toString());
-        t_namaJenisBarang.setText(tbl_barang.getModel().getValueAt(row, 3).toString());
-        t_namaBarang.setText(tbl_barang.getModel().getValueAt(row, 4).toString());
-        cbx_satuan.setSelectedItem(tbl_barang.getModel().getValueAt(row, 5).toString());
-        t_harga.setText(tbl_barang.getModel().getValueAt(row, 6).toString());
-        t_stok.setText(tbl_barang.getModel().getValueAt(row, 7).toString());
+        t_kodeJenisBarang.setText(tbl_barang.getModel().getValueAt(row, 0).toString());
+        t_namaJenisBarang.setText(tbl_barang.getModel().getValueAt(row, 1).toString());
         
-        aktif();
         btn_tambah1.setText("Perbarui");
         btn_batal.setVisible(true);
     }
     
     private void aktif() {
-        t_namaBarang.setEnabled(true);
-        cbx_satuan.setEnabled(true);
-        t_harga.setEnabled(true);
-        t_stok.setEnabled(true);
+        t_kodeJenisBarang.setEnabled(true);
+        t_namaJenisBarang.setEnabled(true);
     }
     
     private void loadData() {
         btn_hapus.setVisible(false);
         btn_batal.setVisible(false);
-        List<Model_Barang> list = service.getData();
+        List<Model_JenisBarang> list = service.getData();
         tblModel.setData(list);
     }
     
     private void hapusData() {
         int index = tbl_barang.getSelectedRow();
         if(index != -1) {
-            Model_Barang brg = tblModel.getData(tbl_barang.convertRowIndexToModel(index));
+            Model_JenisBarang brg = tblModel.getData(tbl_barang.convertRowIndexToModel(index));
             if(JOptionPane.showConfirmDialog(null, "Yakin data akan dihapus?", "Konfirmasi", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                 service.hapusData(brg);
                 tblModel.hapusData(index);
@@ -543,86 +395,77 @@ public class Master_Barang extends javax.swing.JPanel {
     private void resetForm() {
         btn_tambah.requestFocus();
         btn_tambah.setText("Tambah");
-        t_kodeBarang.setText("");
         t_kodeJenisBarang.setText("");
         t_namaJenisBarang.setText("");
-        t_namaBarang.setText("");
-        cbx_satuan.setSelectedItem(0);
-        t_harga.setText("");
-        t_stok.setText("");
     }
     
     private void tampilPanel() {
         mainPanel.removeAll();
-        mainPanel.add(new Master_Barang());
+        mainPanel.add(new Master_JenisBarang());
         mainPanel.repaint();
         mainPanel.revalidate();
     }
     
     private void simpanData() {
         if(validasiInput() == true) {
-            String kode_barang = t_kodeBarang.getText();
-            String kode_jenis = t_kodeJenisBarang.getText();
-            String nama_jenisbarang = t_namaJenisBarang.getText();
-            String nama_barang = t_namaBarang.getText();
-            String satuan = cbx_satuan.getSelectedItem().toString();
-            Long harga = Long.parseLong(t_harga.getText());
-            int stok = Integer.parseInt(t_stok.getText());
+            String kode = t_kodeJenisBarang.getText();
+            String nama = t_namaJenisBarang.getText();
             
-            Model_Barang brg = new Model_Barang();
-            Model_JenisBarang jbr = new Model_JenisBarang();
+            Model_JenisBarang jb = new Model_JenisBarang();
+            jb.setKode_jenis(kode);
+            jb.setNama_jenis(nama);
             
-            brg.setKode_barang(kode_barang);
-            jbr.setKode_jenis(kode_jenis);
-            jbr.setNama_jenis(nama_jenisbarang);
-            brg.setNama_barang(nama_barang);
-            brg.setSatuan(satuan);
-            brg.setHarga(harga);
-            brg.setStok(stok);
-            
-            brg.setJns_barang(jbr);
-            
-            service.tambahData(brg);
-            tblModel.tambahData(brg);
-            loadData();
-            resetForm();
-            tampilPanel();
-            btn_tambah1.setText("Tambah");
+            if(service.validasiNamaJenisBarang(jb) == true) {
+                if(validasiInput() == true) {
+                    String kode_jenis = t_kodeJenisBarang.getText();
+                    String nama_jenis = t_namaJenisBarang.getText();
+                    
+                    Model_JenisBarang jbg = new Model_JenisBarang();
+                    jbg.setKode_jenis(kode_jenis);
+                    jbg.setNama_jenis(nama_jenis);
+                    
+                    service.tambahData(jb);
+                    tblModel.tambahData(jb);
+                    loadData();
+                    resetForm();
+                    tampilPanel();
+                    btn_tambah1.setText("Tambah");
+                }
+            } else {
+                t_namaJenisBarang.requestFocus();
+            }
         }
     }
     
     private void perbaruiData() {
         int index = tbl_barang.getSelectedRow();
         if (index != -1) {
-            Model_Barang mobar = tblModel.getData(tbl_barang.convertRowIndexToModel(index));
+            Model_JenisBarang mobar = tblModel.getData(tbl_barang.convertRowIndexToModel(index));
             
-            if(validasiInput() == true) {
-                String kode_barang = t_kodeBarang.getText();
-                String kode_jenis = t_kodeJenisBarang.getText();
-                // String nama_jenis= t_namaJenisBarang.getText();
-                String nama_barang = t_namaBarang.getText();
-                String satuan = cbx_satuan.getSelectedItem().toString();
-                Long harga = Long.parseLong(t_harga.getText());
-                int stok = Integer.parseInt(t_stok.getText());
-                
-                Model_Barang brg = new Model_Barang();
-                Model_JenisBarang jbr = new Model_JenisBarang();
+            String kode = t_kodeJenisBarang.getText();
+            String nama = t_namaJenisBarang.getText();
+            Model_JenisBarang jb = new Model_JenisBarang();
+            jb.setKode_jenis(kode);
+            jb.setNama_jenis(nama);
             
-                jbr.setKode_jenis(kode_jenis);
-                // jbr.setNama_jenis(nama_jenis);
-                brg.setKode_barang(kode_barang);
-                brg.setNama_barang(nama_barang);
-                brg.setSatuan(satuan);
-                brg.setHarga(harga);
-                brg.setStok(stok);
+            if(service.validasiNamaJenisBarang(jb) == true) {
+                if(validasiInput() == true) {
+                    String kode_jenis = t_kodeJenisBarang.getText();
+                    String nama_jenis= t_namaJenisBarang.getText();
 
-                brg.setJns_barang(jbr);
+                    Model_JenisBarang jbr = new Model_JenisBarang();
 
-                service.perbaruiData(brg);
-                tblModel.perbaruiData(index, brg);
-                loadData();
-                resetForm();
-                tampilPanel();
+                    jbr.setKode_jenis(kode_jenis);
+                    jbr.setNama_jenis(nama_jenis);
+
+                    service.perbaruiData(jbr);
+                    tblModel.perbaruiData(index, jbr);
+                    loadData();
+                    resetForm();
+                    tampilPanel();
+                }
+            } else {
+                t_namaJenisBarang.requestFocus();
             }
         }
     }
@@ -630,20 +473,10 @@ public class Master_Barang extends javax.swing.JPanel {
     private boolean validasiInput() {
         boolean valid = false;
         
-        if (t_kodeBarang.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Kode Barang tidak boleh kosong");
-        } else if(t_kodeJenisBarang.getText().trim().isEmpty()) {
+        if(t_kodeJenisBarang.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Kode Jenis Barang tidak boleh kosong");
         } else if(t_namaJenisBarang.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nama Jenis Barang tidak boleh kosong");
-        } else if(t_namaBarang.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nama Barang tidak boleh kosong");
-        } else if(cbx_satuan.getSelectedItem().equals(null)) {
-            JOptionPane.showMessageDialog(null, "Satuan tidak boleh kosong");
-        } else if(t_harga.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Harga tidak boleh kosong");
-        } else if(t_stok.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Stok tidak boleh kosong");
         } else {
             valid = true;
         }
@@ -652,7 +485,7 @@ public class Master_Barang extends javax.swing.JPanel {
     }
     
     private void pencarian() {
-        List<Model_Barang> list = service.pencarian(t_cari.getText());
+        List<Model_JenisBarang> list = service.pencarian(t_cari.getText());
         tblModel.setData(list);
     }
 }
