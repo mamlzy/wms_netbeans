@@ -1,21 +1,22 @@
 package view;
 
-import dao.DAO_JenisBarang;
+import dao.DAO_Distributor;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
+import model.Model_Distributor;
 import model.Model_JenisBarang;
-import service.Service_JenisBarang;
-import tablemodel.TableMod_JenisBarang;
+import service.Service_Distributor;
+import tablemodel.TableMod_Distributor;
 
-public class Master_JenisBarang extends javax.swing.JPanel {
-    private Service_JenisBarang service = new DAO_JenisBarang();
-    private TableMod_JenisBarang tblModel = new TableMod_JenisBarang();
+public class Master_Distributor extends javax.swing.JPanel {
+    private Service_Distributor service = new DAO_Distributor();
+    private TableMod_Distributor tblModel = new TableMod_Distributor();
     
-    public Master_JenisBarang() {
+    public Master_Distributor() {
         initComponents();
         
         tbl_barang.setModel(tblModel);
@@ -47,9 +48,13 @@ public class Master_JenisBarang extends javax.swing.JPanel {
         btn_batal1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        t_kodeJenisBarang = new javax.swing.JTextField();
-        t_namaJenisBarang = new javax.swing.JTextField();
+        t_idDistributor = new javax.swing.JTextField();
+        t_namaDistributor = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        t_alamat = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        t_telepon = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setLayout(new java.awt.CardLayout());
 
@@ -59,7 +64,7 @@ public class Master_JenisBarang extends javax.swing.JPanel {
         tampilData.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Data Barang");
+        jLabel1.setText("Data Distributor");
 
         btn_tambah.setText("Tambah");
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +162,7 @@ public class Master_JenisBarang extends javax.swing.JPanel {
         tambahData.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("Tambah Data Jenis Barang");
+        jLabel2.setText("Tambah Data Distributor");
 
         btn_tambah1.setText("Tambah");
         btn_tambah1.addActionListener(new java.awt.event.ActionListener() {
@@ -175,21 +180,37 @@ public class Master_JenisBarang extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("Kode Jenis Barang");
+        jLabel3.setText("Id Distributor");
 
-        t_kodeJenisBarang.addActionListener(new java.awt.event.ActionListener() {
+        t_idDistributor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_kodeJenisBarangActionPerformed(evt);
+                t_idDistributorActionPerformed(evt);
             }
         });
 
-        t_namaJenisBarang.addActionListener(new java.awt.event.ActionListener() {
+        t_namaDistributor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_namaJenisBarangActionPerformed(evt);
+                t_namaDistributorActionPerformed(evt);
             }
         });
 
-        jLabel10.setText("Nama Jenis Barang");
+        jLabel10.setText("Nama Distributor");
+
+        t_alamat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_alamatActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Alamat");
+
+        t_telepon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                t_teleponActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Telepon");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -197,12 +218,16 @@ public class Master_JenisBarang extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(t_kodeJenisBarang, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(t_namaJenisBarang, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(t_idDistributor, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(t_namaDistributor, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(t_telepon, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(t_alamat, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel10))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel11))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -212,12 +237,20 @@ public class Master_JenisBarang extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_kodeJenisBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(t_idDistributor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_namaJenisBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(t_namaDistributor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(t_telepon, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(t_alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout tambahDataLayout = new javax.swing.GroupLayout(tambahData);
@@ -235,7 +268,7 @@ public class Master_JenisBarang extends javax.swing.JPanel {
                                 .addComponent(btn_tambah1)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_batal1)))
-                        .addGap(0, 241, Short.MAX_VALUE)))
+                        .addGap(0, 259, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         tambahDataLayout.setVerticalGroup(
@@ -268,7 +301,7 @@ public class Master_JenisBarang extends javax.swing.JPanel {
     private void btn_tambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah1ActionPerformed
         if(btn_tambah1.getText().equals("Tambah")) {
             btn_tambah1.setText("Simpan");
-            t_kodeJenisBarang.setText(service.nomor());
+            t_idDistributor.setText(service.nomor());
         } else if (btn_tambah1.getText().equals("Simpan")) {
             simpanData();
         } else if (btn_tambah1.getText().equals("Perbarui")) {
@@ -301,8 +334,8 @@ public class Master_JenisBarang extends javax.swing.JPanel {
         mainPanel.revalidate();
         
         btn_tambah1.setText("Simpan");
-        t_kodeJenisBarang.setText(service.nomor());
-        t_kodeJenisBarang.setEnabled(false);
+        t_idDistributor.setText(service.nomor());
+        t_idDistributor.setEnabled(false);
         
         if(btn_tambah.getText().equals("Ubah")) {
             dataTabel();
@@ -313,17 +346,25 @@ public class Master_JenisBarang extends javax.swing.JPanel {
         pencarian();
     }//GEN-LAST:event_t_cariKeyTyped
 
-    private void t_kodeJenisBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_kodeJenisBarangActionPerformed
+    private void t_idDistributorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_idDistributorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_t_kodeJenisBarangActionPerformed
+    }//GEN-LAST:event_t_idDistributorActionPerformed
 
-    private void t_namaJenisBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_namaJenisBarangActionPerformed
+    private void t_namaDistributorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_namaDistributorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_t_namaJenisBarangActionPerformed
+    }//GEN-LAST:event_t_namaDistributorActionPerformed
 
     private void t_cariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_t_cariMouseClicked
         t_cari.setText("");
     }//GEN-LAST:event_t_cariMouseClicked
+
+    private void t_alamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_alamatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_alamatActionPerformed
+
+    private void t_teleponActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_teleponActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t_teleponActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -334,14 +375,18 @@ public class Master_JenisBarang extends javax.swing.JPanel {
     private javax.swing.JButton btn_tambah1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JTextField t_alamat;
     private javax.swing.JTextField t_cari;
-    private javax.swing.JTextField t_kodeJenisBarang;
-    private javax.swing.JTextField t_namaJenisBarang;
+    private javax.swing.JTextField t_idDistributor;
+    private javax.swing.JTextField t_namaDistributor;
+    private javax.swing.JTextField t_telepon;
     private javax.swing.JPanel tambahData;
     private javax.swing.JPanel tampilData;
     private javax.swing.JTable tbl_barang;
@@ -352,34 +397,35 @@ public class Master_JenisBarang extends javax.swing.JPanel {
         tambahData.setVisible(true);
         
         int row = tbl_barang.getSelectedRow();
-        jLabel2.setText("Perbarui Data Jenis Barang");
+        jLabel2.setText("Perbarui Data Distributor");
         
-        t_kodeJenisBarang.setEnabled(false);
-        t_namaJenisBarang.setEnabled(true);
+        t_idDistributor.setEnabled(false);
         
-        t_kodeJenisBarang.setText(tbl_barang.getModel().getValueAt(row, 0).toString());
-        t_namaJenisBarang.setText(tbl_barang.getModel().getValueAt(row, 1).toString());
+        t_idDistributor.setText(tbl_barang.getModel().getValueAt(row, 0).toString());
+        t_namaDistributor.setText(tbl_barang.getModel().getValueAt(row, 1).toString());
+        t_telepon.setText(tbl_barang.getModel().getValueAt(row, 2).toString());
+        t_alamat.setText(tbl_barang.getModel().getValueAt(row, 3).toString());
         
         btn_tambah1.setText("Perbarui");
         btn_batal.setVisible(true);
     }
     
     private void aktif() {
-        t_kodeJenisBarang.setEnabled(true);
-        t_namaJenisBarang.setEnabled(true);
+        t_idDistributor.setEnabled(true);
+        t_namaDistributor.setEnabled(true);
     }
     
     private void loadData() {
         btn_hapus.setVisible(false);
         btn_batal.setVisible(false);
-        List<Model_JenisBarang> list = service.getData();
+        List<Model_Distributor> list = service.getData();
         tblModel.setData(list);
     }
     
     private void hapusData() {
         int index = tbl_barang.getSelectedRow();
         if(index != -1) {
-            Model_JenisBarang brg = tblModel.getData(tbl_barang.convertRowIndexToModel(index));
+            Model_Distributor brg = tblModel.getData(tbl_barang.convertRowIndexToModel(index));
             if(JOptionPane.showConfirmDialog(null, "Yakin data akan dihapus?", "Konfirmasi", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                 service.hapusData(brg);
                 tblModel.hapusData(index);
@@ -395,77 +441,61 @@ public class Master_JenisBarang extends javax.swing.JPanel {
     private void resetForm() {
         btn_tambah.requestFocus();
         btn_tambah.setText("Tambah");
-        t_kodeJenisBarang.setText("");
-        t_namaJenisBarang.setText("");
+        t_idDistributor.setText("");
+        t_namaDistributor.setText("");
     }
     
     private void tampilPanel() {
         mainPanel.removeAll();
-        mainPanel.add(new Master_JenisBarang());
+        mainPanel.add(new Master_Distributor());
         mainPanel.repaint();
         mainPanel.revalidate();
     }
     
     private void simpanData() {
         if(validasiInput() == true) {
-            String kode = t_kodeJenisBarang.getText();
-            String nama = t_namaJenisBarang.getText();
-            
-            Model_JenisBarang jb = new Model_JenisBarang();
-            jb.setKode_jenis(kode);
-            jb.setNama_jenis(nama);
-            
-            if(service.validasiNamaJenisBarang(jb) == true) {
-                if(validasiInput() == true) {
-                    String kode_jenis = t_kodeJenisBarang.getText();
-                    String nama_jenis = t_namaJenisBarang.getText();
-                    
-                    Model_JenisBarang jbg = new Model_JenisBarang();
-                    jbg.setKode_jenis(kode_jenis);
-                    jbg.setNama_jenis(nama_jenis);
-                    
-                    service.tambahData(jb);
-                    tblModel.tambahData(jb);
-                    loadData();
-                    resetForm();
-                    tampilPanel();
-                    btn_tambah1.setText("Tambah");
-                }
-            } else {
-                t_namaJenisBarang.requestFocus();
-            }
+            String id = t_idDistributor.getText();
+            String nama_dis = t_namaDistributor.getText();
+            String telepon_dis = t_telepon.getText();
+            String alamat_dis = t_alamat.getText();
+
+            Model_Distributor model = new Model_Distributor();
+            model.setId_distributor(id);
+            model.setNama_distributor(nama_dis);
+            model.setTelp_distributor(telepon_dis);
+            model.setAlamat_distributor(alamat_dis);
+
+            service.tambahData(model);
+            tblModel.tambahData(model);
+            loadData();
+            resetForm();
+            tampilPanel();
+            btn_tambah1.setText("Tambah");
         }
     }
     
     private void perbaruiData() {
         int index = tbl_barang.getSelectedRow();
         if (index != -1) {
-            Model_JenisBarang mobar = tblModel.getData(tbl_barang.convertRowIndexToModel(index));
+            Model_Distributor model_dis = tblModel.getData(tbl_barang.convertRowIndexToModel(index));
             
-            String kode = t_kodeJenisBarang.getText();
-            String nama = t_namaJenisBarang.getText();
-            Model_JenisBarang jb = new Model_JenisBarang();
-            jb.setKode_jenis(kode);
-            jb.setNama_jenis(nama);
-            
-            if(service.validasiNamaJenisBarang(jb) == true) {
-                if(validasiInput() == true) {
-                    String kode_jenis = t_kodeJenisBarang.getText();
-                    String nama_jenis= t_namaJenisBarang.getText();
+            if(validasiInput() == true) {
+                String id = t_idDistributor.getText();
+                String nama_dis = t_namaDistributor.getText();
+                String telepon_dis = t_telepon.getText();
+                String alamat_dis = t_alamat.getText();
 
-                    Model_JenisBarang jbr = new Model_JenisBarang();
+                Model_Distributor model = new Model_Distributor();
+                model.setId_distributor(id);
+                model.setNama_distributor(nama_dis);
+                model.setTelp_distributor(telepon_dis);
+                model.setAlamat_distributor(alamat_dis);
 
-                    jbr.setKode_jenis(kode_jenis);
-                    jbr.setNama_jenis(nama_jenis);
-
-                    service.perbaruiData(jbr);
-                    tblModel.perbaruiData(index, jbr);
-                    loadData();
-                    resetForm();
-                    tampilPanel();
-                }
-            } else {
-                t_namaJenisBarang.requestFocus();
+                service.perbaruiData(model);
+                tblModel.perbaruiData(index, model);
+                loadData();
+                resetForm();
+                tampilPanel();
             }
         }
     }
@@ -473,10 +503,14 @@ public class Master_JenisBarang extends javax.swing.JPanel {
     private boolean validasiInput() {
         boolean valid = false;
         
-        if(t_kodeJenisBarang.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Kode Jenis Barang tidak boleh kosong");
-        } else if(t_namaJenisBarang.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Nama Jenis Barang tidak boleh kosong");
+        if(t_idDistributor.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Id tidak boleh kosong");
+        } else if(t_namaDistributor.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nama Barang tidak boleh kosong");
+        } else if(t_telepon.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Telepon tidak boleh kosong");
+        } else if(t_alamat.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Alamat tidak boleh kosong");
         } else {
             valid = true;
         }
@@ -485,7 +519,7 @@ public class Master_JenisBarang extends javax.swing.JPanel {
     }
     
     private void pencarian() {
-        List<Model_JenisBarang> list = service.pencarian(t_cari.getText());
+        List<Model_Distributor> list = service.pencarian(t_cari.getText());
         tblModel.setData(list);
     }
 }

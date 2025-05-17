@@ -18,7 +18,7 @@ public interface Service_Distributor {
     
     Model_Distributor getByid (String id);
     
-    List<Model_Distributor> ambilData();
+    List<Model_Distributor> getData();
     List<Model_Distributor> pencarian(String id);
     
     String nomor();
