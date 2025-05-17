@@ -78,7 +78,6 @@ public class DAO_Barang implements Service_Barang {
                 }
             }
         }
-
     }
 
     @Override
@@ -90,6 +89,9 @@ public class DAO_Barang implements Service_Barang {
             st = conn.prepareStatement(sql);
             
             st.setString(1, mod_bar.getKode_barang());
+            
+            
+            
         } catch (SQLException e) {
             Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
         } finally {
@@ -153,7 +155,45 @@ public class DAO_Barang implements Service_Barang {
 
     @Override
     public List<Model_Barang> pencarian(String id) {
-        throw new UnsupportedOperationException("Not supported yet");
+        PreparedStatement st = null;
+        List list = new ArrayList();
+        ResultSet rs = null;
+        String sql = "SELECT bg.kode_barang,bg.kode_jenis,jb.nama_jenis, "
+                + "bg.nama_barang,bg.satuan,bg.harga,bg.stok FROM barang bg "
+                + "INNER JOIN jenis_barang jb ON jb.kode_jenis=bg.kode_jenis WHERE kode_barang LIKE '%" + id + "%' OR nama_barang LIKE '%" + id + "%'";
+        
+        try {
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            while(rs.next()) {
+                Model_Barang mobar = new Model_Barang();
+                Model_JenisBarang jb = new Model_JenisBarang();
+                
+                mobar.setKode_barang(rs.getString("kode_barang"));
+                jb.setKode_jenis(rs.getString("kode_jenis"));
+                jb.setNama_jenis(rs.getString("nama_jenis"));
+                mobar.setNama_barang(rs.getString("nama_barang"));
+                mobar.setSatuan(rs.getString("satuan"));
+                mobar.setHarga(rs.getLong("harga"));
+                mobar.setStok(rs.getInt("stok"));
+                
+                mobar.setJns_barang(jb);
+                list.add(mobar);
+            }
+            
+            return list;
+        } catch (SQLException e) {
+            Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    Logger.getLogger(DAO_Barang.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
     }
 
     @Override

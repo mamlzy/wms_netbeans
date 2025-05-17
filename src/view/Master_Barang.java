@@ -41,6 +41,8 @@ public class Master_Barang extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_barang = new javax.swing.JTable();
         btn_batal = new javax.swing.JButton();
+        t_cari = new javax.swing.JTextField();
+        btn_cari = new javax.swing.JButton();
         tambahData = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btn_tambah1 = new javax.swing.JButton();
@@ -111,6 +113,20 @@ public class Master_Barang extends javax.swing.JPanel {
             }
         });
 
+        t_cari.setText("Pencarian");
+        t_cari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                t_cariKeyTyped(evt);
+            }
+        });
+
+        btn_cari.setText("Cari");
+        btn_cari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cariMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout tampilDataLayout = new javax.swing.GroupLayout(tampilData);
         tampilData.setLayout(tampilDataLayout);
         tampilDataLayout.setHorizontalGroup(
@@ -118,16 +134,20 @@ public class Master_Barang extends javax.swing.JPanel {
             .addGroup(tampilDataLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(tampilDataLayout.createSequentialGroup()
                         .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addGroup(tampilDataLayout.createSequentialGroup()
                                 .addComponent(btn_tambah)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_hapus)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_batal)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_batal)
+                                .addGap(68, 68, 68)
+                                .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_cari))
+                            .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -137,13 +157,17 @@ public class Master_Barang extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_hapus)
-                    .addComponent(btn_batal)
-                    .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_hapus)
+                        .addComponent(btn_batal))
+                    .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_cari)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         mainPanel.add(tampilData, "card2");
@@ -308,7 +332,7 @@ public class Master_Barang extends javax.swing.JPanel {
                                 .addComponent(btn_tambah1)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_batal1)))
-                        .addGap(0, 302, Short.MAX_VALUE)))
+                        .addGap(0, 303, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         tambahDataLayout.setVerticalGroup(
@@ -419,10 +443,19 @@ public class Master_Barang extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btn_tambahActionPerformed
 
+    private void t_cariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_cariKeyTyped
+        pencarian();
+    }//GEN-LAST:event_t_cariKeyTyped
+
+    private void btn_cariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cariMouseClicked
+        t_cari.setText("");
+    }//GEN-LAST:event_btn_cariMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_batal;
     private javax.swing.JButton btn_batal1;
+    private javax.swing.JButton btn_cari;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_jenisBarang;
     private javax.swing.JButton btn_tambah;
@@ -440,6 +473,7 @@ public class Master_Barang extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JTextField t_cari;
     private javax.swing.JTextField t_harga;
     private javax.swing.JTextField t_kodeBarang;
     private javax.swing.JTextField t_kodeJenisBarang;
@@ -615,5 +649,10 @@ public class Master_Barang extends javax.swing.JPanel {
         }
         
         return valid;
+    }
+    
+    private void pencarian() {
+        List<Model_Barang> list = service.pencarian(t_cari.getText());
+        tblModel.setData(list);
     }
 }
