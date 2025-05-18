@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,7 +83,47 @@ public class DAO_Pemesanan implements Service_Pemesanan {
 
     @Override
     public String nomor() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        String urutan = null;
+        
+        Date now = new Date();
+        SimpleDateFormat tanggal = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat noFormat = new SimpleDateFormat("yyMMdd");
+        String tgl = tanggal.format(now);
+        String no = noFormat.format(now);
+        
+        String sql = "SELECT RIGHT(no_pesan, 3) AS Nomor " +
+                     "FROM pemesanan " +
+                     "WHERE no_pesan LIKE 'PB" + no + "%' " +
+                     "ORDER BY no_pesan DESC " +
+                     "LIMIT 1";
+        
+        try {
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            
+            if(rs.next()) {
+                int nomor = Integer.parseInt(rs.getString("Nomor"));
+                nomor++;
+                urutan = "PB" + no + String.format("%03d", nomor);
+            } else {
+                urutan = "PB" + no + "001";
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(DAO_Pemesanan.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    Logger.getLogger(DAO_Pemesanan.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
+        
+        return urutan;
     }
 
     @Override
