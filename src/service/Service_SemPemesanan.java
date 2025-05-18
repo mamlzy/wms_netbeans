@@ -17,6 +17,5 @@ public interface Service_SemPemesanan {
     void hapusData (Model_SemPemesanan mod_pesan); 
     
     Model_SemPemesanan getByid (String id);
-    
-    List<Model_SemPemesanan> ambilData();
+    List<Model_SemPemesanan> getData();
 }

@@ -17,6 +17,6 @@ public interface Service_DetPemesanan {
     void hapusSementara (Model_DetPemesanan mod_detpesan);
     
     Model_DetPemesanan getByid(String id);
-    List<Model_DetPemesanan> ambilData(String id);
+    List<Model_DetPemesanan> getData(String id);
     List<Model_DetPemesanan> pencarian(String id);
 }

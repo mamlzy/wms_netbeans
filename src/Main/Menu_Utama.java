@@ -25,6 +25,7 @@ import view.Master_Distributor;
 import view.Master_JenisBarang;
 import view.Master_Pengguna;
 import view.Menu_Settings;
+import view.Transaksi_Pemesanan;
 
 /**
  *
@@ -97,6 +98,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         pn_navbar = new javax.swing.JPanel();
         lb_tanggal = new javax.swing.JLabel();
         btn_settings = new javax.swing.JButton();
+        lb_id = new javax.swing.JLabel();
         pn_sidebar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pn_menu = new javax.swing.JPanel();
@@ -127,21 +129,30 @@ public class Menu_Utama extends javax.swing.JFrame {
             }
         });
 
+        lb_id.setForeground(new java.awt.Color(0, 255, 255));
+        lb_id.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lb_id.setText("ID");
+
         javax.swing.GroupLayout pn_navbarLayout = new javax.swing.GroupLayout(pn_navbar);
         pn_navbar.setLayout(pn_navbarLayout);
         pn_navbarLayout.setHorizontalGroup(
             pn_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_navbarLayout.createSequentialGroup()
                 .addContainerGap(517, Short.MAX_VALUE)
-                .addComponent(lb_tanggal)
-                .addGap(18, 18, 18)
-                .addComponent(btn_settings)
+                .addGroup(pn_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lb_id, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pn_navbarLayout.createSequentialGroup()
+                        .addComponent(lb_tanggal)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_settings)))
                 .addContainerGap())
         );
         pn_navbarLayout.setVerticalGroup(
             pn_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_navbarLayout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lb_id)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(pn_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_tanggal)
                     .addComponent(btn_settings, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -298,6 +309,7 @@ public class Menu_Utama extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_gambar;
+    private javax.swing.JLabel lb_id;
     private javax.swing.JLabel lb_level;
     private javax.swing.JLabel lb_nama;
     private javax.swing.JLabel lb_tanggal;
@@ -365,7 +377,16 @@ public class Menu_Utama extends javax.swing.JFrame {
             
         MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null, masBarang, masJenisBarang, masDistributor, masPengguna);
         
-        MenuItem transaksiPemesanan = new MenuItem(null, true, iconSub, "Pemesanan", null);
+        MenuItem transaksiPemesanan = new MenuItem(null, true, iconSub, "Pemesanan", new ActionListener() {
+          @Override
+            public void actionPerformed(ActionEvent e) {
+              pn_utama.removeAll();
+              String id = lb_id.getText();
+              pn_utama.add(new Transaksi_Pemesanan(id));
+              pn_utama.repaint();
+              pn_utama.revalidate();
+          }
+        });
         MenuItem transaksiBarangMasuk = new MenuItem(null, true, iconSub, "Barang Masuk", null);
         MenuItem transaksiBarangKeluar = new MenuItem(null, true, iconSub, "Barang Keluar", null);
         
