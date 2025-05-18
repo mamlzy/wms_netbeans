@@ -45,8 +45,10 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="607" max="32767" attributes="0"/>
+                  <EmptySpace pref="517" max="32767" attributes="0"/>
                   <Component id="lb_tanggal" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btn_settings" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -54,8 +56,11 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="39" max="32767" attributes="0"/>
-                  <Component id="lb_tanggal" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="36" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lb_tanggal" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_settings" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -69,6 +74,14 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Tanggal dan Waktu"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_settings">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Setting"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_settingsActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

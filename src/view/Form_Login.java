@@ -173,6 +173,7 @@ public class Form_Login extends javax.swing.JFrame {
 
     private void bt_exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_exitMouseClicked
         dispose();
+        System.exit(0);
     }//GEN-LAST:event_bt_exitMouseClicked
 
     private void t_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_usernameActionPerformed

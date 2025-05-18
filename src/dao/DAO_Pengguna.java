@@ -282,7 +282,7 @@ public class DAO_Pengguna implements Service_Pengguna {
     public boolean validateOldPassword(String username, String oldPassword) {
         String encryptedOldPassword = Encrypt.getmd5java(oldPassword);
         try {
-            String sql = "SELECT * FROM pengguna WHERE usernamee=? AND password=?";
+            String sql = "SELECT * FROM pengguna WHERE username=? AND password=?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             st.setString(2, encryptedOldPassword);
@@ -300,14 +300,14 @@ public class DAO_Pengguna implements Service_Pengguna {
         String encryptedNewPassword = Encrypt.getmd5java(newPassword);
         
         try {
-            String sql = "SELECT * FROM pengguna WHERE usernamee=? AND password=?";
+            String sql = "SELECT * FROM pengguna WHERE username=? AND password=?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             st.setString(2, encryptedOldPassword);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 String sqlUpdate = "UPDATE pengguna SET password=? WHERE username=?";
-                PreparedStatement stUpdate = connection.prepareStatement(sql);
+                PreparedStatement stUpdate = connection.prepareStatement(sqlUpdate);
                 stUpdate.setString(1, encryptedNewPassword);
                 stUpdate.setString(2, username);
                 int result = stUpdate.executeUpdate();

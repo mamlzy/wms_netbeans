@@ -5,6 +5,7 @@
 package Main;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -17,11 +18,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import model.Model_Login;
 import view.Master_Barang;
 import view.Master_Distributor;
 import view.Master_JenisBarang;
 import view.Master_Pengguna;
+import view.Menu_Settings;
 
 /**
  *
@@ -70,6 +73,10 @@ public class Menu_Utama extends javax.swing.JFrame {
         execute();
         date();
     }
+
+    public Menu_Utama() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     private void date() {
         Date tanggalSekarang = new Date();
@@ -89,6 +96,7 @@ public class Menu_Utama extends javax.swing.JFrame {
 
         pn_navbar = new javax.swing.JPanel();
         lb_tanggal = new javax.swing.JLabel();
+        btn_settings = new javax.swing.JButton();
         pn_sidebar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pn_menu = new javax.swing.JPanel();
@@ -112,20 +120,31 @@ public class Menu_Utama extends javax.swing.JFrame {
         lb_tanggal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lb_tanggal.setText("Tanggal dan Waktu");
 
+        btn_settings.setText("Setting");
+        btn_settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_settingsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pn_navbarLayout = new javax.swing.GroupLayout(pn_navbar);
         pn_navbar.setLayout(pn_navbarLayout);
         pn_navbarLayout.setHorizontalGroup(
             pn_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_navbarLayout.createSequentialGroup()
-                .addContainerGap(607, Short.MAX_VALUE)
+                .addContainerGap(517, Short.MAX_VALUE)
                 .addComponent(lb_tanggal)
+                .addGap(18, 18, 18)
+                .addComponent(btn_settings)
                 .addContainerGap())
         );
         pn_navbarLayout.setVerticalGroup(
             pn_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_navbarLayout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addComponent(lb_tanggal)
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(pn_navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_tanggal)
+                    .addComponent(btn_settings, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -224,6 +243,16 @@ public class Menu_Utama extends javax.swing.JFrame {
       pn_utama.revalidate();
     }//GEN-LAST:event_formWindowOpened
 
+    private void btn_settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_settingsActionPerformed
+        Menu_Settings menu = new Menu_Settings(this, true, this);
+        
+        Point p = btn_settings.getLocationOnScreen();
+        int x = p.x + btn_settings.getWidth() - menu.getWidth();
+        int y = p.y + btn_settings.getHeight();
+        menu.setLocation(x,y);
+        menu.setVisible(true);
+    }//GEN-LAST:event_btn_settingsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -265,6 +294,7 @@ public class Menu_Utama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_settings;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_gambar;
@@ -355,5 +385,9 @@ public class Menu_Utama extends javax.swing.JFrame {
             }
         }
         pn_menu.revalidate();
+    }
+    
+    public JPanel getPanelUtama() {
+        return pn_utama;
     }
 }
