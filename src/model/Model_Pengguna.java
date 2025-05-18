@@ -16,6 +16,7 @@ public class Model_Pengguna {
     private String telp_pengguna;
     private String alamat_pengguna;
     private String level;
+    private String imagePath;
 
     public String getId_pengguna() {
         return id_pengguna;
@@ -72,5 +73,13 @@ public class Model_Pengguna {
     public void setLevel(String level) {
         this.level = level;
     }
-    
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+       
 }

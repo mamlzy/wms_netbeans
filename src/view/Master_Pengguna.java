@@ -4,12 +4,21 @@ import dao.DAO_Pengguna;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Model_Pengguna;
 import service.Service_Pengguna;
 import tablemodel.TableMod_Pengguna;
+import java.nio.file.Files;
+import java.awt.Image;
+
+
 
 public class Master_Pengguna extends javax.swing.JPanel {
     private Service_Pengguna service = new DAO_Pengguna();
@@ -60,6 +69,9 @@ public class Master_Pengguna extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         cbx_level = new javax.swing.JComboBox<>();
         t_password = new javax.swing.JPasswordField();
+        lb_gambar = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        t_imagePath = new javax.swing.JTextField();
 
         setLayout(new java.awt.CardLayout());
 
@@ -134,7 +146,7 @@ public class Master_Pengguna extends javax.swing.JPanel {
             .addGroup(tampilDataLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
                     .addGroup(tampilDataLayout.createSequentialGroup()
                         .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -236,30 +248,44 @@ public class Master_Pengguna extends javax.swing.JPanel {
 
         cbx_level.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Pilih Akses Level -", "Owner", "Staff" }));
 
+        lb_gambar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_gambar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jButton1.setText("Pilih");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(t_id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
-                    .addComponent(t_nama, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(t_username, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(t_telepon, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(t_alamat, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbx_level, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(cbx_level, javax.swing.GroupLayout.Alignment.LEADING, 0, 536, Short.MAX_VALUE)
+                    .addComponent(t_alamat, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(t_telepon, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(t_password, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(t_username, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(t_nama, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_password, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(t_id, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel4)
-                            .addComponent(lb_password)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel12))
-                        .addGap(0, 483, Short.MAX_VALUE))
-                    .addComponent(t_password))
-                .addContainerGap())
+                        .addComponent(t_imagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lb_gambar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,31 +293,39 @@ public class Master_Pengguna extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_id, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_username, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lb_password)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_password, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_telepon, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(t_alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbx_level, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(t_id, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_username, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lb_password)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_password, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_telepon, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(t_alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbx_level, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lb_gambar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(t_imagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -310,7 +344,7 @@ public class Master_Pengguna extends javax.swing.JPanel {
                                 .addComponent(btn_tambah1)
                                 .addGap(18, 18, 18)
                                 .addComponent(btn_batal1)))
-                        .addGap(0, 272, Short.MAX_VALUE)))
+                        .addGap(0, 500, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         tambahDataLayout.setVerticalGroup(
@@ -416,6 +450,41 @@ public class Master_Pengguna extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_t_teleponActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.IMAGE", "jpg", "gif", "png");
+        fileChooser.addChoosableFileFilter(filter);
+        int result = fileChooser.showSaveDialog(null);
+        if(result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String path = selectedFile.getAbsolutePath();
+            t_imagePath.setText(path);
+            
+            try {
+                byte[] img = Files.readAllBytes(selectedFile.toPath());
+                ImageIcon imageIcon = new ImageIcon(img);
+                
+                int labelWidth = 200;
+                int labelHeight = 400;
+                
+                int imageWidth = imageIcon.getIconWidth();
+                int imageHeight = imageIcon.getIconHeight();
+                
+                double scaleX = (double) labelWidth / (double) imageWidth;
+                double scaleY = (double) labelHeight / (double) imageHeight;
+                double scale = Math.min(scaleX, scaleY);
+                
+                Image scaledImage = imageIcon.getImage().getScaledInstance((int) (scale * imageWidth), (int) (scale * imageHeight), Image.SCALE_SMOOTH);
+                
+                
+                lb_gambar.setIcon(new ImageIcon(scaledImage));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_batal;
@@ -424,6 +493,7 @@ public class Master_Pengguna extends javax.swing.JPanel {
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_tambah1;
     private javax.swing.JComboBox<String> cbx_level;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -434,11 +504,13 @@ public class Master_Pengguna extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lb_gambar;
     private javax.swing.JLabel lb_password;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JTextField t_alamat;
     private javax.swing.JTextField t_cari;
     private javax.swing.JTextField t_id;
+    private javax.swing.JTextField t_imagePath;
     private javax.swing.JTextField t_nama;
     private javax.swing.JPasswordField t_password;
     private javax.swing.JTextField t_telepon;
@@ -457,6 +529,8 @@ public class Master_Pengguna extends javax.swing.JPanel {
         
         t_id.setEnabled(false);
         
+        String id = tbl_barang.getModel().getValueAt(row, 0).toString();
+        
         t_id.setText(tbl_barang.getModel().getValueAt(row, 0).toString());
         t_nama.setText(tbl_barang.getModel().getValueAt(row, 1).toString());
         t_username.setText(tbl_barang.getModel().getValueAt(row, 2).toString());
@@ -464,6 +538,7 @@ public class Master_Pengguna extends javax.swing.JPanel {
         t_telepon.setText(tbl_barang.getModel().getValueAt(row, 3).toString());
         t_alamat.setText(tbl_barang.getModel().getValueAt(row, 4).toString());
         cbx_level.setSelectedItem(tbl_barang.getModel().getValueAt(row, 5).toString());
+        service.tampilGambar(lb_gambar, id);
         
         lb_password.setVisible(false);
         t_password.setVisible(false);
@@ -525,6 +600,7 @@ public class Master_Pengguna extends javax.swing.JPanel {
             String telepon = t_telepon.getText();
             String alamat = t_alamat.getText();
             String level = cbx_level.getSelectedItem().toString();
+            String imagePath = t_imagePath.getText();
 
             Model_Pengguna model = new Model_Pengguna();
             model.setId_pengguna(id);
@@ -534,6 +610,7 @@ public class Master_Pengguna extends javax.swing.JPanel {
             model.setTelp_pengguna(telepon);
             model.setAlamat_pengguna(alamat);
             model.setLevel(level);
+            model.setImagePath(imagePath);
 
             service.tambahData(model);
             tblModel.tambahData(model);
@@ -559,6 +636,7 @@ public class Master_Pengguna extends javax.swing.JPanel {
                 String telepon = t_telepon.getText();
                 String alamat = t_alamat.getText();
                 String level = cbx_level.getSelectedItem().toString();
+                String imagePath = t_imagePath.getText();
 
                 Model_Pengguna model = new Model_Pengguna();
                 model.setId_pengguna(id);
@@ -568,6 +646,7 @@ public class Master_Pengguna extends javax.swing.JPanel {
                 model.setTelp_pengguna(telepon);
                 model.setAlamat_pengguna(alamat);
                 model.setLevel(level);
+                model.setImagePath(imagePath);
 
                 service.perbaruiData(model);
                 tblModel.perbaruiData(index, model);
@@ -606,4 +685,6 @@ public class Master_Pengguna extends javax.swing.JPanel {
         List<Model_Pengguna> list = service.pencarian(t_cari.getText());
         tblModel.setData(list);
     }
+    
+    
 }

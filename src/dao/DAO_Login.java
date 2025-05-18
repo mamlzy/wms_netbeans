@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Blob;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,6 +26,7 @@ public class DAO_Login implements Service_Login {
         PreparedStatement st = null;
         ResultSet rs = null;
         String Id = null;
+        String Username = null;
         String Nama = null;
         String Level2 = null;
         String sql = "SELECT * FROM pengguna WHERE (id_pengguna='" + mod_login.getId_user() + "' "
@@ -37,10 +39,19 @@ public class DAO_Login implements Service_Login {
             
             if(rs.next()) {
                 Id = rs.getString("id_pengguna");
+                Username = rs.getString("username");
                 Nama = rs.getString("nama_pengguna");
                 Level2 = rs.getString("level");
+                Blob gambarBlob = rs.getBlob("gambar");
                 
-                Menu_Utama menu = new Menu_Utama(Id, Nama, Level2);
+                Model_Login model = new Model_Login();
+                model.setId_user(Id);
+                model.setNama(Username);
+                model.setNama(Nama);
+                model.setLevel(Level2);
+                model.setGambar(gambarBlob);
+                
+                Menu_Utama menu = new Menu_Utama(model);
                 menu.setVisible(true);
                 menu.revalidate();
                 

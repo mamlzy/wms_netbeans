@@ -5,6 +5,7 @@
 package service;
 
 import java.util.List;
+import javax.swing.JLabel;
 import model.Model_Pengguna;
 
 /**
@@ -25,4 +26,5 @@ public interface Service_Pengguna {
     
     boolean validateOldPassword(String username, String oldPassword);
     boolean changePassword(String username, String oldPassword, String newPassword);
+    void tampilGambar(JLabel lb_gambar, String id);
 }

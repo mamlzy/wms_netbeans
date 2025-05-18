@@ -5,16 +5,25 @@
 package dao;
 
 import config.koneksi;
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.Model_Pengguna;
 import service.Service_Pengguna;
@@ -33,7 +42,7 @@ public class DAO_Pengguna implements Service_Pengguna {
     @Override
     public void tambahData(Model_Pengguna model) {
         PreparedStatement st = null;
-        String sql = "INSERT INTO pengguna(id_pengguna,nama_pengguna,username,password,telp_pengguna,alamat_pengguna,level) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO pengguna(id_pengguna,nama_pengguna,username,password,telp_pengguna,alamat_pengguna,level, gambar) VALUES (?,?,?,?,?,?,?,?)";
         try {
             st = connection.prepareStatement(sql);
             
@@ -45,9 +54,25 @@ public class DAO_Pengguna implements Service_Pengguna {
             st.setString(6, model.getAlamat_pengguna());
             st.setString(7, model.getLevel());
             
+            String imagePath = model.getImagePath();
+            if (imagePath != null) {
+                File imageFile = new File(imagePath);
+                FileInputStream fis = new FileInputStream(imageFile);
+                byte[] imageData = new byte[(int) imageFile.length()]; 
+                fis.read(imageData);
+                fis.close();
+                st.setBytes(8, imageData);
+            } else {
+                st.setNull(8, java.sql.Types.BLOB);
+            }
+            
             st.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(DAO_Pengguna.class.getName()).log(Level.SEVERE, null, e);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DAO_Pengguna.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DAO_Pengguna.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (st != null) {
                 try {
@@ -62,7 +87,11 @@ public class DAO_Pengguna implements Service_Pengguna {
     @Override
     public void perbaruiData(Model_Pengguna model) {
         PreparedStatement st = null;
-        String sql = "UPDATE pengguna SET nama_pengguna=?, username=?, telp_pengguna=?, alamat_pengguna=?, level=? WHERE id_pengguna=?";
+        String sql = "UPDATE pengguna SET nama_pengguna=?, username=?, telp_pengguna=?, alamat_pengguna=?, level=?";
+        if (model.getImagePath() != null && !model.getImagePath().isEmpty()) {
+            sql += ",gambar=?";
+        }
+        sql += "WHERE id_pengguna=?";
         
         try {
             st = connection.prepareStatement(sql);
@@ -73,12 +102,22 @@ public class DAO_Pengguna implements Service_Pengguna {
             st.setString(3, model.getTelp_pengguna());
             st.setString(4, model.getAlamat_pengguna());
             st.setString(5, model.getLevel());
-            st.setString(6, model.getId_pengguna());
+            
+            if (model.getImagePath() != null && !model.getImagePath().isEmpty()) {
+                File imageFile = new File(model.getImagePath());
+                FileInputStream fis = new FileInputStream(imageFile);
+                st.setBinaryStream(6, fis, (int) imageFile.length());
+                st.setString(7, model.getId_pengguna());
+            } else {
+                st.setString(6, model.getId_pengguna());
+            }
             
             st.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Perbarui data gagal");
             Logger.getLogger(DAO_Pengguna.class.getName()).log(Level.SEVERE, null, e);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DAO_Pengguna.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (st != null) {
                 try {
@@ -279,6 +318,29 @@ public class DAO_Pengguna implements Service_Pengguna {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public void tampilGambar(JLabel lb_gambar, String id) {
+        try {
+            String sql = "SELECT * FROM pengguna WHERE id_Pengguna='" + id + "'";
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            if(rs.next()) {
+                byte[] img = rs.getBytes("gambar");
+                if (img != null) {
+                    ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(lb_gambar.getWidth(), lb_gambar.getHeight(), Image.SCALE_SMOOTH));
+                    lb_gambar.setIcon(imageIcon);
+                    
+                } else {
+                    ImageIcon defaultIcon = new ImageIcon(getClass().getResource("/img/circle-user-round (1).png"));
+                    lb_gambar.setIcon(defaultIcon);
+                }
+            }
+        } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
     

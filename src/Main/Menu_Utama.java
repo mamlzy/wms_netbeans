@@ -4,13 +4,20 @@
  */
 package Main;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import model.Model_Login;
 import view.Master_Barang;
 import view.Master_Distributor;
 import view.Master_JenisBarang;
@@ -25,12 +32,41 @@ public class Menu_Utama extends javax.swing.JFrame {
     /**
      * Creates new form Menu_Utama
      */
-    public Menu_Utama(String Id, String Nama, String Level2) {
+    public Menu_Utama(Model_Login modelLogin) throws SQLException {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        lb_nama.setText(Nama);
-        lb_level.setText(Level2);
+        if(modelLogin.getGambar() == null) {
+            ImageIcon defaultIcon = new ImageIcon(getClass().getResource("/img/circle-user-round (1).png"));
+            lb_gambar.setIcon(defaultIcon);
+        } else {
+            try {
+                byte[] img = modelLogin.getGambar().getBytes(1, (int) modelLogin.getGambar().length());
+                ImageIcon imageIcon = new ImageIcon(img);
+                
+                int labelWidth = 100;
+                int labelHeight = 300;
+                
+                int imageWidth = imageIcon.getIconWidth();
+                int imageHeight = imageIcon.getIconHeight();
+                
+                double scaleX = (double) labelWidth / (double) imageWidth;
+                double scaleY = (double) labelHeight / (double) imageHeight;
+                double scale = Math.min(scaleX, scaleY);
+                
+                Image scaledImage = imageIcon.getImage().getScaledInstance((int) (scale * imageWidth), (int) (scale * imageHeight), Image.SCALE_SMOOTH);
+                
+                
+                lb_gambar.setIcon(new ImageIcon(scaledImage));
+            } catch (SQLException e) {
+                Logger.getLogger(Menu_Utama.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        
+        
+        
+        lb_nama.setText(modelLogin.getNama());
+        lb_level.setText(modelLogin.getLevel());
         execute();
         date();
     }
@@ -59,6 +95,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lb_nama = new javax.swing.JLabel();
         lb_level = new javax.swing.JLabel();
+        lb_gambar = new javax.swing.JLabel();
         pn_content = new javax.swing.JPanel();
         pn_utama = new javax.swing.JPanel();
 
@@ -120,17 +157,26 @@ public class Menu_Utama extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lb_nama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lb_level, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_nama, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                    .addComponent(lb_level, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addComponent(lb_gambar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lb_gambar, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lb_nama)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lb_level)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(lb_level))
         );
 
         javax.swing.GroupLayout pn_sidebarLayout = new javax.swing.GroupLayout(pn_sidebar);
@@ -145,7 +191,7 @@ public class Menu_Utama extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_sidebarLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
         );
 
         getContentPane().add(pn_sidebar, java.awt.BorderLayout.LINE_START);
@@ -208,7 +254,12 @@ public class Menu_Utama extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu_Utama("Id", "Nama", "level").setVisible(true);
+                Model_Login modelLogin = new Model_Login();
+                try {
+                    new Menu_Utama(modelLogin).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Menu_Utama.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -216,6 +267,7 @@ public class Menu_Utama extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lb_gambar;
     private javax.swing.JLabel lb_level;
     private javax.swing.JLabel lb_nama;
     private javax.swing.JLabel lb_tanggal;
