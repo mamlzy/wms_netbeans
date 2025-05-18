@@ -18,8 +18,11 @@ public interface Service_Pengguna {
     
     Model_Pengguna getByid (String id);
     
-    List<Model_Pengguna> ambilData();
+    List<Model_Pengguna> getData();
     List<Model_Pengguna> pencarian(String id);
     
     String nomor();
+    
+    boolean validateOldPassword(String username, String oldPassword);
+    boolean changePassword(String username, String oldPassword, String newPassword);
 }

@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import view.Master_Barang;
 import view.Master_Distributor;
 import view.Master_JenisBarang;
+import view.Master_Pengguna;
 
 /**
  *
@@ -102,6 +103,8 @@ public class Menu_Utama extends javax.swing.JFrame {
         pn_menu.setBackground(new java.awt.Color(255, 255, 255));
         pn_menu.setLayout(new javax.swing.BoxLayout(pn_menu, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane1.setViewportView(pn_menu);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         lb_nama.setBackground(new java.awt.Color(255, 255, 255));
         lb_nama.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -267,8 +270,18 @@ public class Menu_Utama extends javax.swing.JFrame {
               pn_utama.revalidate();
           }
         });
+        
+        MenuItem masPengguna = new MenuItem(null, true, iconSub, "Pengguna", new ActionListener() {
+          @Override
+            public void actionPerformed(ActionEvent e) {
+              pn_utama.removeAll();
+              pn_utama.add(new Master_Pengguna());
+              pn_utama.repaint();
+              pn_utama.revalidate();
+          }
+        });
             
-        MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null, masBarang, masJenisBarang, masDistributor);
+        MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null, masBarang, masJenisBarang, masDistributor, masPengguna);
         
         MenuItem transaksi1 = new MenuItem(null, true, iconSub, "Transaksi1", null);
         MenuItem transaksi2 = new MenuItem(null, true, iconSub, "Transaksi2", null);
