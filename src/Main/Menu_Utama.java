@@ -70,7 +70,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         
         lb_nama.setText(modelLogin.getNama());
         lb_level.setText(modelLogin.getLevel());
-        execute();
+        execute(modelLogin);
         date();
     }
 
@@ -308,7 +308,7 @@ public class Menu_Utama extends javax.swing.JFrame {
     private javax.swing.JPanel pn_utama;
     // End of variables declaration//GEN-END:variables
 
-    private void execute() {
+    private void execute(Model_Login modelLogin) {
         ImageIcon iconMaster = new ImageIcon(getClass().getResource("../img/folder.png"));
         ImageIcon iconSub = new ImageIcon(getClass().getResource("../img/minus.png"));
             
@@ -365,15 +365,22 @@ public class Menu_Utama extends javax.swing.JFrame {
             
         MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null, masBarang, masJenisBarang, masDistributor, masPengguna);
         
-        MenuItem transaksi1 = new MenuItem(null, true, iconSub, "Transaksi1", null);
-        MenuItem transaksi2 = new MenuItem(null, true, iconSub, "Transaksi2", null);
-        MenuItem transaksi3 = new MenuItem(null, true, iconSub, "Transaksi3", null);
+        MenuItem transaksiPemesanan = new MenuItem(null, true, iconSub, "Pemesanan", null);
+        MenuItem transaksiBarangMasuk = new MenuItem(null, true, iconSub, "Barang Masuk", null);
+        MenuItem transaksiBarangKeluar = new MenuItem(null, true, iconSub, "Barang Keluar", null);
         
-        MenuItem menuTransaksi = new MenuItem(iconMaster, false, null, "Transaksi", null, transaksi1, transaksi2, transaksi3);
+        MenuItem menuTransaksi = new MenuItem(iconMaster, false, null, "Transaksi", null, transaksiPemesanan, transaksiBarangMasuk, transaksiBarangKeluar);
         
-        MenuItem menuReport = new MenuItem(iconMaster, false, null, "Report", null);
+        MenuItem reportBarang = new MenuItem(null, true, iconSub, "Report Barang", null);
+        MenuItem reportPemesanan = new MenuItem(null, true, iconSub, "Report Pemesanan", null);
         
-        addMenu(menuHome, menuMaster, menuTransaksi, menuReport);
+        MenuItem menuReport = new MenuItem(iconMaster, false, null, "Report", null, reportBarang, reportPemesanan);
+        
+        if (modelLogin.getLevel().equals("Owner")) {
+          addMenu(menuHome, menuMaster, menuTransaksi, menuReport);  
+        } else {
+            addMenu(menuHome, menuTransaksi, menuReport);  
+        }
     }
     
     private void addMenu(MenuItem... menu) {
