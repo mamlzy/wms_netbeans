@@ -5,6 +5,7 @@
 package service;
 
 import java.util.List;
+import model.Model_DetPemesanan;
 import model.Model_SemPemesanan;
 
 /**
@@ -18,4 +19,6 @@ public interface Service_SemPemesanan {
     
     Model_SemPemesanan getByid (String id);
     List<Model_SemPemesanan> getData();
+    
+    void sumTotal(Model_DetPemesanan mod_det);
 }

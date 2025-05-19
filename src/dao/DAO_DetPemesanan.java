@@ -40,7 +40,26 @@ public class DAO_DetPemesanan implements Service_DetPemesanan {
 
     @Override
     public void sumTotal(Model_DetPemesanan mod_detpesan) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        String sql = "SELECT SUM(subtotal_pesan) FROM sementara_pesan";
+        try {
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                mod_detpesan.setSubtotal(rs.getLong(1));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(DAO_DetPemesanan.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    Logger.getLogger(DAO_DetPemesanan.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
     }
 
     @Override
