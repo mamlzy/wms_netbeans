@@ -1,8 +1,5 @@
 package view;
 
-import dao.DAO_DetPemesanan;
-import dao.DAO_Pemesanan;
-import dao.DAO_SemPemesanan;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,28 +9,25 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import model.Model_Barang;
-import model.Model_DetPemesanan;
 import model.Model_Distributor;
-import model.Model_Pemesanan;
 import model.Model_Pengguna;
-import model.Model_SemPemesanan;
-import service.Service_DetPemesanan;
-import service.Service_Pemesanan;
-import service.Service_SemPemesanan;
-import tablemodel.TableMod_DetPemesanan;
-import tablemodel.TableMod_Pemesanan;
-import tablemodel.TableMod_SemPemesanan;
+import service.Service_BarangMasuk;
+import service.Service_DetBarangMasuk;
+import service.Service_SemBarangMasuk;
+import tablemodel.TableMod_BarangMasuk;
+import tablemodel.TableMod_DetBarangMasuk;
+import tablemodel.TableMod_SemBarangMasuk;
 
-public class Transaksi_Pemesanan extends javax.swing.JPanel {
-    private Service_Pemesanan service_psn = new DAO_Pemesanan();
-    private Service_DetPemesanan service_det = new DAO_DetPemesanan();
-    private Service_SemPemesanan service_sem = new DAO_SemPemesanan();
+public class Transaksi_BarangMasuk extends javax.swing.JPanel {
+    private Service_BarangMasuk service_psn = new DAO_BarangMasuk();
+    private Service_DetBarangMasuk service_det = new DAO_DetBarangMasuk();
+    private Service_SemBarangMasuk service_sem = new DAO_SemBarangMasuk();
     
-    private TableMod_Pemesanan tblModel_psn = new TableMod_Pemesanan();
-    private TableMod_DetPemesanan tblModel_det = new TableMod_DetPemesanan();
-    private TableMod_SemPemesanan tblModel_sem = new TableMod_SemPemesanan();
+    private TableMod_BarangMasuk tblModel_psn = new TableMod_BarangMasuk();
+    private TableMod_DetBarangMasuk tblModel_det = new TableMod_DetBarangMasuk();
+    private TableMod_SemBarangMasuk tblModel_sem = new TableMod_SemBarangMasuk();
     
-    public Transaksi_Pemesanan(String id) {
+    public Transaksi_BarangMasuk(String id) {
         initComponents();
         
         lb_id.setText(id);
@@ -71,6 +65,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_barang = new javax.swing.JTable();
         lb_id = new javax.swing.JLabel();
+        btn_print = new javax.swing.JButton();
         tambahData = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btn_tambah1 = new javax.swing.JButton();
@@ -121,7 +116,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         tampilData.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel10.setText("Data Detail Pemesanan Barang");
+        jLabel10.setText("Detail Pemesanan Barang");
 
         tbl_detail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,7 +165,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Data Pemesanan Barang");
+        jLabel1.setText("Data Barang Masuk");
 
         btn_tambah.setText("Tambah");
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
@@ -230,6 +225,13 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         lb_id.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lb_id.setText("ID");
 
+        btn_print.setText("Print");
+        btn_print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_printActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -247,6 +249,8 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
                         .addComponent(btn_hapus)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_batal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_print)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE))
@@ -265,7 +269,8 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
                         .addComponent(btn_tambah, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_hapus)
-                            .addComponent(btn_batal)))
+                            .addComponent(btn_batal)
+                            .addComponent(btn_print)))
                     .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,7 +303,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         tambahData.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("Tambah Pemesanan Barang");
+        jLabel2.setText("Tambah Barang Masuk");
 
         btn_tambah1.setText("Tambah");
         btn_tambah1.addActionListener(new java.awt.event.ActionListener() {
@@ -316,7 +321,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
 
         pn_pemesanan.setBackground(new java.awt.Color(0, 255, 255));
 
-        jLabel3.setText("No Pemesanan");
+        jLabel3.setText("No Barang Masuk");
 
         t_noPesan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -976,6 +981,10 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         t_subtotal.setEnabled(false);
     }//GEN-LAST:event_t_jumlahKeyReleased
 
+    private void btn_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_printActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_barang;
@@ -985,6 +994,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_hapusSementara;
     private javax.swing.JButton btn_perbarui;
+    private javax.swing.JButton btn_print;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_tambah1;
     private javax.swing.JButton btn_tambahSementara;
@@ -1119,7 +1129,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
     private void tampilPanel() {
         mainPanel.removeAll();
         String id = lb_id.getText();
-        mainPanel.add(new Transaksi_Pemesanan(id));
+        mainPanel.add(new Transaksi_BarangMasuk(id));
         mainPanel.repaint();
         mainPanel.revalidate();
     }

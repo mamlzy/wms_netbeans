@@ -17,5 +17,5 @@ public interface Service_DetBarangMasuk {
     void hapusSementara (Model_DetBarangMasuk mod_detmasuk);
     
     Model_DetBarangMasuk getByid(String id);
-    List<Model_DetBarangMasuk> ambilData(String id);
+    List<Model_DetBarangMasuk> getData(String id);
 }

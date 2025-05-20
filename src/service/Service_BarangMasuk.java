@@ -14,9 +14,10 @@ import model.Model_BarangMasuk;
 public interface Service_BarangMasuk {
     void tambahData(Model_BarangMasuk mod_masuk);   
     void perbaruiStatus (String kode_barang);
+    void hapusData (Model_BarangMasuk model);
     
     Model_BarangMasuk getByid (String id);
-    List<Model_BarangMasuk> ambilData();     
+    List<Model_BarangMasuk> getData();     
     List<Model_BarangMasuk> pencarian(String id);     
     String nomor();
 }

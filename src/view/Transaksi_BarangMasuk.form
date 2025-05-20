@@ -108,7 +108,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="24" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Data Detail Pemesanan Barang"/>
+                    <Property name="text" type="java.lang.String" value="Detail Pemesanan Barang"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -161,6 +161,8 @@
                                   <Component id="btn_hapus" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btn_batal" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btn_print" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="t_cari" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
@@ -185,6 +187,7 @@
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                       <Component id="btn_hapus" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btn_batal" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btn_print" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="t_cari" min="-2" pref="23" max="-2" attributes="0"/>
@@ -202,7 +205,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="24" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Data Pemesanan Barang"/>
+                    <Property name="text" type="java.lang.String" value="Data Barang Masuk"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_tambah">
@@ -271,6 +274,14 @@
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="text" type="java.lang.String" value="ID"/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="btn_print">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Print"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_printActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -370,7 +381,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tambah Pemesanan Barang"/>
+                <Property name="text" type="java.lang.String" value="Tambah Barang Masuk"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btn_tambah1">
@@ -437,7 +448,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="No Pemesanan"/>
+                    <Property name="text" type="java.lang.String" value="No Barang Masuk"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="t_noPesan">

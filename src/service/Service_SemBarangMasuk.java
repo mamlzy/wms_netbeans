@@ -18,5 +18,5 @@ public interface Service_SemBarangMasuk {
     
     Model_SemBarangMasuk getByid (String id);
     
-    List<Model_SemBarangMasuk> ambilData();
+    List<Model_SemBarangMasuk> getData();
 }
