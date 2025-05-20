@@ -26,7 +26,7 @@ public class DAO_Pemesanan implements Service_Pemesanan {
     @Override
     public void tambahData(Model_Pemesanan mod_pesan) {
         PreparedStatement st = null;
-        String sql = "INSERT INTO pemesanan (no_pesan, tgl_pesan, total_pesan, id_distributor, id_pengguna) VALUES (?,?,?,?,?,)";
+        String sql = "INSERT INTO pemesanan (no_pesan, tgl_pesan, total_pesan, id_distributor, id_pengguna) VALUES (?,?,?,?,?)";
         try {
             st = conn.prepareStatement(sql);
             
@@ -45,6 +45,30 @@ public class DAO_Pemesanan implements Service_Pemesanan {
                     st.close();
                 } catch (SQLException e) {
                     Logger.getLogger(DAO_Pemesanan.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void hapusData(Model_Pemesanan model) {
+        PreparedStatement st = null;
+        String sql = "DELETE FROM pemesanan WHERE no_pesan=?";
+        
+        try {
+            st = conn.prepareStatement(sql);
+            
+            st.setString(1, model.getNo_pesan());
+            
+            st.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
         }
@@ -100,7 +124,42 @@ public class DAO_Pemesanan implements Service_Pemesanan {
 
     @Override
     public List<Model_Pemesanan> pencarian(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement st = null;
+        List list = new ArrayList();
+        ResultSet rs = null;
+        String sql = "SELECT * FROM pemesanan WHERE no_pesan LIKE '%" + id + "%'";
+        try {
+            st = conn.prepareStatement(sql);
+            rs = st.executeQuery();
+            while(rs.next()) {
+                Model_Pemesanan psn = new Model_Pemesanan();
+                Model_Distributor dst = new Model_Distributor();
+                Model_Pengguna pgn = new Model_Pengguna();
+                
+                psn.setNo_pesan(rs.getString("no_pesan"));
+                psn.setTgl_pesan(rs.getString("tgl_pesan"));
+                psn.setTotal_pesan(rs.getLong("total_pesan"));
+                dst.setId_distributor(rs.getString("id_distributor"));
+                pgn.setId_pengguna(rs.getString("id_pengguna"));
+                
+                psn.setMod_distributor(dst);
+                psn.setMod_pengguna(pgn);
+                
+                list.add(psn);
+            }
+            return list;
+        } catch (SQLException e) {
+            Logger.getLogger(DAO_Pemesanan.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    Logger.getLogger(DAO_Pemesanan.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
     }
 
     @Override
@@ -148,8 +207,5 @@ public class DAO_Pemesanan implements Service_Pemesanan {
         return urutan;
     }
 
-    @Override
-    public void hapusData(Model_Pemesanan model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }

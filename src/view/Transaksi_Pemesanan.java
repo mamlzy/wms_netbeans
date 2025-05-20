@@ -147,14 +147,14 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         pn_detail.setLayout(pn_detailLayout);
         pn_detailLayout.setHorizontalGroup(
             pn_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_detailLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_detailLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pn_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pn_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
                     .addGroup(pn_detailLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE))
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         pn_detailLayout.setVerticalGroup(
@@ -249,7 +249,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
                         .addComponent(btn_batal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -279,10 +279,8 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
             .addGroup(tampilDataLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tampilDataLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(pn_detail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pn_detail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         tampilDataLayout.setVerticalGroup(
@@ -746,8 +744,10 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_tambah1ActionPerformed
 
     private void tbl_barangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_barangMouseClicked
-        int row = tbl_barang.getSelectedRow();
+         int row = tbl_barang.getSelectedRow();
         String id = tbl_barang.getValueAt(row,0).toString();
+        btn_hapus.setVisible(true);
+        btn_batal.setVisible(true);
         
         pn_detail.setVisible(true);
         List<Model_DetPemesanan> list = service_det.getData(id);
@@ -1081,6 +1081,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
                 tblModel_psn.hapusData(index);
                 loadData();
                 resetForm();
+                pn_detail.setVisible(false);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Pilih dahulu record yang akan di hapus");
@@ -1156,6 +1157,9 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         service_det.tambahData(det);
         service_det.hapusSementara(det);
         tblModel_psn.tambahData(psn);
+        tampilPanel();
+        loadData();
+        resetForm();
     }
     
     private void perbaruiDataSementara() {

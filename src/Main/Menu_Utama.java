@@ -71,6 +71,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         
         lb_nama.setText(modelLogin.getNama());
         lb_level.setText(modelLogin.getLevel());
+        lb_id.setText(modelLogin.getId_user());
         execute(modelLogin);
         date();
     }

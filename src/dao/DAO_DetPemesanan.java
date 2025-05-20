@@ -109,7 +109,7 @@ public class DAO_DetPemesanan implements Service_DetPemesanan {
         List list = new ArrayList();
         ResultSet rs = null;
         String sql = "SELECT det_psn.no_pesan, det_psn.kode_barang, brg.nama_barang,"
-                + "brg.harga, det_psn.jml_pesan, det_psn.subtotal_pesan, det_psn.status"
+                + "brg.harga, det_psn.jml_pesan, det_psn.subtotal_pesan, det_psn.status "
                 + "FROM detail_pemesanan det_psn "
                 + "INNER JOIN pemesanan psn ON psn.no_pesan = det_psn.no_pesan "
                 + "INNER JOIN barang brg ON brg.kode_barang = det_psn.kode_barang "
@@ -136,7 +136,7 @@ public class DAO_DetPemesanan implements Service_DetPemesanan {
                 
                 det_psn.setMod_barang(brg);
                 
-                list.add(psn);
+                list.add(det_psn);
             } 
             
             return list;
