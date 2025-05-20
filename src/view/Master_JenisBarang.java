@@ -387,8 +387,7 @@ public class Master_JenisBarang extends javax.swing.JPanel {
                 resetForm();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Pilih dahulu record yang akan di hapus");
-            
+            JOptionPane.showMessageDialog(null, "Pilih dahulu record yang akan di hapus"); 
         }
     }
     

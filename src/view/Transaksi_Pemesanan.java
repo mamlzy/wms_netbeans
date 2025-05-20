@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import model.Model_Barang;
 import model.Model_DetPemesanan;
+import model.Model_Distributor;
 import model.Model_Pemesanan;
+import model.Model_Pengguna;
 import model.Model_SemPemesanan;
 import service.Service_DetPemesanan;
 import service.Service_Pemesanan;
@@ -109,7 +111,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         lb_total = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         btn_perbarui = new javax.swing.JButton();
-        btn_hapaus2 = new javax.swing.JButton();
+        btn_hapusSementara = new javax.swing.JButton();
 
         setLayout(new java.awt.CardLayout());
 
@@ -510,9 +512,9 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
 
         jLabel17.setText("Harga");
 
-        t_jumlah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_jumlahActionPerformed(evt);
+        t_jumlah.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                t_jumlahKeyReleased(evt);
             }
         });
 
@@ -647,10 +649,10 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
             }
         });
 
-        btn_hapaus2.setText("Hapus");
-        btn_hapaus2.addActionListener(new java.awt.event.ActionListener() {
+        btn_hapusSementara.setText("Hapus");
+        btn_hapusSementara.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_hapaus2ActionPerformed(evt);
+                btn_hapusSementaraActionPerformed(evt);
             }
         });
 
@@ -679,8 +681,9 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(tambahDataLayout.createSequentialGroup()
                                 .addComponent(btn_perbarui, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_hapaus2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_hapusSementara, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         tambahDataLayout.setVerticalGroup(
@@ -704,11 +707,11 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
                         .addComponent(pn_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(tambahDataLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3)
                         .addGap(18, 18, 18)
                         .addGroup(tambahDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_perbarui, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_hapaus2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_hapusSementara, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(208, 208, 208)))
                 .addContainerGap())
         );
@@ -858,15 +861,6 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_t_hargaActionPerformed
 
-    private void t_jumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_jumlahActionPerformed
-        Long harga, jumlah, subtotal;
-        harga = Long.parseLong(t_harga.getText());
-        jumlah = Long.parseLong(t_jumlah.getText());
-        subtotal = harga * jumlah;
-        t_subtotal.setText(Long.toString(subtotal));
-        btn_tambahSementara.requestFocus();
-    }//GEN-LAST:event_t_jumlahActionPerformed
-
     private void t_subtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_subtotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t_subtotalActionPerformed
@@ -906,6 +900,7 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
             bersihBarang();
             btn_barang.requestFocus();
         } else {
+            aktifBarang();
             bersihBarang();
         }
     }//GEN-LAST:event_btn_tambahSementaraActionPerformed
@@ -914,9 +909,31 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         perbaruiDataSementara();
     }//GEN-LAST:event_btn_perbaruiActionPerformed
 
-    private void btn_hapaus2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapaus2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_hapaus2ActionPerformed
+    private void btn_hapusSementaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusSementaraActionPerformed
+         int index = tbl_sementara.getSelectedRow();
+        if(index != -1) {
+            Model_SemPemesanan model = tblModel_sem.getData(tbl_sementara.convertRowIndexToModel(index));
+            if(JOptionPane.showConfirmDialog(null, "Yakin data akan dihapus?", "Konfirmasi", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+                service_sem.hapusData(model);
+                tblModel_sem.hapusData(index);
+                loadDataSementara();
+                resetForm();
+                bersihBarang();
+                lb_satuan.setVisible(true);
+                t_satuan.setVisible(true);
+                btn_tambahSementara.setVisible(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Pilih dahulu record yang akan di hapus"); 
+        }
+        
+        loadDataSementara();
+        resetForm();
+        bersihBarang();
+        lb_satuan.setVisible(true);
+        t_satuan.setVisible(true);
+        btn_tambahSementara.setVisible(true);
+    }//GEN-LAST:event_btn_hapusSementaraActionPerformed
 
     private void tbl_sementaraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_sementaraMouseClicked
         int row = tbl_sementara.getSelectedRow();
@@ -937,7 +954,27 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
         t_jumlah.setEnabled(true);
         lb_satuan.setVisible(false);
         t_satuan.setVisible(false);
+        btn_tambahSementara.setVisible(false);
+        btn_hapusSementara.setVisible(true);
     }//GEN-LAST:event_tbl_sementaraMouseClicked
+
+    private void t_jumlahKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_jumlahKeyReleased
+        Long harga, subtotal;
+        int jumlah;
+        
+        harga = Long.parseLong(t_harga.getText());
+        String inputJumlah = t_jumlah.getText();
+        if (inputJumlah.isEmpty()) {
+            jumlah = 0;
+        } else {
+            jumlah = Integer.parseInt(inputJumlah);
+        }
+
+        subtotal = harga * jumlah;
+        t_subtotal.setText(Long.toString(subtotal));
+        btn_tambahSementara.requestFocus();
+        t_subtotal.setEnabled(false);
+    }//GEN-LAST:event_t_jumlahKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -945,8 +982,8 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
     private javax.swing.JButton btn_batal;
     private javax.swing.JButton btn_batal1;
     private javax.swing.JButton btn_distributor;
-    private javax.swing.JButton btn_hapaus2;
     private javax.swing.JButton btn_hapus;
+    private javax.swing.JButton btn_hapusSementara;
     private javax.swing.JButton btn_perbarui;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JButton btn_tambah1;
@@ -1052,15 +1089,11 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
     }
     
     private void resetForm() {
-//        btn_tambah.requestFocus();
-//        btn_tambah.setText("Tambah");
-//        t_noPesan.setText("");
-//        t_kodeJenisBarang.setText("");
-//        t_namaJenisBarang.setText("");
-//        t_namaBarang.setText("");
-//        cbx_satuan.setSelectedItem(0);
-//        t_harga.setText("");
-//        t_stok.setText("");
+        t_kodeBarang.setEnabled(true);
+        t_namaBarang.setEnabled(true);
+        t_satuan.setEnabled(true);
+        t_harga.setEnabled(true);
+        t_subtotal.setEnabled(true);
     }
     
     private void aktifBarang() {
@@ -1091,35 +1124,38 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
     }
     
     private void simpanData() {
-        if(validasiInput() == true) {
-//            String kode_barang = t_kodeBarang.getText();
-//            String kode_jenis = t_kodeJenisBarang.getText();
-//            String nama_jenisbarang = t_namaJenisBarang.getText();
-//            String nama_barang = t_namaBarang.getText();
-//            String satuan = cbx_satuan.getSelectedItem().toString();
-//            Long harga = Long.parseLong(t_harga.getText());
-//            int stok = Integer.parseInt(t_stok.getText());
-//            
-//            Model_Barang brg = new Model_Barang();
-//            Model_JenisBarang jbr = new Model_JenisBarang();
-//            
-//            brg.setKode_barang(kode_barang);
-//            jbr.setKode_jenis(kode_jenis);
-//            jbr.setNama_jenis(nama_jenisbarang);
-//            brg.setNama_barang(nama_barang);
-//            brg.setSatuan(satuan);
-//            brg.setHarga(harga);
-//            brg.setStok(stok);
-//            
-//            brg.setJns_barang(jbr);
-//            
-//            service.tambahData(brg);
-//            tblModel.tambahData(brg);
-//            loadData();
-//            resetForm();
-//            tampilPanel();
-//            btn_tambah1.setText("Tambah");
-        }
+        String no_pesan = t_noPesan.getText();
+        String tgl_pesan = t_tanggalPesan.getText();
+        String id_dis = t_idDistributor.getText();
+        String id_peng = lb_id.getText();
+        String status = "Sedang di pesan";
+        Long total = Long.parseLong(lb_total.getText());
+
+        Model_Pengguna pgn = new Model_Pengguna();
+        Model_Distributor dis = new Model_Distributor();
+        Model_Barang brg = new Model_Barang();
+        Model_Pemesanan psn = new Model_Pemesanan();
+        Model_DetPemesanan det = new Model_DetPemesanan();
+
+        // simpan ke tabel pemesanan
+        psn.setNo_pesan(no_pesan);
+        psn.setTgl_pesan(tgl_pesan);
+        psn.setTotal_pesan(total);
+        dis.setId_distributor(id_dis);
+        pgn.setId_pengguna(id_peng);
+
+        psn.setMod_distributor(dis);
+        psn.setMod_pengguna(pgn);
+
+        // simpan ke table detail pemesanan
+        det.setMod_pesan(psn);
+        det.setMod_barang(brg);
+        det.setStatus(status);
+
+        service_psn.tambahData(psn);
+        service_det.tambahData(det);
+        service_det.hapusSementara(det);
+        tblModel_psn.tambahData(psn);
     }
     
     private void perbaruiDataSementara() {
@@ -1152,26 +1188,10 @@ public class Transaksi_Pemesanan extends javax.swing.JPanel {
             lb_total.setText(det.getSubtotal().toString());
             loadDataSementara();
             bersihBarang();
-//            tampilPanel();
+            resetForm();
         }
     }
         
-    private boolean validasiInput() {
-        boolean valid = false;
-        
-        if (t_idDistributor.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "ID Distributor tidak boleh kosong");
-        } else if (t_kodeBarang.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Kode Barang tidak boleh kosong");
-        } else if (t_jumlah.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Jumlah tidak boleh kosong");
-        } else {
-            valid = true;
-        }
-        
-        return valid;
-    }
-    
     private void pencarian() {
         List<Model_Pemesanan> list = service_psn.pencarian(t_cari.getText());
         tblModel_psn.setData(list);

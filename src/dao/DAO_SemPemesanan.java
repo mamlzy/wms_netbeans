@@ -89,7 +89,31 @@ public class DAO_SemPemesanan implements Service_SemPemesanan {
 
     @Override
     public void hapusData(Model_SemPemesanan mod_pesan) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement st = null;
+        String sql = "DELETE FROM sementara_pesan WHERE kode_barang=? AND nama_barang=? AND harga=? AND jml_pesan=? AND subtotal_pesan=?";
+        
+        try {
+            st = conn.prepareStatement(sql);
+            
+            st.setString(1, mod_pesan.getMod_barang().getKode_barang());
+            st.setString(2, mod_pesan.getMod_barang().getNama_barang());
+            st.setLong(3, mod_pesan.getMod_barang().getHarga());
+            st.setLong(4, mod_pesan.getMod_detpesan().getJml_pesan());
+            st.setLong(5, mod_pesan.getMod_detpesan().getSubtotal());
+            
+            st.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(DAO_SemPemesanan.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    Logger.getLogger(DAO_SemPemesanan.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
+        
     }
 
     @Override

@@ -24,8 +24,30 @@ public class DAO_Pemesanan implements Service_Pemesanan {
     }
 
     @Override
-    public void tambahData(Model_Pemesanan mod_bar) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void tambahData(Model_Pemesanan mod_pesan) {
+        PreparedStatement st = null;
+        String sql = "INSERT INTO pemesanan (no_pesan, tgl_pesan, total_pesan, id_distributor, id_pengguna) VALUES (?,?,?,?,?,)";
+        try {
+            st = conn.prepareStatement(sql);
+            
+            st.setString(1, mod_pesan.getNo_pesan());
+            st.setString(2, mod_pesan.getTgl_pesan());
+            st.setLong(3, mod_pesan.getTotal_pesan());
+            st.setString(4, mod_pesan.getMod_distributor().getId_distributor());
+            st.setString(5, mod_pesan.getMod_pengguna().getId_pengguna());
+            
+            st.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(DAO_Pemesanan.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    Logger.getLogger(DAO_Pemesanan.class.getName()).log(Level.SEVERE, null, e);
+                }
+            }
+        }
     }
 
     @Override
