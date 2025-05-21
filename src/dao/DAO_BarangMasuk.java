@@ -61,27 +61,45 @@ public class DAO_BarangMasuk implements Service_BarangMasuk {
 
     @Override
     public void hapusData(Model_BarangMasuk model) {
-        PreparedStatement st = null;
-        String sql = "DELETE FROM barang_masuk WHERE no_masuk=?";
-        
+    PreparedStatement stDetail = null;
+    PreparedStatement stMasuk = null;
+    String sqlDetailBarangMasuk = "DELETE FROM detail_barang_masuk WHERE no_masuk=?";
+    String sqlBarangMasuk = "DELETE FROM barang_masuk WHERE no_masuk=?";
+
+    try {
+        // Start transaction
+        conn.setAutoCommit(false);
+
+        // Delete detail first (to satisfy foreign key constraints)
+        stDetail = conn.prepareStatement(sqlDetailBarangMasuk);
+        stDetail.setString(1, model.getNo_masuk());
+        stDetail.executeUpdate();
+
+        // Then delete main record
+        stMasuk = conn.prepareStatement(sqlBarangMasuk);
+        stMasuk.setString(1, model.getNo_masuk());
+        stMasuk.executeUpdate();
+
+        // Commit if both succeed
+        conn.commit();
+    } catch (SQLException e) {
         try {
-            st = conn.prepareStatement(sql);
-            
-            st.setString(1, model.getNo_masuk());
-            
-            st.executeUpdate();
+            if (conn != null) conn.rollback(); // Rollback on error
+        } catch (SQLException rollbackEx) {
+            Logger.getLogger(DAO_BarangMasuk.class.getName()).log(Level.SEVERE, null, rollbackEx);
+        }
+        Logger.getLogger(DAO_BarangMasuk.class.getName()).log(Level.SEVERE, null, e);
+    } finally {
+        try {
+            if (stDetail != null) stDetail.close();
+            if (stMasuk != null) stMasuk.close();
+            conn.setAutoCommit(true); // Restore auto-commit
         } catch (SQLException e) {
             Logger.getLogger(DAO_BarangMasuk.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            if (st != null) {
-                try {
-                    st.close();
-                } catch (SQLException e) {
-                    Logger.getLogger(DAO_BarangMasuk.class.getName()).log(Level.SEVERE, null, e);
-                }
-            }
         }
     }
+}
+
 
     @Override
     public void perbaruiStatus(String kode_barang) {
@@ -114,20 +132,20 @@ public class DAO_BarangMasuk implements Service_BarangMasuk {
             rs = st.executeQuery();
             
             while(rs.next()) {
-                Model_BarangMasuk msk = new Model_BarangMasuk();
+                Model_BarangMasuk masuk = new Model_BarangMasuk();
                 Model_Distributor dst = new Model_Distributor();
                 Model_Pengguna pgn = new Model_Pengguna();
                 
-                msk.setNo_masuk(rs.getString("no_masuk"));
-                msk.setTgl_masuk(rs.getString("tgl_masuk"));
-                msk.setTotal_masuk(rs.getLong("total_masuk"));
+                masuk.setNo_masuk(rs.getString("no_masuk"));
+                masuk.setTgl_masuk(rs.getString("tgl_masuk"));
+                masuk.setTotal_masuk(rs.getLong("total_masuk"));
                 dst.setId_distributor(rs.getString("id_distributor"));
                 pgn.setId_pengguna(rs.getString("id_pengguna"));
                 
-                msk.setMod_distributor(dst);
-                msk.setMod_pengguna(pgn);
+                masuk.setMod_distributor(dst);
+                masuk.setMod_pengguna(pgn);
                 
-                list.add(msk);
+                list.add(masuk);
             } 
             
             return list;

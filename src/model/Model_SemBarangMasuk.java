@@ -10,7 +10,7 @@ package model;
  */
 public class Model_SemBarangMasuk {
     private Model_Barang mod_barang;
-    private Model_DetBarangMasuk mod_masuk;
+    private Model_DetBarangMasuk mod_detmasuk;
 
     public Model_Barang getMod_barang() {
         return mod_barang;
@@ -20,12 +20,11 @@ public class Model_SemBarangMasuk {
         this.mod_barang = mod_barang;
     }
 
-    public Model_DetBarangMasuk getMod_masuk() {
-        return mod_masuk;
+    public Model_DetBarangMasuk getMod_detmasuk() {
+        return mod_detmasuk;
     }
 
-    public void setMod_masuk(Model_DetBarangMasuk mod_masuk) {
-        this.mod_masuk = mod_masuk;
+    public void setMod_detmasuk(Model_DetBarangMasuk mod_detmasuk) {
+        this.mod_detmasuk = mod_detmasuk;
     }
-    
 }

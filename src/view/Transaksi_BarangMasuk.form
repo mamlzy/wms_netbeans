@@ -413,11 +413,11 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="t_noPesan" min="-2" pref="150" max="-2" attributes="0"/>
+                              <Component id="t_no" min="-2" pref="150" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="t_tanggalPesan" max="32767" attributes="0"/>
+                              <Component id="t_tanggal" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -437,8 +437,8 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="t_noPesan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="t_tanggalPesan" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="t_no" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="t_tanggal" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="11" max="32767" attributes="0"/>
                       </Group>
@@ -451,14 +451,14 @@
                     <Property name="text" type="java.lang.String" value="No Barang Masuk"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="t_noPesan">
+                <Component class="javax.swing.JTextField" name="t_no">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_noPesanActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_noActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="t_tanggalPesan">
+                <Component class="javax.swing.JTextField" name="t_tanggal">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_tanggalPesanActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_tanggalActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">

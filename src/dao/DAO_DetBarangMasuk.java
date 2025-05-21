@@ -32,7 +32,7 @@ public class DAO_DetBarangMasuk implements Service_DetBarangMasuk {
     @Override
     public void tambahData(Model_DetBarangMasuk mod_detmasuk) {
         PreparedStatement st = null;
-        String sql = "INSERT INTO detail_barang_masuk (no_masuk, kode_barang, jml_masuk, subtotal_masuk, status) SELECT '" + mod_detmasuk.getMod_masuk().getNo_masuk()+ "', kode_barang, jml_masuk, subtotal_masuk, status FROM sementara_barang_masuk";
+        String sql = "INSERT INTO detail_barang_masuk (no_masuk, kode_barang, jml_masuk, subtotal_masuk) SELECT '" + mod_detmasuk.getMod_masuk().getNo_masuk()+ "', kode_barang, jml_masuk, subtotal_masuk FROM sementara_barang_masuk";
         try {
             st = conn.prepareStatement(sql);
             st.executeUpdate();
@@ -109,7 +109,7 @@ public class DAO_DetBarangMasuk implements Service_DetBarangMasuk {
                 + "FROM detail_barang_masuk det_masuk "
                 + "INNER JOIN barang_masuk masuk ON masuk.no_masuk=det_masuk.no_masuk "
                 + "INNER JOIN barang brg ON brg.kode_barang = det_masuk.kode_barang "
-                + "WHERE det_masuk.no_masuk='" + id + "' ORDER BY no_masukASC";
+                + "WHERE det_masuk.no_masuk='" + id + "' ORDER BY no_masuk ASC";
         
         try {
             st = conn.prepareStatement(sql);
@@ -126,7 +126,7 @@ public class DAO_DetBarangMasuk implements Service_DetBarangMasuk {
                 brg.setKode_barang(rs.getString("kode_barang"));
                 brg.setNama_barang(rs.getString("nama_barang"));
                 brg.setHarga(rs.getLong("harga"));
-                det_masuk.setJml_masuk(rs.getInt("jml_pesan"));
+                det_masuk.setJml_masuk(rs.getInt("jml_masuk"));
                 det_masuk.setSubtotal_masuk(rs.getLong("subtotal_masuk"));
                 
                 det_masuk.setMod_barang(brg);

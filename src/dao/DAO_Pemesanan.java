@@ -52,24 +52,41 @@ public class DAO_Pemesanan implements Service_Pemesanan {
     
     @Override
     public void hapusData(Model_Pemesanan model) {
-        PreparedStatement st = null;
-        String sql = "DELETE FROM pemesanan WHERE no_pesan=?";
-        
+        PreparedStatement stDetail = null;
+        PreparedStatement stPemesanan = null;
+        String sqlDetail = "DELETE FROM detail_pemesanan WHERE no_pesan=?";
+        String sqlPemesanan = "DELETE FROM pemesanan WHERE no_pesan=?";
+
         try {
-            st = conn.prepareStatement(sql);
-            
-            st.setString(1, model.getNo_pesan());
-            
-            st.executeUpdate();
+            // Start transaction
+            conn.setAutoCommit(false);
+
+            // Delete from detail_pemesanan first (child table)
+            stDetail = conn.prepareStatement(sqlDetail);
+            stDetail.setString(1, model.getNo_pesan());
+            stDetail.executeUpdate();
+
+            // Then delete from pemesanan (parent table)
+            stPemesanan = conn.prepareStatement(sqlPemesanan);
+            stPemesanan.setString(1, model.getNo_pesan());
+            stPemesanan.executeUpdate();
+
+            // Commit if both succeed
+            conn.commit();
         } catch (SQLException e) {
+            try {
+                if (conn != null) conn.rollback(); // Roll back on error
+            } catch (SQLException rollbackEx) {
+                Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, rollbackEx);
+            }
             Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
         } finally {
-            if (st != null) {
-                try {
-                    st.close();
-                } catch (SQLException e) {
-                    Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
-                }
+            try {
+                if (stDetail != null) stDetail.close();
+                if (stPemesanan != null) stPemesanan.close();
+                conn.setAutoCommit(true); // Restore auto-commit
+            } catch (SQLException e) {
+                Logger.getLogger(DAO_JenisBarang.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }

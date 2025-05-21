@@ -71,8 +71,8 @@ public class TableMod_SemBarangMasuk extends AbstractTableModel {
             case 0: return list.get(rowIndex).getMod_barang().getKode_barang();
             case 1: return list.get(rowIndex).getMod_barang().getNama_barang();
             case 2: return list.get(rowIndex).getMod_barang().getHarga();
-            case 3: return list.get(rowIndex).getMod_masuk().getJml_masuk();
-            case 4: return list.get(rowIndex).getMod_masuk().getSubtotal_masuk()    ;
+            case 3: return list.get(rowIndex).getMod_detmasuk().getJml_masuk();
+            case 4: return list.get(rowIndex).getMod_detmasuk().getSubtotal_masuk()    ;
             
             default: return null;
         }

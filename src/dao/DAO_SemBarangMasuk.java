@@ -33,15 +33,15 @@ public class DAO_SemBarangMasuk implements Service_SemBarangMasuk {
     @Override
     public void tambahData(Model_SemBarangMasuk mod_masuk) {
         PreparedStatement st = null;
-        String sql = "INSERT INTO sementara_barang_masuk (kode_barang,nama_barang,harga,jml_pmasuk,subtotal_masuk) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO sementara_barang_masuk (kode_barang,nama_barang,harga,jml_masuk,subtotal_masuk) VALUES (?,?,?,?,?)";
         try {
             st = conn.prepareStatement(sql);
             
             st.setString(1, mod_masuk.getMod_barang().getKode_barang());
             st.setString(2, mod_masuk.getMod_barang().getNama_barang());
             st.setLong(3, mod_masuk.getMod_barang().getHarga());
-            st.setLong(4, mod_masuk.getMod_masuk().getJml_masuk());
-            st.setLong(5, mod_masuk.getMod_masuk().getSubtotal_masuk());
+            st.setLong(4, mod_masuk.getMod_detmasuk().getJml_masuk());
+            st.setLong(5, mod_masuk.getMod_detmasuk().getSubtotal_masuk());
             
             st.executeUpdate();
         } catch (SQLException e) {
@@ -67,8 +67,8 @@ public class DAO_SemBarangMasuk implements Service_SemBarangMasuk {
             
             st.setString(1, mod_masuk.getMod_barang().getNama_barang());
             st.setLong(2, mod_masuk.getMod_barang().getHarga());
-            st.setLong(3, mod_masuk.getMod_masuk().getJml_masuk());
-            st.setLong(4, mod_masuk.getMod_masuk().getSubtotal_masuk());
+            st.setLong(3, mod_masuk.getMod_detmasuk().getJml_masuk());
+            st.setLong(4, mod_masuk.getMod_detmasuk().getSubtotal_masuk());
             st.setString(5, mod_masuk.getMod_barang().getKode_barang());
             
             st.executeUpdate();
@@ -97,8 +97,8 @@ public class DAO_SemBarangMasuk implements Service_SemBarangMasuk {
             st.setString(1, mod_masuk.getMod_barang().getKode_barang());
             st.setString(2, mod_masuk.getMod_barang().getNama_barang());
             st.setLong(3, mod_masuk.getMod_barang().getHarga());
-            st.setLong(4, mod_masuk.getMod_masuk().getSubtotal_masuk());
-            st.setString(5, mod_masuk.getMod_barang().getKode_barang());
+            st.setLong(4, mod_masuk.getMod_detmasuk().getJml_masuk());
+            st.setLong(5, mod_masuk.getMod_detmasuk().getSubtotal_masuk());
             
             st.executeUpdate();
         } catch (SQLException e) {
@@ -124,7 +124,7 @@ public class DAO_SemBarangMasuk implements Service_SemBarangMasuk {
         PreparedStatement st = null;
         List list = new ArrayList();
         ResultSet rs = null;
-        String sql = "SELECT * FROM sementara_pesan";
+        String sql = "SELECT * FROM sementara_barang_masuk";
         
         try {
             st = conn.prepareStatement(sql);
@@ -143,7 +143,7 @@ public class DAO_SemBarangMasuk implements Service_SemBarangMasuk {
                 det_masuk.setSubtotal_masuk(rs.getLong("subtotal_masuk"));
                 
                 smt.setMod_barang(brg);
-                smt.setMod_masuk(det_masuk);
+                smt.setMod_detmasuk(det_masuk);
                 
                 list.add(smt);
             } 

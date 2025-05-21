@@ -1,5 +1,8 @@
 package view;
 
+import dao.DAO_BarangMasuk;
+import dao.DAO_DetBarangMasuk;
+import dao.DAO_SemBarangMasuk;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,8 +12,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import model.Model_Barang;
+import model.Model_BarangMasuk;
+import model.Model_DetBarangMasuk;
 import model.Model_Distributor;
 import model.Model_Pengguna;
+import model.Model_SemBarangMasuk;
 import service.Service_BarangMasuk;
 import service.Service_DetBarangMasuk;
 import service.Service_SemBarangMasuk;
@@ -19,11 +25,11 @@ import tablemodel.TableMod_DetBarangMasuk;
 import tablemodel.TableMod_SemBarangMasuk;
 
 public class Transaksi_BarangMasuk extends javax.swing.JPanel {
-    private Service_BarangMasuk service_psn = new DAO_BarangMasuk();
+    private Service_BarangMasuk service_masuk = new DAO_BarangMasuk();
     private Service_DetBarangMasuk service_det = new DAO_DetBarangMasuk();
-    private Service_SemBarangMasuk service_sem = new DAO_SemBarangMasuk();
+    private Service_SemBarangMasuk service_sem = new DAO_SemBarangMasuk() ;
     
-    private TableMod_BarangMasuk tblModel_psn = new TableMod_BarangMasuk();
+    private TableMod_BarangMasuk tblModel_masuk = new TableMod_BarangMasuk();
     private TableMod_DetBarangMasuk tblModel_det = new TableMod_DetBarangMasuk();
     private TableMod_SemBarangMasuk tblModel_sem = new TableMod_SemBarangMasuk();
     
@@ -31,7 +37,7 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
         initComponents();
         
         lb_id.setText(id);
-        tbl_barang.setModel(tblModel_psn);
+        tbl_barang.setModel(tblModel_masuk);
         tbl_detail.setModel(tblModel_det);
         tbl_sementara.setModel(tblModel_sem);
         
@@ -72,8 +78,8 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
         btn_batal1 = new javax.swing.JButton();
         pn_pemesanan = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        t_noPesan = new javax.swing.JTextField();
-        t_tanggalPesan = new javax.swing.JTextField();
+        t_no = new javax.swing.JTextField();
+        t_tanggal = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         pn_distributor = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -323,15 +329,15 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
 
         jLabel3.setText("No Barang Masuk");
 
-        t_noPesan.addActionListener(new java.awt.event.ActionListener() {
+        t_no.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_noPesanActionPerformed(evt);
+                t_noActionPerformed(evt);
             }
         });
 
-        t_tanggalPesan.addActionListener(new java.awt.event.ActionListener() {
+        t_tanggal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                t_tanggalPesanActionPerformed(evt);
+                t_tanggalActionPerformed(evt);
             }
         });
 
@@ -344,10 +350,10 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
             .addGroup(pn_pemesananLayout.createSequentialGroup()
                 .addGroup(pn_pemesananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(t_noPesan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(t_no, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pn_pemesananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(t_tanggalPesan)
+                    .addComponent(t_tanggal)
                     .addGroup(pn_pemesananLayout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -362,8 +368,8 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pn_pemesananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t_noPesan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(t_tanggalPesan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(t_no, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(t_tanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
@@ -733,9 +739,9 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
         loadData();
     }//GEN-LAST:event_btn_batalActionPerformed
 
-    private void t_noPesanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_noPesanActionPerformed
+    private void t_noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_noActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_t_noPesanActionPerformed
+    }//GEN-LAST:event_t_noActionPerformed
 
     private void btn_tambah1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah1ActionPerformed
         if(btn_tambah1.getText().equals("Tambah")) {
@@ -755,7 +761,7 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
         btn_batal.setVisible(true);
         
         pn_detail.setVisible(true);
-        List<Model_DetPemesanan> list = service_det.getData(id);
+        List<Model_DetBarangMasuk> list = service_det.getData(id);
         tblModel_det.setData(list);
     }//GEN-LAST:event_tbl_barangMouseClicked
 
@@ -775,19 +781,15 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
         mainPanel.revalidate();
         
         btn_tambah1.setText("Simpan");
-        t_noPesan.setEnabled(false);
-        t_tanggalPesan.setEnabled(false);
+        t_no.setEnabled(false);
+        t_tanggal.setEnabled(false);
         
-        t_noPesan.setText(service_psn.nomor());
+        t_no.setText(service_masuk.nomor());
         
-        Model_DetPemesanan det_psn = new Model_DetPemesanan();
-        service_det.sumTotal(det_psn);
-        lb_total.setText(det_psn.getSubtotal().toString());
+        Model_DetBarangMasuk det_masuk = new Model_DetBarangMasuk();
+        service_det.sumTotal(det_masuk);
+        lb_total.setText(det_masuk.getSubtotal_masuk().toString());
         setTanggal();
-        
-        if(btn_tambah.getText().equals("Ubah")) {
-            dataTabel();
-        }
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void t_cariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_cariKeyTyped
@@ -808,9 +810,9 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
         loadData();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void t_tanggalPesanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_tanggalPesanActionPerformed
+    private void t_tanggalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_tanggalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_t_tanggalPesanActionPerformed
+    }//GEN-LAST:event_t_tanggalActionPerformed
 
     private void t_idDistributorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_idDistributorActionPerformed
         // TODO add your handling code here:
@@ -874,29 +876,28 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
         String kode = t_kodeBarang.getText();
         String nama = t_namaBarang.getText();
         Long harga = Long.parseLong(t_harga.getText());
-        Long jumlah = Long.parseLong(t_jumlah.getText());
+        int jumlah = Integer.parseInt(t_jumlah.getText());
         Long subtotal = Long.parseLong(t_subtotal.getText());
         String status = "Sedang di pesan";
         
         Model_Barang brg = new Model_Barang();
-        Model_DetPemesanan det_psn = new Model_DetPemesanan();
-        Model_Pemesanan psn = new Model_Pemesanan();
-        Model_SemPemesanan smt = new Model_SemPemesanan();
+        Model_DetBarangMasuk det_masuk = new Model_DetBarangMasuk();
+        Model_BarangMasuk masuk = new Model_BarangMasuk();
+        Model_SemBarangMasuk smt = new Model_SemBarangMasuk();
         
         brg.setKode_barang(kode);
         brg.setNama_barang(nama);
         brg.setHarga(harga);
         
-        det_psn.setJml_pesan(jumlah);
-        det_psn.setSubtotal(subtotal);
-        det_psn.setStatus(status);
+        det_masuk.setJml_masuk(jumlah);
+        det_masuk.setSubtotal_masuk(subtotal);
         
         smt.setMod_barang(brg);
-        smt.setMod_detpesan(det_psn);
+        smt.setMod_detmasuk(det_masuk);
         
         service_sem.tambahData(smt);
-        service_det.sumTotal(det_psn);
-        lb_total.setText(det_psn.getSubtotal().toString());
+        service_det.sumTotal(det_masuk);
+        lb_total.setText(det_masuk.getSubtotal_masuk().toString());
         
         loadDataSementara();
         
@@ -917,7 +918,7 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
     private void btn_hapusSementaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusSementaraActionPerformed
          int index = tbl_sementara.getSelectedRow();
         if(index != -1) {
-            Model_SemPemesanan model = tblModel_sem.getData(tbl_sementara.convertRowIndexToModel(index));
+            Model_SemBarangMasuk model = tblModel_sem.getData(tbl_sementara.convertRowIndexToModel(index));
             if(JOptionPane.showConfirmDialog(null, "Yakin data akan dihapus?", "Konfirmasi", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                 service_sem.hapusData(model);
                 tblModel_sem.hapusData(index);
@@ -1036,10 +1037,10 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
     private javax.swing.JTextField t_kodeBarang;
     private javax.swing.JTextField t_namaBarang;
     private javax.swing.JTextField t_namaDistributor;
-    private javax.swing.JTextField t_noPesan;
+    private javax.swing.JTextField t_no;
     private javax.swing.JTextField t_satuan;
     private javax.swing.JTextField t_subtotal;
-    private javax.swing.JTextField t_tanggalPesan;
+    private javax.swing.JTextField t_tanggal;
     private javax.swing.JPanel tambahData;
     private javax.swing.JPanel tampilData;
     private javax.swing.JTable tbl_barang;
@@ -1054,8 +1055,8 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
         int row = tbl_barang.getSelectedRow();
         jLabel2.setText("Perbarui Data Barang");
         
-        t_noPesan.setEnabled(false);
-        t_tanggalPesan.setEnabled(false);
+        t_no.setEnabled(false);
+        t_tanggal.setEnabled(false);
         
 //        t_noPesan.setText(tbl_barang.getModel().getValueAt(row, 1).toString());
 //        t_kodeJenisBarang.setText(tbl_barang.getModel().getValueAt(row, 2).toString());
@@ -1073,22 +1074,22 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
     private void loadData() {
         btn_hapus.setVisible(false);
         btn_batal.setVisible(false);
-        List<Model_Pemesanan> list = service_psn.getData();
-        tblModel_psn.setData(list);
+        List<Model_BarangMasuk> list = service_masuk.getData();
+        tblModel_masuk.setData(list);
     }
     
     private void loadDataSementara() {
-        List<Model_SemPemesanan> list = service_sem.getData();
+        List<Model_SemBarangMasuk> list = service_sem.getData();
         tblModel_sem.setData(list);
     }
     
     private void hapusData() {
         int index = tbl_barang.getSelectedRow();
         if(index != -1) {
-            Model_Pemesanan brg = tblModel_psn.getData(tbl_barang.convertRowIndexToModel(index));
+            Model_BarangMasuk brg = tblModel_masuk.getData(tbl_barang.convertRowIndexToModel(index));
             if(JOptionPane.showConfirmDialog(null, "Yakin data akan dihapus?", "Konfirmasi", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-                service_psn.hapusData(brg);
-                tblModel_psn.hapusData(index);
+                service_masuk.hapusData(brg);
+                tblModel_masuk.hapusData(index);
                 loadData();
                 resetForm();
                 pn_detail.setVisible(false);
@@ -1135,38 +1136,37 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
     }
     
     private void simpanData() {
-        String no_pesan = t_noPesan.getText();
-        String tgl_pesan = t_tanggalPesan.getText();
+        String no_masuk = t_no.getText();
+        String tgl_masuk = t_tanggal.getText();
         String id_dis = t_idDistributor.getText();
         String id_peng = lb_id.getText();
-        String status = "Sedang di pesan";
+        String status = "barang masuk";
         Long total = Long.parseLong(lb_total.getText());
 
         Model_Pengguna pgn = new Model_Pengguna();
         Model_Distributor dis = new Model_Distributor();
         Model_Barang brg = new Model_Barang();
-        Model_Pemesanan psn = new Model_Pemesanan();
-        Model_DetPemesanan det = new Model_DetPemesanan();
+        Model_BarangMasuk masuk = new Model_BarangMasuk();
+        Model_DetBarangMasuk det = new Model_DetBarangMasuk();
 
         // simpan ke tabel pemesanan
-        psn.setNo_pesan(no_pesan);
-        psn.setTgl_pesan(tgl_pesan);
-        psn.setTotal_pesan(total);
+        masuk.setNo_masuk(no_masuk);
+        masuk.setTgl_masuk(tgl_masuk);
+        masuk.setTotal_masuk(total);
         dis.setId_distributor(id_dis);
         pgn.setId_pengguna(id_peng);
 
-        psn.setMod_distributor(dis);
-        psn.setMod_pengguna(pgn);
+        masuk.setMod_distributor(dis);
+        masuk.setMod_pengguna(pgn);
 
         // simpan ke table detail pemesanan
-        det.setMod_pesan(psn);
+        det.setMod_masuk(masuk);
         det.setMod_barang(brg);
-        det.setStatus(status);
 
-        service_psn.tambahData(psn);
+        service_masuk.tambahData(masuk);
         service_det.tambahData(det);
         service_det.hapusSementara(det);
-        tblModel_psn.tambahData(psn);
+        tblModel_masuk.tambahData(masuk);
         tampilPanel();
         loadData();
         resetForm();
@@ -1175,31 +1175,31 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
     private void perbaruiDataSementara() {
         int index = tbl_sementara.getSelectedRow();
         if (index != -1) {
-            Model_SemPemesanan model = tblModel_sem.getData(tbl_barang.convertRowIndexToModel(index));
+            Model_SemBarangMasuk model = tblModel_sem.getData(tbl_barang.convertRowIndexToModel(index));
             
             String kode = t_kodeBarang.getText();
             String nama = t_namaBarang.getText();
             Long harga = Long.parseLong(t_harga.getText());
-            Long jumlah = Long.parseLong(t_jumlah.getText());
+            int jumlah = Integer.parseInt(t_jumlah.getText());
             Long subtotal = Long.parseLong(t_subtotal.getText());
 
             Model_Barang brg = new Model_Barang();
-            Model_DetPemesanan det = new Model_DetPemesanan();
-            Model_SemPemesanan sem = new Model_SemPemesanan();
+            Model_DetBarangMasuk det = new Model_DetBarangMasuk();
+            Model_SemBarangMasuk sem = new Model_SemBarangMasuk();
 
             brg.setKode_barang(kode);
             brg.setNama_barang(nama);
             brg.setHarga(harga);
-            det.setJml_pesan(jumlah);
-            det.setSubtotal(subtotal);
+            det.setJml_masuk(jumlah);
+            det.setSubtotal_masuk(subtotal);
 
             sem.setMod_barang(brg);
-            sem.setMod_detpesan(det);
+            sem.setMod_detmasuk(det);
 
             service_sem.perbaruiData(sem);
             tblModel_sem.perbaruiData(index, sem);
             service_det.sumTotal(det);
-            lb_total.setText(det.getSubtotal().toString());
+            lb_total.setText(det.getSubtotal_masuk().toString());
             loadDataSementara();
             bersihBarang();
             resetForm();
@@ -1207,13 +1207,13 @@ public class Transaksi_BarangMasuk extends javax.swing.JPanel {
     }
         
     private void pencarian() {
-        List<Model_Pemesanan> list = service_psn.pencarian(t_cari.getText());
-        tblModel_psn.setData(list);
+        List<Model_BarangMasuk> list = service_masuk.pencarian(t_cari.getText());
+        tblModel_masuk.setData(list);
     }
 
     private void setTanggal() {
         Date sekarang = new Date();
         SimpleDateFormat kal = new SimpleDateFormat("yyyy-MM-dd");
-        t_tanggalPesan.setText(kal.format(sekarang));
+        t_tanggal.setText(kal.format(sekarang));
     }
 }
