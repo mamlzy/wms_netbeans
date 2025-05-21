@@ -17,7 +17,8 @@ public interface Service_DetBarangKeluar {
     void hapusSementara (Model_DetBarangKeluar mod_detkeluar);
     
     Model_DetBarangKeluar getByid(String id);
-    List<Model_DetBarangKeluar> ambilData(String id);
+    List<Model_DetBarangKeluar> getData(String id);
     List<Model_DetBarangKeluar> pencarian(String id);
+    
     boolean validasiStok (Model_DetBarangKeluar mod_detkeluar);
 }

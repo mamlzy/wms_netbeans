@@ -108,7 +108,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="24" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Detail Barang Masuk"/>
+                    <Property name="text" type="java.lang.String" value="Detail Barang Keluar"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -205,7 +205,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="24" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Data Barang Masuk"/>
+                    <Property name="text" type="java.lang.String" value="Data Barang Keluar"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_tambah">
@@ -318,12 +318,11 @@
                                   </Group>
                                   <Component id="pn_pemesanan" alignment="0" max="32767" attributes="0"/>
                                   <Component id="pn_barang" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="pn_distributor" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jPanel1" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane3" pref="451" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" pref="481" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="btn_perbarui" min="-2" pref="114" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -355,10 +354,8 @@
                           <Group type="102" attributes="0">
                               <Component id="pn_pemesanan" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="pn_distributor" min="-2" pref="110" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="pn_barang" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="pn_barang" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jScrollPane3" max="32767" attributes="0"/>
@@ -370,7 +367,6 @@
                               <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -381,7 +377,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tambah Barang Masuk"/>
+                <Property name="text" type="java.lang.String" value="Tambah Barang Keluar"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btn_tambah1">
@@ -448,7 +444,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="No Barang Masuk"/>
+                    <Property name="text" type="java.lang.String" value="No Barang Keluar"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="t_no">
@@ -466,134 +462,6 @@
                     <Property name="text" type="java.lang.String" value="Tanggal"/>
                   </Properties>
                 </Component>
-              </SubComponents>
-            </Container>
-            <Container class="javax.swing.JPanel" name="pn_distributor">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder>
-                      <Color PropertyName="color" blue="ff" green="ff" red="0" type="rgb"/>
-                    </LineBorder>
-                  </Border>
-                </Property>
-              </Properties>
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="t_idDistributor" min="-2" pref="105" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btn_distributor" min="-2" pref="40" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="t_namaDistributor" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="jPanel4" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="t_idDistributor" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="btn_distributor" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Component id="t_namaDistributor" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-              <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel4">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="ID Distributor"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="t_idDistributor">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_idDistributorActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JTextField" name="t_namaDistributor">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_namaDistributorActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel12">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Nama Distributor"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="btn_distributor">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="..."/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_distributorActionPerformed"/>
-                  </Events>
-                </Component>
-                <Container class="javax.swing.JPanel" name="jPanel4">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="0" type="rgb"/>
-                    </Property>
-                  </Properties>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="16" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel5">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="ID Distributor"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="pn_barang">
@@ -625,6 +493,8 @@
                               </Group>
                               <Component id="t_satuan" alignment="0" max="32767" attributes="0"/>
                               <Component id="t_harga" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btn_tambahSementara" alignment="0" max="32767" attributes="0"/>
+                              <Component id="t_stok" alignment="0" max="32767" attributes="0"/>
                               <Component id="t_jumlah" alignment="0" max="32767" attributes="0"/>
                               <Component id="t_subtotal" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
@@ -633,12 +503,12 @@
                                       <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lb_satuan" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lb_stok" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="btn_tambahSementara" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -668,6 +538,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="t_harga" min="-2" pref="35" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lb_stok" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="t_stok" min="-2" pref="35" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="t_jumlah" min="-2" pref="35" max="-2" attributes="0"/>
@@ -675,9 +549,9 @@
                           <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="t_subtotal" min="-2" pref="35" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="btn_tambahSementara" min="-2" pref="35" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -793,6 +667,16 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_tambahSementaraActionPerformed"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JTextField" name="t_stok">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_stokActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lb_stok">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Stok"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>

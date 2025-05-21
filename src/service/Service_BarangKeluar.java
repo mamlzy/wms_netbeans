@@ -12,10 +12,11 @@ import model.Model_BarangKeluar;
  * @author imama
  */
 public interface Service_BarangKeluar {
-    void tambahData(Model_BarangKeluar mod_keluar);          
+    void tambahData(Model_BarangKeluar mod_keluar); 
+    void hapusData (Model_BarangKeluar mod_keluar);
     
     Model_BarangKeluar getByid (String id);
-    List<Model_BarangKeluar> ambilData();     
+    List<Model_BarangKeluar> getData();     
     List<Model_BarangKeluar> pencarian(String id);     
     String nomor();
 }

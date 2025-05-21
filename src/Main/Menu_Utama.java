@@ -25,6 +25,7 @@ import view.Master_Distributor;
 import view.Master_JenisBarang;
 import view.Master_Pengguna;
 import view.Menu_Settings;
+import view.Transaksi_BarangKeluar;
 import view.Transaksi_BarangMasuk;
 import view.Transaksi_Pemesanan;
 
@@ -401,7 +402,18 @@ public class Menu_Utama extends javax.swing.JFrame {
           }
         });
         
-        MenuItem menuTransaksi = new MenuItem(iconMaster, false, null, "Transaksi", null, transaksiPemesanan, transaksiBarangMasuk);
+         MenuItem transaksiBarangKeluar = new MenuItem(null, true, iconSub, "Barang Keluar", new ActionListener() {
+          @Override
+            public void actionPerformed(ActionEvent e) {
+              pn_utama.removeAll();
+              String id = lb_id.getText();
+              pn_utama.add(new Transaksi_BarangKeluar(id));
+              pn_utama.repaint();
+              pn_utama.revalidate();
+          }
+        });
+        
+        MenuItem menuTransaksi = new MenuItem(iconMaster, false, null, "Transaksi", null, transaksiPemesanan, transaksiBarangMasuk, transaksiBarangKeluar);
         
         MenuItem reportBarang = new MenuItem(null, true, iconSub, "Report Barang", null);
         MenuItem reportPemesanan = new MenuItem(null, true, iconSub, "Report Pemesanan", null);

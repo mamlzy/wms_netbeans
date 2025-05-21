@@ -71,7 +71,7 @@ public class Data_Barang extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Data Distributor");
+        jLabel1.setText("Data Barang");
 
         tbl_data.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,9 +124,9 @@ public class Data_Barang extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(132, 132, 132)
                         .addComponent(bt_exit))
                     .addComponent(t_search))
                 .addContainerGap())
@@ -255,6 +255,7 @@ public class Data_Barang extends javax.swing.JDialog {
         model.setNama_barang(tbl_data.getModel().getValueAt(row, 4).toString());
         model.setSatuan(tbl_data.getModel().getValueAt(row, 5).toString());
         model.setHarga(Long.parseLong(tbl_data.getModel().getValueAt(row, 6).toString()));
+        model.setStok(Integer.parseInt(tbl_data.getModel().getValueAt(row, 7).toString()));
         dispose();
     }
 }

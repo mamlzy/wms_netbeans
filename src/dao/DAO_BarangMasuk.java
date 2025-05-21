@@ -61,44 +61,44 @@ public class DAO_BarangMasuk implements Service_BarangMasuk {
 
     @Override
     public void hapusData(Model_BarangMasuk model) {
-    PreparedStatement stDetail = null;
-    PreparedStatement stMasuk = null;
-    String sqlDetailBarangMasuk = "DELETE FROM detail_barang_masuk WHERE no_masuk=?";
-    String sqlBarangMasuk = "DELETE FROM barang_masuk WHERE no_masuk=?";
+        PreparedStatement stDetail = null;
+        PreparedStatement stMasuk = null;
+        String sqlDetailBarangMasuk = "DELETE FROM detail_barang_masuk WHERE no_masuk=?";
+        String sqlBarangMasuk = "DELETE FROM barang_masuk WHERE no_masuk=?";
 
-    try {
-        // Start transaction
-        conn.setAutoCommit(false);
-
-        // Delete detail first (to satisfy foreign key constraints)
-        stDetail = conn.prepareStatement(sqlDetailBarangMasuk);
-        stDetail.setString(1, model.getNo_masuk());
-        stDetail.executeUpdate();
-
-        // Then delete main record
-        stMasuk = conn.prepareStatement(sqlBarangMasuk);
-        stMasuk.setString(1, model.getNo_masuk());
-        stMasuk.executeUpdate();
-
-        // Commit if both succeed
-        conn.commit();
-    } catch (SQLException e) {
         try {
-            if (conn != null) conn.rollback(); // Rollback on error
-        } catch (SQLException rollbackEx) {
-            Logger.getLogger(DAO_BarangMasuk.class.getName()).log(Level.SEVERE, null, rollbackEx);
-        }
-        Logger.getLogger(DAO_BarangMasuk.class.getName()).log(Level.SEVERE, null, e);
-    } finally {
-        try {
-            if (stDetail != null) stDetail.close();
-            if (stMasuk != null) stMasuk.close();
-            conn.setAutoCommit(true); // Restore auto-commit
+            // Start transaction
+            conn.setAutoCommit(false);
+
+            // Delete detail first (to satisfy foreign key constraints)
+            stDetail = conn.prepareStatement(sqlDetailBarangMasuk);
+            stDetail.setString(1, model.getNo_masuk());
+            stDetail.executeUpdate();
+
+            // Then delete main record
+            stMasuk = conn.prepareStatement(sqlBarangMasuk);
+            stMasuk.setString(1, model.getNo_masuk());
+            stMasuk.executeUpdate();
+
+            // Commit if both succeed
+            conn.commit();
         } catch (SQLException e) {
+            try {
+                if (conn != null) conn.rollback(); // Rollback on error
+            } catch (SQLException rollbackEx) {
+                Logger.getLogger(DAO_BarangMasuk.class.getName()).log(Level.SEVERE, null, rollbackEx);
+            }
             Logger.getLogger(DAO_BarangMasuk.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            try {
+                if (stDetail != null) stDetail.close();
+                if (stMasuk != null) stMasuk.close();
+                conn.setAutoCommit(true); // Restore auto-commit
+            } catch (SQLException e) {
+                Logger.getLogger(DAO_BarangMasuk.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
     }
-}
 
 
     @Override
@@ -168,7 +168,7 @@ public class DAO_BarangMasuk implements Service_BarangMasuk {
         PreparedStatement st = null;
         List list = new ArrayList();
         ResultSet rs = null;
-        String sql = "SELECT * FROM barang_masuk WHERE no_pesan LIKE '%" + id + "%'";
+        String sql = "SELECT * FROM barang_masuk WHERE no_masuk LIKE '%" + id + "%'";
         try {
             st = conn.prepareStatement(sql);
             rs = st.executeQuery();
