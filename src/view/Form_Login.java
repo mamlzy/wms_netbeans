@@ -49,7 +49,7 @@ public class Form_Login extends javax.swing.JFrame {
         bt_exit = new javax.swing.JLabel();
         t_username = new javax.swing.JTextField();
         bt_login = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        icon_user = new javax.swing.JLabel();
         t_password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,7 +105,7 @@ public class Form_Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/circle-user-round (1).png"))); // NOI18N
+        icon_user.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/circle-user-round (1).png"))); // NOI18N
 
         t_password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         t_password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 255)));
@@ -115,10 +115,10 @@ public class Form_Login extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(icon_user)
                         .addGap(105, 105, 105))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -141,10 +141,10 @@ public class Form_Login extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(bt_exit)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(icon_user)
                 .addGap(18, 18, 18)
                 .addComponent(t_username, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -237,7 +237,7 @@ public class Form_Login extends javax.swing.JFrame {
     private javax.swing.JLabel background;
     private javax.swing.JLabel bt_exit;
     private javax.swing.JButton bt_login;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel icon_user;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField t_password;
     private javax.swing.JTextField t_username;

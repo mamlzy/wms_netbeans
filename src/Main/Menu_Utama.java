@@ -41,36 +41,33 @@ public class Menu_Utama extends javax.swing.JFrame {
     public Menu_Utama(Model_Login modelLogin) throws SQLException {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
-        if(modelLogin.getGambar() == null) {
+
+        if (modelLogin.getGambar() == null) {
             ImageIcon defaultIcon = new ImageIcon(getClass().getResource("/img/circle-user-round (1).png"));
             lb_gambar.setIcon(defaultIcon);
         } else {
             try {
                 byte[] img = modelLogin.getGambar().getBytes(1, (int) modelLogin.getGambar().length());
                 ImageIcon imageIcon = new ImageIcon(img);
-                
+
                 int labelWidth = 100;
                 int labelHeight = 300;
-                
+
                 int imageWidth = imageIcon.getIconWidth();
                 int imageHeight = imageIcon.getIconHeight();
-                
+
                 double scaleX = (double) labelWidth / (double) imageWidth;
                 double scaleY = (double) labelHeight / (double) imageHeight;
                 double scale = Math.min(scaleX, scaleY);
-                
+
                 Image scaledImage = imageIcon.getImage().getScaledInstance((int) (scale * imageWidth), (int) (scale * imageHeight), Image.SCALE_SMOOTH);
-                
-                
+
                 lb_gambar.setIcon(new ImageIcon(scaledImage));
             } catch (SQLException e) {
                 Logger.getLogger(Menu_Utama.class.getName()).log(Level.SEVERE, null, e);
             }
         }
-        
-        
-        
+
         lb_nama.setText(modelLogin.getNama());
         lb_level.setText(modelLogin.getLevel());
         lb_id.setText(modelLogin.getId_user());
@@ -81,7 +78,7 @@ public class Menu_Utama extends javax.swing.JFrame {
     public Menu_Utama() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     private void date() {
         Date tanggalSekarang = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -252,18 +249,18 @@ public class Menu_Utama extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-      pn_utama.add(new Content_Bg());
-      pn_utama.repaint();
-      pn_utama.revalidate();
+        pn_utama.add(new Content_Bg());
+        pn_utama.repaint();
+        pn_utama.revalidate();
     }//GEN-LAST:event_formWindowOpened
 
     private void btn_settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_settingsActionPerformed
         Menu_Settings menu = new Menu_Settings(this, true, this);
-        
+
         Point p = btn_settings.getLocationOnScreen();
         int x = p.x + btn_settings.getWidth() - menu.getWidth();
         int y = p.y + btn_settings.getHeight();
-        menu.setLocation(x,y);
+        menu.setLocation(x, y);
         menu.setVisible(true);
     }//GEN-LAST:event_btn_settingsActionPerformed
 
@@ -324,112 +321,128 @@ public class Menu_Utama extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void execute(Model_Login modelLogin) {
-        ImageIcon iconMaster = new ImageIcon(getClass().getResource("../img/folder.png"));
-        ImageIcon iconSub = new ImageIcon(getClass().getResource("../img/minus.png"));
-            
-        MenuItem menuHome = new MenuItem(iconSub, false, null, "Home", new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            pn_utama.removeAll();
-            pn_utama.add(new Content_Bg());
-            pn_utama.repaint();
-            pn_utama.revalidate();
-          }
+        ImageIcon homeIcon = new ImageIcon(getClass().getResource("../img/home.png"));
+        ImageIcon transactionIcon = new ImageIcon(getClass().getResource("../img/transaction.png"));
+        ImageIcon reportIcon = new ImageIcon(getClass().getResource("../img/report.png"));
+        ImageIcon iconMaster = new ImageIcon(getClass().getResource("../img/data.png"));
+        ImageIcon iconSub = new ImageIcon(getClass().getResource("../img/line.png"));
+
+// Resize to 25x25 only for display
+        Image masterImage = iconMaster.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image subImage = iconSub.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image homeImage = homeIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image transactionImage = transactionIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+        Image reportImage = reportIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+
+// Replace with scaled icons (display size only)
+        iconMaster = new ImageIcon(masterImage);
+        iconSub = new ImageIcon(subImage);
+        homeIcon = new ImageIcon(homeImage);
+        transactionIcon = new ImageIcon(transactionImage);
+        reportIcon = new ImageIcon(reportImage);
+
+        MenuItem menuHome = new MenuItem(homeIcon, false, null, "Home", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pn_utama.removeAll();
+                pn_utama.add(new Content_Bg());
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
         });
 
-        
         MenuItem masBarang = new MenuItem(null, true, iconSub, "Barang", new ActionListener() {
-          @Override
+            @Override
             public void actionPerformed(ActionEvent e) {
-              pn_utama.removeAll();
-              pn_utama.add(new Master_Barang());
-              pn_utama.repaint();
-              pn_utama.revalidate();
-          }
+                pn_utama.removeAll();
+                pn_utama.add(new Master_Barang());
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
         });
-        
+
         MenuItem masJenisBarang = new MenuItem(null, true, iconSub, "Jenis Barang", new ActionListener() {
-          @Override
+            @Override
             public void actionPerformed(ActionEvent e) {
-              pn_utama.removeAll();
-              pn_utama.add(new Master_JenisBarang());
-              pn_utama.repaint();
-              pn_utama.revalidate();
-          }
+                pn_utama.removeAll();
+                pn_utama.add(new Master_JenisBarang());
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
         });
-        
+
         MenuItem masDistributor = new MenuItem(null, true, iconSub, "Distributor", new ActionListener() {
-          @Override
+            @Override
             public void actionPerformed(ActionEvent e) {
-              pn_utama.removeAll();
-              pn_utama.add(new Master_Distributor());
-              pn_utama.repaint();
-              pn_utama.revalidate();
-          }
+                pn_utama.removeAll();
+                pn_utama.add(new Master_Distributor());
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
         });
-        
+
         MenuItem masPengguna = new MenuItem(null, true, iconSub, "Pengguna", new ActionListener() {
-          @Override
+            @Override
             public void actionPerformed(ActionEvent e) {
-              pn_utama.removeAll();
-              pn_utama.add(new Master_Pengguna());
-              pn_utama.repaint();
-              pn_utama.revalidate();
-          }
+                pn_utama.removeAll();
+                pn_utama.add(new Master_Pengguna());
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
         });
-            
+
         MenuItem menuMaster = new MenuItem(iconMaster, false, null, "Master", null, masBarang, masJenisBarang, masDistributor, masPengguna);
-        
+
         MenuItem transaksiPemesanan = new MenuItem(null, true, iconSub, "Pemesanan", new ActionListener() {
-          @Override
+            @Override
             public void actionPerformed(ActionEvent e) {
-              pn_utama.removeAll();
-              String id = lb_id.getText();
-              pn_utama.add(new Transaksi_Pemesanan(id));
-              pn_utama.repaint();
-              pn_utama.revalidate();
-          }
+                pn_utama.removeAll();
+                String id = lb_id.getText();
+                pn_utama.add(new Transaksi_Pemesanan(id));
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
         });
-        
-         MenuItem transaksiBarangMasuk = new MenuItem(null, true, iconSub, "Barang Masuk", new ActionListener() {
-          @Override
+
+        MenuItem transaksiBarangMasuk = new MenuItem(null, true, iconSub, "Barang Masuk", new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-              pn_utama.removeAll();
-              String id = lb_id.getText();
-              pn_utama.add(new Transaksi_BarangMasuk(id));
-              pn_utama.repaint();
-              pn_utama.revalidate();
-          }
+                pn_utama.removeAll();
+                String id = lb_id.getText();
+                pn_utama.add(new Transaksi_BarangMasuk(id));
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
         });
-        
-         MenuItem transaksiBarangKeluar = new MenuItem(null, true, iconSub, "Barang Keluar", new ActionListener() {
-          @Override
+
+        MenuItem transaksiBarangKeluar = new MenuItem(null, true, iconSub, "Barang Keluar", new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-              pn_utama.removeAll();
-              String id = lb_id.getText();
-              pn_utama.add(new Transaksi_BarangKeluar(id));
-              pn_utama.repaint();
-              pn_utama.revalidate();
-          }
+                pn_utama.removeAll();
+                String id = lb_id.getText();
+                pn_utama.add(new Transaksi_BarangKeluar(id));
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
         });
-        
-        MenuItem menuTransaksi = new MenuItem(iconMaster, false, null, "Transaksi", null, transaksiPemesanan, transaksiBarangMasuk, transaksiBarangKeluar);
-        
+
+        MenuItem menuTransaksi = new MenuItem(transactionIcon, false, null, "Transaksi", null, transaksiPemesanan, transaksiBarangMasuk, transaksiBarangKeluar);
+
         MenuItem reportBarang = new MenuItem(null, true, iconSub, "Report Barang", null);
         MenuItem reportPemesanan = new MenuItem(null, true, iconSub, "Report Pemesanan", null);
-        
-        MenuItem menuReport = new MenuItem(iconMaster, false, null, "Report", null, reportBarang, reportPemesanan);
-        
+
+        MenuItem menuReport = new MenuItem(reportIcon, false, null, "Report", null, reportBarang, reportPemesanan);
+
         if (modelLogin.getLevel().equals("Owner")) {
-          addMenu(menuHome, menuMaster, menuTransaksi, menuReport);  
+            addMenu(menuHome, menuMaster, menuTransaksi, menuReport);
         } else {
-            addMenu(menuHome, menuTransaksi, menuReport);  
+            addMenu(menuHome, menuTransaksi, menuReport);
         }
     }
-    
+
     private void addMenu(MenuItem... menu) {
-        for(int i = 0; i < menu.length; i++) {
-           pn_menu.add(menu[i]);
+        for (int i = 0; i < menu.length; i++) {
+            pn_menu.add(menu[i]);
             ArrayList<MenuItem> subMenu = menu[i].getSubMenu();
             for (MenuItem m : subMenu) {
                 addMenu(m);
@@ -437,7 +450,7 @@ public class Menu_Utama extends javax.swing.JFrame {
         }
         pn_menu.revalidate();
     }
-    
+
     public JPanel getPanelUtama() {
         return pn_utama;
     }
