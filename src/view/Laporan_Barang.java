@@ -38,7 +38,8 @@ public class Laporan_Barang extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         btn_printDataBarang = new javax.swing.JButton();
         pn_transaksiBarang = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        btn_printDataBarang1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         pn_tampilLaporan = new javax.swing.JPanel();
 
         setLayout(new java.awt.CardLayout());
@@ -135,21 +136,35 @@ public class Laporan_Barang extends javax.swing.JPanel {
 
         pn_transaksiBarang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("MAIN");
+        btn_printDataBarang1.setText("Print");
+        btn_printDataBarang1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_printDataBarang1ActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Laporan Transaksi Barang");
 
         javax.swing.GroupLayout pn_transaksiBarangLayout = new javax.swing.GroupLayout(pn_transaksiBarang);
         pn_transaksiBarang.setLayout(pn_transaksiBarangLayout);
         pn_transaksiBarangLayout.setHorizontalGroup(
             pn_transaksiBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pn_transaksiBarangLayout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(btn_printDataBarang1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         pn_transaksiBarangLayout.setVerticalGroup(
             pn_transaksiBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_transaksiBarangLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(btn_printDataBarang1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         pn_pilihLaporan.add(pn_transaksiBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, 170));
@@ -227,16 +242,22 @@ public class Laporan_Barang extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cbx_laporanActionPerformed
 
+    private void btn_printDataBarang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printDataBarang1ActionPerformed
+        pn_tampilLaporan.removeAll();
+        service_lap.lapTransaksiBarang(pn_tampilLaporan);
+    }//GEN-LAST:event_btn_printDataBarang1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_batal;
     private javax.swing.JButton btn_printDataBarang;
+    private javax.swing.JButton btn_printDataBarang1;
     private javax.swing.JComboBox<String> cbx_laporan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel lb_id;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel pn_dataBarang;
