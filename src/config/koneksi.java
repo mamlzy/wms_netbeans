@@ -13,9 +13,9 @@ public class koneksi {
     public static Connection getConnection() {
         if (connection == null) {
             try {
-                String url = "jdbc:mysql://localhost:3306/wms_imam";
+                String url = "jdbc:mysql://localhost:3306/netbeans_wms_imam";
                 String user = "root";
-                String pass = "123123123";
+                String pass = "secret";
 
                 connection = DriverManager.getConnection(url, user, pass);
             } catch (SQLException e) {

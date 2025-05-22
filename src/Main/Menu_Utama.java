@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import model.Model_Login;
+import view.Laporan_Barang;
 import view.Master_Barang;
 import view.Master_Distributor;
 import view.Master_JenisBarang;
@@ -428,7 +429,16 @@ public class Menu_Utama extends javax.swing.JFrame {
 
         MenuItem menuTransaksi = new MenuItem(transactionIcon, false, null, "Transaksi", null, transaksiPemesanan, transaksiBarangMasuk, transaksiBarangKeluar);
 
-        MenuItem reportBarang = new MenuItem(null, true, iconSub, "Report Barang", null);
+        MenuItem reportBarang = new MenuItem(null, true, iconSub, "Report Barang", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pn_utama.removeAll();
+                String id = lb_id.getText();
+                    pn_utama.add(new Laporan_Barang(id));
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
+        });
         MenuItem reportPemesanan = new MenuItem(null, true, iconSub, "Report Pemesanan", null);
 
         MenuItem menuReport = new MenuItem(reportIcon, false, null, "Report", null, reportBarang, reportPemesanan);

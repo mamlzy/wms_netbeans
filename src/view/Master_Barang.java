@@ -1,14 +1,20 @@
 package view;
 
+import config.koneksi;
+import java.sql.Connection;
 import dao.DAO_Barang;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import model.Model_Barang;
 import model.Model_JenisBarang;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import service.Service_Barang;
 import tablemodel.TabelMod_Barang;
 
@@ -42,6 +48,7 @@ public class Master_Barang extends javax.swing.JPanel {
         tbl_barang = new javax.swing.JTable();
         btn_batal = new javax.swing.JButton();
         t_cari = new javax.swing.JTextField();
+        btn_cetak = new javax.swing.JButton();
         tambahData = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btn_tambah1 = new javax.swing.JButton();
@@ -127,6 +134,13 @@ public class Master_Barang extends javax.swing.JPanel {
             }
         });
 
+        btn_cetak.setText("Cetak");
+        btn_cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cetakActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout tampilDataLayout = new javax.swing.GroupLayout(tampilData);
         tampilData.setLayout(tampilDataLayout);
         tampilDataLayout.setHorizontalGroup(
@@ -142,9 +156,11 @@ public class Master_Barang extends javax.swing.JPanel {
                                 .addComponent(btn_tambah)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_hapus)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_batal)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_batal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_cetak)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                         .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -159,7 +175,8 @@ public class Master_Barang extends javax.swing.JPanel {
                         .addComponent(btn_tambah, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_hapus)
-                            .addComponent(btn_batal)))
+                            .addComponent(btn_batal)
+                            .addComponent(btn_cetak)))
                     .addComponent(t_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,10 +471,25 @@ public class Master_Barang extends javax.swing.JPanel {
        
     }//GEN-LAST:event_t_cariKeyPressed
 
+    private void btn_cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetakActionPerformed
+        try {
+            String reportPath = "src/report/Report_DataBarang.jasper";
+            Connection conn = koneksi.getConnection();
+            
+            HashMap<String, Object> parameters = new HashMap<>();
+            JasperPrint print = JasperFillManager.fillReport(reportPath, parameters, conn);
+            JasperViewer viewer = new JasperViewer(print, false);
+            viewer.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error displaying report: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_cetakActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_batal;
     private javax.swing.JButton btn_batal1;
+    private javax.swing.JButton btn_cetak;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_jenisBarang;
     private javax.swing.JButton btn_tambah;
