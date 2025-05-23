@@ -33,13 +33,13 @@ public class Laporan_Barang extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         pn_main = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        btn_batal = new javax.swing.JButton();
         pn_dataBarang = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         btn_printDataBarang = new javax.swing.JButton();
         pn_transaksiBarang = new javax.swing.JPanel();
         btn_printDataBarang1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        btn_batal = new javax.swing.JButton();
         pn_tampilLaporan = new javax.swing.JPanel();
 
         setLayout(new java.awt.CardLayout());
@@ -70,10 +70,12 @@ public class Laporan_Barang extends javax.swing.JPanel {
         jLabel2.setText("Pilih Jenis Laporan");
         pn_pilihLaporan.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 11, -1, -1));
 
+        pn_main.setBackground(new java.awt.Color(255, 255, 255));
         pn_main.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pn_main.setPreferredSize(new java.awt.Dimension(280, 122));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("MAIN");
+        jLabel5.setText("Pilih");
 
         javax.swing.GroupLayout pn_mainLayout = new javax.swing.GroupLayout(pn_main);
         pn_main.setLayout(pn_mainLayout);
@@ -84,21 +86,14 @@ public class Laporan_Barang extends javax.swing.JPanel {
         pn_mainLayout.setVerticalGroup(
             pn_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_mainLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
-        pn_pilihLaporan.add(pn_main, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, 170));
+        pn_pilihLaporan.add(pn_main, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, 120));
 
-        btn_batal.setText("Kembali");
-        btn_batal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_batalActionPerformed(evt);
-            }
-        });
-        pn_pilihLaporan.add(btn_batal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 300, 35));
-
+        pn_dataBarang.setBackground(new java.awt.Color(255, 255, 255));
         pn_dataBarang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -116,11 +111,11 @@ public class Laporan_Barang extends javax.swing.JPanel {
         pn_dataBarang.setLayout(pn_dataBarangLayout);
         pn_dataBarangLayout.setHorizontalGroup(
             pn_dataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
             .addGroup(pn_dataBarangLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(85, 85, 85)
                 .addComponent(btn_printDataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pn_dataBarangLayout.setVerticalGroup(
             pn_dataBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,11 +124,12 @@ public class Laporan_Barang extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(btn_printDataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        pn_pilihLaporan.add(pn_dataBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, 170));
+        pn_pilihLaporan.add(pn_dataBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, 120));
 
+        pn_transaksiBarang.setBackground(new java.awt.Color(255, 255, 255));
         pn_transaksiBarang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btn_printDataBarang1.setText("Print");
@@ -151,11 +147,11 @@ public class Laporan_Barang extends javax.swing.JPanel {
         pn_transaksiBarang.setLayout(pn_transaksiBarangLayout);
         pn_transaksiBarangLayout.setHorizontalGroup(
             pn_transaksiBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
             .addGroup(pn_transaksiBarangLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(83, 83, 83)
                 .addComponent(btn_printDataBarang1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pn_transaksiBarangLayout.setVerticalGroup(
             pn_transaksiBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,10 +160,18 @@ public class Laporan_Barang extends javax.swing.JPanel {
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(btn_printDataBarang1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        pn_pilihLaporan.add(pn_transaksiBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, 170));
+        pn_pilihLaporan.add(pn_transaksiBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 280, 120));
+
+        btn_batal.setText("Kembali");
+        btn_batal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_batalActionPerformed(evt);
+            }
+        });
+        pn_pilihLaporan.add(btn_batal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 280, 35));
 
         javax.swing.GroupLayout pn_tampilLaporanLayout = new javax.swing.GroupLayout(pn_tampilLaporan);
         pn_tampilLaporan.setLayout(pn_tampilLaporanLayout);
@@ -192,8 +196,8 @@ public class Laporan_Barang extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 483, Short.MAX_VALUE)
                         .addComponent(lb_id, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(tampilDataLayout.createSequentialGroup()
-                        .addComponent(pn_pilihLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(pn_pilihLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(pn_tampilLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(9, 9, 9))
         );
@@ -208,7 +212,7 @@ public class Laporan_Barang extends javax.swing.JPanel {
                 .addGroup(tampilDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pn_pilihLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
                     .addComponent(pn_tampilLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         mainPanel.add(tampilData, "card2");

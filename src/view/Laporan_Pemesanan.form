@@ -108,12 +108,10 @@
                 <Component class="javax.swing.JComboBox" name="cbx_laporan">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="5">
+                      <StringArray count="3">
                         <StringItem index="0" value="-- Pilih Jenis Laporan --"/>
                         <StringItem index="1" value="Per Transaksi"/>
-                        <StringItem index="2" value="Per Distributor"/>
-                        <StringItem index="3" value="Per Periode"/>
-                        <StringItem index="4" value="Per Bulan"/>
+                        <StringItem index="2" value="Per Periode"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -181,9 +179,9 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                               <Component id="jLabel5" min="-2" pref="20" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="91" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -192,7 +190,7 @@
                     <Component class="javax.swing.JLabel" name="jLabel5">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="MAIN"/>
+                        <Property name="text" type="java.lang.String" value="Pilih"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -219,15 +217,15 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="t_noTransaksi" max="32767" attributes="0"/>
+                              <Component id="t_noTransaksi" pref="230" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btn_pilih" min="-2" pref="40" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="97" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="btn_printDataBarang" min="-2" pref="107" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -239,9 +237,9 @@
                                   <Component id="btn_pilih" pref="32" max="32767" attributes="0"/>
                                   <Component id="t_noTransaksi" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="69" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btn_printDataBarang" min="-2" pref="37" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace pref="84" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -303,7 +301,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="btn_printPerPeriode" min="-2" pref="107" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -318,9 +316,9 @@
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jDateChooser2" min="-2" pref="35" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="btn_printPerPeriode" min="-2" pref="37" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="11" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

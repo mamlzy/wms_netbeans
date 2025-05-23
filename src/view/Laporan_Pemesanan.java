@@ -73,7 +73,7 @@ public class Laporan_Pemesanan extends javax.swing.JPanel {
 
         pn_pilihLaporan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbx_laporan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih Jenis Laporan --", "Per Transaksi", "Per Distributor", "Per Periode", "Per Bulan" }));
+        cbx_laporan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih Jenis Laporan --", "Per Transaksi", "Per Periode" }));
         cbx_laporan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbx_laporanActionPerformed(evt);
@@ -97,7 +97,7 @@ public class Laporan_Pemesanan extends javax.swing.JPanel {
         pn_main.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("MAIN");
+        jLabel5.setText("Pilih");
 
         javax.swing.GroupLayout pn_mainLayout = new javax.swing.GroupLayout(pn_main);
         pn_main.setLayout(pn_mainLayout);
@@ -108,9 +108,9 @@ public class Laporan_Pemesanan extends javax.swing.JPanel {
         pn_mainLayout.setVerticalGroup(
             pn_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_mainLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(87, 87, 87)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         pn_pilihLaporan.add(pn_main, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 290, 200));
@@ -140,14 +140,14 @@ public class Laporan_Pemesanan extends javax.swing.JPanel {
             pn_perTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_perTransaksiLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(t_noTransaksi)
+                .addComponent(t_noTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_pilih, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_perTransaksiLayout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_printDataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(84, 84, 84))
+                .addGap(87, 87, 87))
         );
         pn_perTransaksiLayout.setVerticalGroup(
             pn_perTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,9 +156,9 @@ public class Laporan_Pemesanan extends javax.swing.JPanel {
                 .addGroup(pn_perTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_pilih, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(t_noTransaksi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btn_printDataBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         pn_pilihLaporan.add(pn_perTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 290, 200));
@@ -196,7 +196,7 @@ public class Laporan_Pemesanan extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_perPeriodeLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_printPerPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78))
+                .addGap(81, 81, 81))
         );
         pn_perPeriodeLayout.setVerticalGroup(
             pn_perPeriodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,9 +209,9 @@ public class Laporan_Pemesanan extends javax.swing.JPanel {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_printPerPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pn_pilihLaporan.add(pn_perPeriode, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 290, 200));
