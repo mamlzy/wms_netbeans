@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import model.Model_Login;
 import view.Laporan_Barang;
+import view.Laporan_Pemesanan;
 import view.Master_Barang;
 import view.Master_Distributor;
 import view.Master_JenisBarang;
@@ -439,7 +440,17 @@ public class Menu_Utama extends javax.swing.JFrame {
                 pn_utama.revalidate();
             }
         });
-        MenuItem reportPemesanan = new MenuItem(null, true, iconSub, "Report Pemesanan", null);
+        
+         MenuItem reportPemesanan = new MenuItem(null, true, iconSub, "Report Pemesanan", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pn_utama.removeAll();
+                String id = lb_id.getText();
+                    pn_utama.add(new Laporan_Pemesanan(id));
+                pn_utama.repaint();
+                pn_utama.revalidate();
+            }
+        });
 
         MenuItem menuReport = new MenuItem(reportIcon, false, null, "Report", null, reportBarang, reportPemesanan);
 
